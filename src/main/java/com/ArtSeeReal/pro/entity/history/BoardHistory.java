@@ -1,5 +1,7 @@
 package com.ArtSeeReal.pro.entity.history;
 
+import com.ArtSeeReal.pro.enums.BoardType;
+import com.ArtSeeReal.pro.enums.RegionType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -30,7 +32,7 @@ public class BoardHistory {
     private Long viewCnt;
 
     @Column(nullable = false)
-    private Long boardType;
+    private BoardType boardType;
 
     @Column(length = 128, nullable = false)
     private String oldTitle;
@@ -39,7 +41,7 @@ public class BoardHistory {
     private String oldContent;
 
     @Column(nullable = false)
-    private Long oldRegion;
+    private RegionType oldRegionType;
 
     @Column(nullable = false)
     private Long oldCategory;
@@ -54,7 +56,7 @@ public class BoardHistory {
     private String newContent;
 
     @Column(nullable = false)
-    private Long newRegion;
+    private RegionType newRegionType;
 
     @Column(nullable = false)
     private Long newCategory;

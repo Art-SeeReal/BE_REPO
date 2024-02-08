@@ -1,5 +1,7 @@
 package com.ArtSeeReal.pro.entity.main;
 
+import com.ArtSeeReal.pro.enums.RegionType;
+import com.ArtSeeReal.pro.enums.UserType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -8,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name = "DEF_USER_TB")
 @Getter
@@ -45,10 +48,10 @@ public class User {
     private boolean phoneSecret;
 
     @Column(length = 16)
-    private String region;
+    private RegionType regionType;
 
     @Column(nullable = false)
-    private Long userType;
+    private UserType userType;
 
     @Column(nullable = false)
     private LocalDateTime regDate;

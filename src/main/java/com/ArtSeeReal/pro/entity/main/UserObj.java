@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.entity.main;
 
+import com.ArtSeeReal.pro.enums.ObjType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -26,6 +27,6 @@ public class UserObj {
     private String targetUid;
 
     @Column(nullable = false)
-    private Long targetType;
+    private ObjType targetType;
 
 }

@@ -1,5 +1,7 @@
 package com.ArtSeeReal.pro.entity.main;
 
+import com.ArtSeeReal.pro.enums.BoardType;
+import com.ArtSeeReal.pro.enums.RegionType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -33,7 +35,7 @@ public class Board {
     private String content;
 
     @Column(nullable = false)
-    private Long region;
+    private RegionType regionType;
 
     @Column(nullable = false)
     private Long category;
@@ -42,7 +44,7 @@ public class Board {
     private LocalDateTime regDate;
 
     @Column(nullable = false)
-    private Long boardType;
+    private BoardType boardType;
 
     @Column(length = 256)
     private String thumbnail;

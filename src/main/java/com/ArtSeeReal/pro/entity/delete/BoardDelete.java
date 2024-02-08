@@ -1,5 +1,7 @@
 package com.ArtSeeReal.pro.entity.delete;
 
+import com.ArtSeeReal.pro.enums.BoardType;
+import com.ArtSeeReal.pro.enums.RegionType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -36,7 +38,7 @@ public class BoardDelete {
     private String content;
 
     @Column(nullable = false)
-    private Long region;
+    private RegionType regionType;
 
     @Column(nullable = false)
     private Long category;
@@ -45,7 +47,7 @@ public class BoardDelete {
     private LocalDateTime regDate;
 
     @Column(nullable = false)
-    private Long boardType;
+    private BoardType boardType;
 
     @Column(length = 256)
     private String thumbnail;

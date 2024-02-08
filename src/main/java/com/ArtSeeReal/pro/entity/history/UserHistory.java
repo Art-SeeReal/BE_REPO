@@ -1,5 +1,7 @@
 package com.ArtSeeReal.pro.entity.history;
 
+import com.ArtSeeReal.pro.enums.RegionType;
+import com.ArtSeeReal.pro.enums.UserType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -48,10 +50,10 @@ public class UserHistory {
     private boolean oldPhoneSecret;
 
     @Column(length = 16)
-    private String oldRegion;
+    private RegionType oldRegionType;
 
     @Column(nullable = false)
-    private Long oldUserType;
+    private UserType oldUserType;
 
     @Column(length = 16, nullable = false)
     private String newName;
@@ -75,10 +77,10 @@ public class UserHistory {
     private boolean newPhoneSecret;
 
     @Column(length = 16)
-    private String newRegion;
+    private RegionType newRegionType;
 
     @Column(nullable = false)
-    private Long newUserType;
+    private UserType newUserType;
 
     @Column(nullable = false)
     private LocalDateTime modDate;

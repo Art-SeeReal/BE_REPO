@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.entity.delete;
 
+import com.ArtSeeReal.pro.enums.ComplaintType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -30,7 +31,7 @@ public class ComplaintDelete {
     private String targetUid;
 
     @Column(nullable = false)
-    private Long type;
+    private ComplaintType type;
 
     @Column(nullable = false)
     private LocalDateTime regDate;
