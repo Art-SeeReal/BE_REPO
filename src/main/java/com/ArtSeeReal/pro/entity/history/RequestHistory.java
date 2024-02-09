@@ -35,7 +35,7 @@ public class RequestHistory {
     @Column(length = 128, nullable = false)
     private String oldTitle;
 
-    @Column(length = 8196, nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String oldContent;
 
     @Column(nullable = false)
@@ -47,7 +47,7 @@ public class RequestHistory {
     @Column(length = 128, nullable = false)
     private String newTitle;
 
-    @Column(length = 8196, nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String newContent;
 
     @Column(nullable = false)
