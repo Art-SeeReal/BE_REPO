@@ -21,17 +21,17 @@ spring:
 
 Email:
 
-emailPath:
+idFindPath:
   template: /templates/idFindForm.html
 passwordPath:
   template: /templates/passwordForm.html
 
 
-logging:
-  level:
-    root: DEBUG
+#logging:
+#  level:
+#    root: DEBUG
 
-springdoc:
+spring-doc:
   packages-to-scan: com.ArtSeeReal.pro.controller
   swagger-ui:
     operations-sorter: alpha

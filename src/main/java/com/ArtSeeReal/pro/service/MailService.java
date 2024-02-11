@@ -35,7 +35,7 @@ public class MailService {
         Optional<User> lostIdUser = userRepository.findByEmail(email);
         if(lostIdUser.isPresent() && lostIdUser.get().getName() == name){
             String setFrom = env.getProperty("auth_email"); // emailConfig에 설정한 자신의 이메일 주소를 입력
-            String msgg = getTemplate("email"); // HTML 템플릿 파일에서 내용을 읽어옴
+            String msgg = getTemplate("idFind"); // HTML 템플릿 파일에서 내용을 읽어옴
             msgg = msgg.replace("{userId}", lostIdUser.get().getUserId()); // {userId} 부분을 아이디로 대체
             msgg = msgg.replace("{userName}", name); // {userName} 부분을 회원 이름으로 대체
             mailSend(setFrom, email, EMAIL_TITLE, msgg);
@@ -61,7 +61,7 @@ public class MailService {
             throw new IllegalArgumentException(EMAIL_NOT_EQUAL_ERROR);
         else if(lostPasswordUser.get().getName() != name)
             throw new IllegalArgumentException(NAME_NOT_EQUAL_ERROR);
-        else if(lostPasswordUser.get().getName() != name)
+        else if(lostPasswordUser.get().getUserId() != id)
             throw new IllegalArgumentException(ID_NOT_EQUAL_ERROR);
     }
 
@@ -80,9 +80,9 @@ public class MailService {
 
     private String getTemplate(String type) throws IOException {
         String template = "";
-        String passwordTemplate = env.getProperty(type + "Path.template");
+        String getTemplate = env.getProperty(type + "Path.template");
         // 클래스패스(Classpath)에서 템플릿 파일을 읽어옴
-        InputStream inputStream = getClass().getResourceAsStream(passwordTemplate);
+        InputStream inputStream = getClass().getResourceAsStream(getTemplate);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
         String line;
         while ((line = reader.readLine()) != null)

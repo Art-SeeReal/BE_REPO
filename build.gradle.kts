@@ -26,7 +26,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
-	implementation("com.sun.mail:javax.mail:1.6.2")
+	implementation("com.sun.mail:jakarta.mail:2.0.1")
 	implementation("org.springframework.boot:spring-boot-starter-mail")
 	implementation("org.springframework:spring-context-support:6.0.6")
 	compileOnly("org.projectlombok:lombok")
@@ -37,10 +37,8 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("org.projectlombok:lombok:1.18.26")
 	implementation ("jakarta.servlet:jakarta.servlet-api:5.0.0")
-
 	// Swagger
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4")
-
 }
 
 tasks.withType<Test> {
