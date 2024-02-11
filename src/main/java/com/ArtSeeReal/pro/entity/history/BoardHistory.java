@@ -28,7 +28,7 @@ public class BoardHistory {
     @Column(length = 64,nullable = false)
     private String userUid;
 
-    @Column(nullable = false, columnDefinition = "0")
+    @Column(nullable = false, columnDefinition = "bigint default 0")
     private Long viewCnt;
 
     @Column(nullable = false)
@@ -37,7 +37,7 @@ public class BoardHistory {
     @Column(length = 128, nullable = false)
     private String oldTitle;
 
-    @Column(length = 8196, nullable = false)
+    @Column(length = 2048, nullable = false)
     private String oldContent;
 
     @Column(nullable = false)
@@ -52,7 +52,7 @@ public class BoardHistory {
     @Column(length = 128, nullable = false)
     private String newTitle;
 
-    @Column(length = 8196, nullable = false)
+    @Column(length = 2048, nullable = false)
     private String newContent;
 
     @Column(nullable = false)

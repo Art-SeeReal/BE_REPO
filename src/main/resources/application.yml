@@ -17,3 +17,10 @@ spring:
   mvc:
     path match:
       matching-strategy: ant_path_matcher
+
+Email:
+
+emailPath:
+  template: /templates/idFindForm.html
+passwordPath:
+  template: /templates/passwordForm.html

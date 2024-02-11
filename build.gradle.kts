@@ -26,12 +26,16 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
+	implementation("com.sun.mail:javax.mail:1.6.2")
+	implementation("org.springframework.boot:spring-boot-starter-mail")
+	implementation("org.springframework:spring-context-support:6.0.6")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.mysql:mysql-connector-j")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
+	testImplementation("org.projectlombok:lombok:1.18.26")
 }
 
 tasks.withType<Test> {

@@ -35,7 +35,7 @@ public class RequestHistory {
     @Column(length = 128, nullable = false)
     private String oldTitle;
 
-    @Column(length = 8196, nullable = false)
+    @Column(length = 2048, nullable = false)
     private String oldContent;
 
     @Column(nullable = false)

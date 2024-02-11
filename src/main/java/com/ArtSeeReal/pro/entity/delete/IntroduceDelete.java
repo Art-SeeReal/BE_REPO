@@ -26,7 +26,7 @@ public class IntroduceDelete {
     @Column(length = 64,nullable = false)
     private String userUid;
 
-    @Column(length = 8196, nullable = false)
+    @Column(length = 2048, nullable = false)
     private String content;
 
     @Column(nullable = false)

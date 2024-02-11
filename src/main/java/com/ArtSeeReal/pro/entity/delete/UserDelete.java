@@ -26,7 +26,7 @@ public class UserDelete {
     private String userUid;
 
     @Column(length = 32, nullable = false, unique = true)
-    private String id;
+    private String userId;
 
     @Column(length = 16, nullable = false)
     private String name;
@@ -63,4 +63,5 @@ public class UserDelete {
 
     @Column(length = 64,nullable = false)
     private String delUserUid;
+
 }

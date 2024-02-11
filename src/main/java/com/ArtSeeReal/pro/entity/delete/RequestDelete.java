@@ -35,7 +35,7 @@ public class RequestDelete {
     @Column(length = 128, nullable = false)
     private String title;
 
-    @Column(length = 8196, nullable = false)
+    @Column(length = 2048, nullable = false)
     private String content;
 
     @Column(nullable = false)
