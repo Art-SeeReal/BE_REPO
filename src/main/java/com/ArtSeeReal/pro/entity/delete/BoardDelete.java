@@ -28,13 +28,13 @@ public class BoardDelete {
     @Column(length = 64,nullable = false)
     private String userUid;
 
-    @Column(nullable = false, columnDefinition = "bigint default 0")
+    @Column(nullable = false, columnDefinition = "BIGINT default 0")
     private Long viewCnt;
 
     @Column(length = 128, nullable = false)
     private String title;
 
-    @Column(length = 2048, nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
     @Column(nullable = false)
