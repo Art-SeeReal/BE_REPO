@@ -22,6 +22,6 @@ public class Introduce {
     @Column(length = 64,nullable = false)
     private String userUid;
 
-    @Column(length = 8196, nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 }

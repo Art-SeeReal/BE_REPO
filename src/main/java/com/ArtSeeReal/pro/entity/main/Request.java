@@ -32,7 +32,7 @@ public class Request {
     @Column(length = 128, nullable = false)
     private String title;
 
-    @Column(length = 8196, nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
     @Column(nullable = false)
