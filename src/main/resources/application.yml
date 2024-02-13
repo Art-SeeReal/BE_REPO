@@ -19,9 +19,9 @@ spring:
     path match:
       matching-strategy: ant_path_matcher
 
-logging:
-  level:
-    root: DEBUG
+#logging:
+#  level:
+#    root: DEBUG
 
 springdoc:
   packages-to-scan: com.ArtSeeReal.pro.controller
