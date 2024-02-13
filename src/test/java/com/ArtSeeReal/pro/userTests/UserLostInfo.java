@@ -41,7 +41,7 @@ public class UserLostInfo {
                 .name("테스트")
                 .password("test1234")
                 .nickname("testNickname")
-                .email("yusm1231@gmail.com")
+                .email("yusm1231@gmail.com") // 자신의 이메일을 넣어서 실험 해보면 됩니다.
                 .emailSecret(true)
                 .phone("010-1234-5678")
                 .phoneSecret(true)
@@ -65,7 +65,7 @@ public class UserLostInfo {
     @Test
     public void 아이디찾기_이름이_같지_않을_때() throws MessagingException, IOException {
         String name = "yusm";
-        String email = "yusm1231@gmail.com";
+        String email = "yusm1231@gmail.com"; // 자신의 이메일을 넣어서 실험 해보면 됩니다.
 
         assertThatThrownBy(() -> mailService.findId(name, email))
                 .isInstanceOf(IllegalArgumentException.class);
@@ -74,7 +74,7 @@ public class UserLostInfo {
     @Test
     public void 아이디_찾기_정상작동() throws MessagingException, IOException {
         String name = "테스트";
-        String email = "yusm1231@gmail.com";
+        String email = "yusm1231@gmail.com"; // 자신의 이메일을 넣어서 실험 해보면 됩니다.
 
         mailService.findId(name, email);
     }
@@ -92,7 +92,7 @@ public class UserLostInfo {
     @Test
     public void 비밀번호찾기_이름이_같지_않을_때() throws MessagingException, IOException {
         String name = "yusm";
-        String email = "yusm1231@gmail.com";
+        String email = "yusm1231@gmail.com"; // 자신의 이메일을 넣어서 실험 해보면 됩니다.
         String userid = "test";
 
         assertThatThrownBy(() -> mailService.changePassword(name,email,userid))
@@ -102,7 +102,7 @@ public class UserLostInfo {
     @Test
     public void 비밀번호찾기_아이디_찾기_다름() throws MessagingException, IOException {
         String name = "테스트";
-        String email = "yusm1231@gmail.com";
+        String email = "yusm1231@gmail.com"; // 자신의 이메일을 넣어서 실험 해보면 됩니다.
         String userid = "yusm";
 
         assertThatThrownBy(() -> mailService.changePassword(name,email,userid))
@@ -112,7 +112,7 @@ public class UserLostInfo {
     @Test
     public void 비밀번호찾기_아이디_찾기_정상작동() throws MessagingException, IOException {
         String name = "테스트";
-        String email = "yusm1231@gmail.com";
+        String email = "yusm1231@gmail.com"; // 자신의 이메일을 넣어서 실험 해보면 됩니다.
         String userid = "test";
 
         mailService.changePassword(name,email,userid);

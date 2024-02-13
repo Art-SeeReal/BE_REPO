@@ -22,6 +22,7 @@ public class EmailConfig {
         mailSender.setHost("smtp.gmail.com"); // 메일 서버 호스트 설정
         mailSender.setPort(587); // 메일 서버 포트 설정
 
+        // 환경변수에 각 이름으로 운영자의 아이디 비밀번호를 넣어야 작동함
         mailSender.setUsername(env.getProperty("auth_email")); // 인증에 사용할 이메일 계정 설정
         mailSender.setPassword(env.getProperty("auth_password")); // 인증에 사용할 이메일 계정의 비밀번호 설정
 
