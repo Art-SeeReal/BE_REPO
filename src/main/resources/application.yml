@@ -23,7 +23,7 @@ logging:
   level:
     root: DEBUG
 
-springdoc:
+spring-doc:
   packages-to-scan: com.ArtSeeReal.pro.controller
   swagger-ui:
     operations-sorter: alpha
