@@ -34,14 +34,14 @@ jobs:
       - name: Deploy to Server
         run: |
           mkdir -p $GITHUB_WORKSPACE/.ssh
-          echo -n "${{ secrets.SSH_PRIVATE_KEY }}" > $GITHUB_WORKSPACE/.ssh/id_rsa
-          chmod 600 $GITHUB_WORKSPACE/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > $GITHUB_WORKSPACE/.ssh/id_rsa.pem
+          chmod 600 $GITHUB_WORKSPACE/.ssh/id_rsa.pem
 
           # Add the server's host key to known_hosts
           ssh-keyscan -t rsa ${{ secrets.HOST }} >> $GITHUB_WORKSPACE/.ssh/known_hosts
 
           # Perform the SCP operation
-          scp -i $GITHUB_WORKSPACE/.ssh/id_rsa $GITHUB_WORKSPACE/build/libs/pro-0.0.1-SNAPSHOT.jar ${{ secrets.USER }}@${{ secrets.HOST }}:/art_see_real_backend
+          scp -i "$GITHUB_WORKSPACE/.ssh/id_rsa.pem" $GITHUB_WORKSPACE/build/libs/pro-0.0.1-SNAPSHOT.jar ${{ secrets.USER }}@${{ secrets.HOST }}:/art_see_real_backend
 
         env:
           JAVA_HOME: /opt/hostedtoolcache/Java_Adopt_jdk/17.0.10-7/x64
