@@ -16,6 +16,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Grant execute permission to gradlew
+        run: chmod +x ./gradlew
+
       - name: Build Application
         run: |
           cd $GITHUB_WORKSPACE  # 워크플로우 실행 환경의 루트 디렉토리로 이동
