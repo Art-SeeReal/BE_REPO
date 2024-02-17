@@ -42,6 +42,6 @@ jobs:
             # Stop any existing application
             sudo systemctl stop artSeeReal.service
             # Copy JAR file to the server
-            scp -i $GITHUB_WORKSPACE/build/libs/pro-0.0.1-SNAPSHOT.jar ${{ secrets.USER }}@${{ secrets.HOST }}:/art_see_real_backend
+            scp $GITHUB_WORKSPACE/build/libs/pro-0.0.1-SNAPSHOT.jar ${{ secrets.USER }}@${{ secrets.HOST }}:/art_see_real_backend
             # Start the application
             sudo systemctl start artSeeReal.service
