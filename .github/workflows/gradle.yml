@@ -25,7 +25,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           touch ~/.ssh/known_hosts
-          ssh-keyscan -t rsa ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -t rsa ${{ secrets.HOST_IP }} >> ~/.ssh/known_hosts
           
       - name: Grant execute permission to gradlew
         run: chmod +x ./gradlew
