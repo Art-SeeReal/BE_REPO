@@ -36,7 +36,14 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ssh_key.pem
           chmod 600 ssh_key.pem
 
+          # Add the server's host key to known_hosts
+          ssh-keyscan -t rsa ${{ secrets.HOST_IP }} >> ~/.ssh/known_hosts
+
+          # Perform the SCP operation
           scp -i ssh_key.pem $GITHUB_WORKSPACE/build/libs/pro-0.0.1-SNAPSHOT.jar ${{ secrets.USER }}@${{ secrets.HOST }}:/art_see_real_backend
+
+  env:
+    JAVA_HOME: /opt/hostedtoolcache/Java_Adopt_jdk/17.0.10-7/x64
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
