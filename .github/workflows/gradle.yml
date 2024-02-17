@@ -31,20 +31,10 @@ jobs:
           ./gradlew build
           ls -R
           
-      - name: Deploy to Server
+      - name: Host Add
         run: |
-          mkdir -p $GITHUB_WORKSPACE/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > $GITHUB_WORKSPACE/.ssh/id_rsa.pem
-          chmod 600 $GITHUB_WORKSPACE/.ssh/id_rsa.pem
-
           # Add the server's host key to known_hosts
           ssh-keyscan -t rsa ${{ secrets.HOST }} >> $GITHUB_WORKSPACE/.ssh/known_hosts
-
-          # Perform the SCP operation
-          scp -i "$GITHUB_WORKSPACE/.ssh/id_rsa.pem" $GITHUB_WORKSPACE/build/libs/pro-0.0.1-SNAPSHOT.jar ${{ secrets.USER }}@${{ secrets.HOST }}:/art_see_real_backend
-
-        env:
-          JAVA_HOME: /opt/hostedtoolcache/Java_Adopt_jdk/17.0.10-7/x64
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
@@ -56,5 +46,6 @@ jobs:
             cd art_see_real_backend  # 실제 애플리케이션이 배포될 디렉토리로 이동
             # Stop any existing application
             sudo systemctl stop artSeeReal.service
+            scp $GITHUB_WORKSPACE/build/libs/pro-0.0.1-SNAPSHOT.jar ${{ secrets.USER }}@${{ secrets.HOST }}:/art_see_real_backend
             # Start the application
             sudo systemctl start artSeeReal.service
