@@ -31,11 +31,6 @@ jobs:
           ./gradlew build
           ls -R
           
-      - name: Host Add
-        run: |
-          # Add the server's host key to known_hosts
-          ssh-keyscan -t rsa ${{ secrets.HOST }} >> $GITHUB_WORKSPACE/.ssh/known_hosts
-
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
@@ -46,6 +41,7 @@ jobs:
             cd art_see_real_backend  # 실제 애플리케이션이 배포될 디렉토리로 이동
             # Stop any existing application
             sudo systemctl stop artSeeReal.service
+            # Copy JAR file to the server
             scp $GITHUB_WORKSPACE/build/libs/pro-0.0.1-SNAPSHOT.jar ${{ secrets.USER }}@${{ secrets.HOST }}:/art_see_real_backend
             # Start the application
             sudo systemctl start artSeeReal.service
