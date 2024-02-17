@@ -34,7 +34,7 @@ jobs:
       - name: Deploy to Server
         run: |
           mkdir -p $GITHUB_WORKSPACE/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > $GITHUB_WORKSPACE/.ssh/id_rsa
+          echo -n "${{ secrets.SSH_PRIVATE_KEY }}" > $GITHUB_WORKSPACE/.ssh/id_rsa
           chmod 600 $GITHUB_WORKSPACE/.ssh/id_rsa
 
           # Add the server's host key to known_hosts
