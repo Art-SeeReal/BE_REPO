@@ -1,0 +1,47 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+          
+      - name: Grant execute permission to gradlew
+        run: chmod +x ./gradlew
+
+      - name: Build Application
+        run: |
+          cd $GITHUB_WORKSPACE  # 워크플로우 실행 환경의 루트 디렉토리로 이동
+          ./gradlew build
+          ls -R
+          
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }} # 내가 변수로 저장한 pem key
+          host: ${{ secrets.HOST }} # 내가 변수로 저장한 ip
+          username: ${{ secrets.USER }} # 내가 변수로 저장한 User
+          script: |
+            cd art_see_real_backend  # 실제 애플리케이션이 배포될 디렉토리로 이동
+            # Stop any existing application
+            sudo systemctl stop artSeeReal.service
+            # Copy JAR file to the server
+            scp $GITHUB_WORKSPACE/build/libs/pro-0.0.1-SNAPSHOT.jar ${{ secrets.USER }}@${{ secrets.HOST }}:/art_see_real_backend
+            # Start the application
+            sudo systemctl start artSeeReal.service
