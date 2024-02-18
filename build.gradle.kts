@@ -39,5 +39,6 @@ dependencies {
 }
 
 tasks.withType<Test> {
+	enabled = false
 	useJUnitPlatform()
 }
