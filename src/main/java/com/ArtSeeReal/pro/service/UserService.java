@@ -1,6 +1,6 @@
 package com.ArtSeeReal.pro.service;
 
-import static com.ArtSeeReal.pro.etc.Uid.UidCreator;
+import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
 import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
 import com.ArtSeeReal.pro.dto.user.UserResponseDTO;
@@ -27,22 +27,9 @@ public class UserService {
     private final UserDeleteRepository userDeleteRepository;
 
     public UserResponseDTO createUser(UserRequestDTO dto){
-        dto.setUid(userUidCreator());
+        dto.setUid(uidCreator(userRepository));
         User user = userRepository.save(dto.from());
         return user.from();
-    }
-    private String userUidCreator(){
-        boolean duplicate = true;
-        String uid = UidCreator();
-
-        while (duplicate) {
-            if(userRepository.existsByUid(uid))
-                uid = UidCreator();
-            else
-                duplicate = false;
-        }
-
-        return uid;
     }
     public String deleteUser(String uid, String delUserUid){
         Optional<User> user = userRepository.findById(uid);

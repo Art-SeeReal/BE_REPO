@@ -29,9 +29,9 @@ public class UserController {
         return new ResponseEntity<>(userService.createUser(dto), HttpStatus.OK);
     }
 
-    @GetMapping("/user/duplicate/id")
-    public ResponseEntity<Boolean> checkDuplicateId(@RequestParam(name = "id") String id){
-        return new ResponseEntity<>(userService.checkDuplicateUserId(id), HttpStatus.OK);
+    @GetMapping("/user/duplicate/userId")
+    public ResponseEntity<Boolean> checkDuplicateUserId(@RequestParam(name = "userId") String userId){
+        return new ResponseEntity<>(userService.checkDuplicateUserId(userId), HttpStatus.OK);
     }
 
     @GetMapping("/user/duplicate/nickname")
