@@ -38,10 +38,10 @@ jobs:
           host: ${{ secrets.HOST }} # 내가 변수로 저장한 ip
           username: ${{ secrets.USER }} # 내가 변수로 저장한 User
           script: |
-            cd art_see_real_backend  # 실제 애플리케이션이 배포될 디렉토리로 이동
+            cd art_see_real_backend/  # 실제 애플리케이션이 배포될 디렉토리로 이동
             # Stop any existing application
             sudo systemctl stop artSeeReal.service
             # Copy JAR file to the server
-            scp $GITHUB_WORKSPACE/build/libs/pro-0.0.1-SNAPSHOT.jar ${{ secrets.USER }}@${{ secrets.HOST }}:/art_see_real_backend
+            git pull https://${{ secrets.GIT_USER }}:${{ secrets.GIT_PASSWORD }}@github.com/Art-SeeReal/BE_REPO.git
             # Start the application
             sudo systemctl start artSeeReal.service
