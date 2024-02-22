@@ -42,7 +42,6 @@ jobs:
             # Stop any existing application
             sudo systemctl stop artSeeReal.service
             # Copy JAR file to the server
-            # git pull https://${{ secrets.TOKEN }}@github.com/Art-SeeReal/BE_REPO.git 최초
-            git remote add origin https://${{ secrets.GIT_USER }}:${{ secrets.TOKEN }}@github.com/Art-SeeReal/BE_REPO.git
+            git pull origin main
             # Start the application
             sudo systemctl start artSeeReal.service
