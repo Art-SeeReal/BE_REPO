@@ -39,9 +39,19 @@ jobs:
           username: ${{ secrets.USER }} # 내가 변수로 저장한 User
           script: |
             cd art_see_real_backend/BE_REPO  # 실제 애플리케이션이 배포될 디렉토리로 이동
-            # Stop any existing application
-            sudo systemctl stop artSeeReal.service
-            # Copy JAR file to the server
+
+            # 기존 프로세스 종료 (8080 포트 사용 중인 경우)
+            EXISTING_PID=$(sudo lsof -t -i:8080)
+            if [ -n "$EXISTING_PID" ]; then
+              echo "Existing process found. Stopping..."
+              kill -15 "$EXISTING_PID"  # 정상적으로 종료
+              sleep 5  # 일정 시간 대기 (종료 확인을 위해)
+              kill -0 "$EXISTING_PID" && kill -9 "$EXISTING_PID"  # 만약 종료되지 않았다면 강제 종료
+            fi
+
+            # 소스 코드 업데이트 및 빌드
             git pull origin main
-            # Start the application
-            sudo systemctl start artSeeReal.service
+            ./gradlew build
+            cd build/libs/ 
+            # 새로운 애플리케이션 시작
+            nohup java -jar build/libs/pro-0.0.1-SNAPSHOT.jar &
