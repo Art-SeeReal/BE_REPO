@@ -4,7 +4,9 @@ import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
 import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
 import com.ArtSeeReal.pro.dto.user.UserResponseDTO;
+import com.ArtSeeReal.pro.dto.user.UserUpdateRequestDTO;
 import com.ArtSeeReal.pro.entity.delete.UserDelete;
+import com.ArtSeeReal.pro.entity.history.UserHistory;
 import com.ArtSeeReal.pro.entity.main.User;
 import com.ArtSeeReal.pro.repository.delete.UserDeleteRepository;
 import com.ArtSeeReal.pro.repository.history.UserHistoryRepository;
@@ -12,6 +14,7 @@ import com.ArtSeeReal.pro.repository.main.UserRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,8 +25,9 @@ public class UserService {
     private final String ID_DUPLICATE_ERROR = "[ERROR] 아이디가 중복되었습니다.";
     private final String NICKNAME_DUPLICATE_ERROR = "[ERROR] 닉네임이 중복되었습니다.";
     private final String EMAIL_DUPLICATE_ERROR = "[ERROR] 이메일이 중복되었습니다.";
+    private final String NO_USER_DATA_ERROR = "[ERROR] 유저 데이터가 없습니다.";
     private final UserRepository userRepository;
-    private final UserHistoryRepository UserHistoryRepository;
+    private final UserHistoryRepository userHistoryRepository;
     private final UserDeleteRepository userDeleteRepository;
 
     public UserResponseDTO createUser(UserRequestDTO dto){
@@ -31,6 +35,25 @@ public class UserService {
         User user = userRepository.save(dto.from());
         return user.from();
     }
+
+    public UserResponseDTO readUser(String uid){
+        return userRepository.findById(uid)
+                .orElseThrow(() -> new IllegalArgumentException(NO_USER_DATA_ERROR))
+                .from();
+    }
+
+    public UserResponseDTO updateUser(UserUpdateRequestDTO dto){
+        User user = userRepository.findById(dto.getUid())
+                .orElseThrow(() -> new IllegalArgumentException(NO_USER_DATA_ERROR));
+
+        UserHistory userHistory = new UserHistory().of(uidCreator(userHistoryRepository),user,dto);
+        userHistoryRepository.save(userHistory);
+        userRepository.save(dto.from());
+        User result = userRepository.findById(dto.getUid())
+                .orElseThrow(() -> new IllegalArgumentException(NO_USER_DATA_ERROR));
+        return result.from();
+    }
+
     public String deleteUser(String uid, String delUserUid){
         Optional<User> user = userRepository.findById(uid);
         UserDelete userDelete = user.get().of(uid,delUserUid);
