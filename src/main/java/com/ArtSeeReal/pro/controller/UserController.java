@@ -35,6 +35,10 @@ public class UserController {
     public ResponseEntity<UserResponseDTO> updateUser(@RequestBody UserUpdateRequestDTO dto){
         return new ResponseEntity<>(userService.updateUser(dto),HttpStatus.OK);
     }
+    @DeleteMapping("/user")
+    public ResponseEntity<String> deleteUser(@RequestParam String uid,@RequestParam String delUserUid){
+        return new ResponseEntity<>(userService.deleteUser(uid,delUserUid),HttpStatus.NO_CONTENT);
+    }
 
     @GetMapping("/user/duplicate/userId")
     public ResponseEntity<Boolean> checkDuplicateUserId(@RequestParam(name = "userId") String userId){

@@ -36,7 +36,6 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("org.projectlombok:lombok:1.18.26")
-	implementation ("jakarta.servlet:jakarta.servlet-api:5.0.0")
 	// Swagger
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4")
 }
