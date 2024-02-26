@@ -39,7 +39,7 @@ jobs:
           port: 22
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "./build/libs/pro-0.0.1-SNAPSHOT.jar"
-          target: /art_see_real/backend/server
+          target: ~/art_see_real/backend/server
           
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
@@ -48,7 +48,7 @@ jobs:
           host: ${{ secrets.HOST }} # EC2 인스턴스 IP
           username: ${{ secrets.USER }} # EC2 인스턴스 사용자 이름
           script: |
-            cd /art_see_real/backend/server  # 실제 애플리케이션이 배포될 디렉토리로 이동
+            cd ~/art_see_real/backend/server  # 실제 애플리케이션이 배포될 디렉토리로 이동
             # 기존 프로세스 종료 (8080 포트 사용 중인 경우)
             EXISTING_PID=$(sudo lsof -t -i:8080)
             if [ -n "$EXISTING_PID" ]; then
