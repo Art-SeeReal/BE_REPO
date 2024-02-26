@@ -48,7 +48,6 @@ jobs:
           host: ${{ secrets.HOST }} # EC2 인스턴스 IP
           username: ${{ secrets.USER }} # EC2 인스턴스 사용자 이름
           script: |
-            cd ~/art_see_real/backend/server/build/libs  # 실제 애플리케이션이 배포될 디렉토리로 이동
             # 기존 프로세스 종료 (8080 포트 사용 중인 경우)
             EXISTING_PID=$(sudo lsof -t -i:8080)
             if [ -n "$EXISTING_PID" ]; then
@@ -58,4 +57,4 @@ jobs:
               kill -0 "$EXISTING_PID" && kill -9 "$EXISTING_PID"  # 만약 종료되지 않았다면 강제 종료
             fi
             # 새로운 애플리케이션 시작
-            nohup java -jar pro-0.0.1-SNAPSHOT.jar &
+            sudo systemctl start art_see_real
