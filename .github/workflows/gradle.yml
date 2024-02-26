@@ -48,13 +48,7 @@ jobs:
           host: ${{ secrets.HOST }} # EC2 인스턴스 IP
           username: ${{ secrets.USER }} # EC2 인스턴스 사용자 이름
           script: |
-            # 기존 프로세스 종료 (8080 포트 사용 중인 경우)
-            EXISTING_PID=$(sudo lsof -t -i:8080)
-            if [ -n "$EXISTING_PID" ]; then
-              echo "Existing process found. Stopping..."
-              kill -15 "$EXISTING_PID"  # 정상적으로 종료
-              sleep 5  # 일정 시간 대기 (종료 확인을 위해)
-              kill -0 "$EXISTING_PID" && kill -9 "$EXISTING_PID"  # 만약 종료되지 않았다면 강제 종료
-            fi
+            sudo systemctl stop art_see_real
+            sleep 10
             # 새로운 애플리케이션 시작
             sudo systemctl start art_see_real
