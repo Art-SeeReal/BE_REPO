@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BannerDeleteRepository extends JpaRepository<BannerDelete,String>, ModuleRepository {
 
-    boolean existsByUid(String uid);
 }

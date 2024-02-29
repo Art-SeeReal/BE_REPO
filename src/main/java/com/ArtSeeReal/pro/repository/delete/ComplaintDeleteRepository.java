@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ComplaintDeleteRepository extends JpaRepository<ComplaintDelete,String>, ModuleRepository {
 
-    boolean existsByUid(String uid);
 }

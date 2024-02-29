@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserObjRepository extends JpaRepository<UserObj,String>, ModuleRepository {
 
-    boolean existsByUid(String uid);
 }

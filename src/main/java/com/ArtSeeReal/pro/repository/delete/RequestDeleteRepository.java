@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RequestDeleteRepository extends JpaRepository<RequestDelete,String>, ModuleRepository {
 
-    boolean existsByUid(String uid);
 }

@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RequestHistoryRepository extends JpaRepository<RequestHistory,String>, ModuleRepository {
 
-    boolean existsByUid(String uid);
 }

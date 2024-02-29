@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FileHistoryRepository extends JpaRepository<FileHistory,String>, ModuleRepository {
 
-    boolean existsByUid(String uid);
 }

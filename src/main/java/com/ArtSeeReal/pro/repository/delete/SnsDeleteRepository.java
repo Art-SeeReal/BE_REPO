@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SnsDeleteRepository extends JpaRepository<SnsDelete,String>, ModuleRepository {
 
-    boolean existsByUid(String uid);
 }

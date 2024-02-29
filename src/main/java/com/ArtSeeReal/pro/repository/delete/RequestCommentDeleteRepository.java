@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RequestCommentDeleteRepository extends JpaRepository<RequestCommentDelete,String>, ModuleRepository {
 
-    boolean existsByUid(String uid);
 }

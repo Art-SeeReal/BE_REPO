@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RequestCommentRepository extends JpaRepository<RequestComment,String>, ModuleRepository {
 
-    boolean existsByUid(String uid);
 }
