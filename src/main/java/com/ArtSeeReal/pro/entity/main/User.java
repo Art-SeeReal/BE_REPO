@@ -1,5 +1,7 @@
 package com.ArtSeeReal.pro.entity.main;
 
+import com.ArtSeeReal.pro.dto.user.UserResponseDTO;
+import com.ArtSeeReal.pro.entity.delete.UserDelete;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.enums.UserType;
 import jakarta.persistence.Column;
@@ -10,7 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity(name = "DEF_USER_TB")
 @Getter
@@ -24,7 +25,7 @@ public class User {
     private String uid;
 
     @Column(length = 32, nullable = false, unique = true)
-    private String id;
+    private String userId;
 
     @Column(length = 16, nullable = false)
     private String name;
@@ -55,4 +56,60 @@ public class User {
 
     @Column(nullable = false)
     private LocalDateTime regDate;
+
+    public UserResponseDTO from(){
+        return UserResponseDTO.
+                builder()
+                .uid(uid)
+                .userId(userId)
+                .name(name)
+                .nickname(nickname)
+                .email(email)
+                .emailSecret(emailSecret)
+                .phone(phone)
+                .phoneSecret(phoneSecret)
+                .regionType(regionType)
+                .userType(userType)
+                .regDate(regDate)
+                .build();
+    }
+
+    public UserDelete of(String uid, String delUserUid){
+        return UserDelete
+                .builder()
+                .uid(uid)
+                .userUid(this.uid)
+                .userId(userId)
+                .name(name)
+                .password(password)
+                .nickname(nickname)
+                .email(email)
+                .emailSecret(emailSecret)
+                .phone(phone)
+                .phoneSecret(phoneSecret)
+                .regionType(regionType)
+                .userType(userType)
+                .regDate(regDate)
+                .delDate(LocalDateTime.now())
+                .delUserUid(delUserUid)
+                .build();
+    }
+
+    public User passwordChange(String password){
+        return User
+                .builder()
+                .uid(uid)
+                .userId(userId)
+                .name(name)
+                .password(password)
+                .nickname(nickname)
+                .email(email)
+                .emailSecret(emailSecret)
+                .phone(phone)
+                .phoneSecret(phoneSecret)
+                .regionType(regionType)
+                .userType(userType)
+                .regDate(regDate)
+                .build();
+    }
 }

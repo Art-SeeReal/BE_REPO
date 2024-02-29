@@ -1,5 +1,8 @@
 package com.ArtSeeReal.pro.entity.history;
 
+import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
+import com.ArtSeeReal.pro.dto.user.UserUpdateRequestDTO;
+import com.ArtSeeReal.pro.entity.main.User;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.enums.UserType;
 import jakarta.persistence.Column;
@@ -26,7 +29,7 @@ public class UserHistory {
     private String userUid;
 
     @Column(length = 32, nullable = false, unique = true)
-    private String id;
+    private String userId;
 
     @Column(length = 16, nullable = false)
     private String oldName;
@@ -88,4 +91,34 @@ public class UserHistory {
     @Column(length = 64,nullable = false)
     private String modUserUid;
 
+
+    public UserHistory of(String uid, User user, UserUpdateRequestDTO dto){
+        return UserHistory.builder()
+                .uid(uid)
+                .userUid(user.getUid())
+                .userId(user.getUserId())
+                .oldName(user.getName())
+                .newName(dto.getName())
+                .oldPassword(user.getPassword())
+                .newPassword(dto.getPassword())
+                .oldNickname(user.getNickname())
+                .newNickname(dto.getNickname())
+                .oldNickname(user.getNickname())
+                .newNickname(dto.getNickname())
+                .oldEmail(user.getEmail())
+                .newEmail(dto.getEmail())
+                .oldEmailSecret(user.isEmailSecret())
+                .newEmailSecret(dto.isEmailSecret())
+                .oldPhone(user.getPhone())
+                .newPhone(dto.getPhone())
+                .oldPhoneSecret(user.isPhoneSecret())
+                .newPhoneSecret(dto.isPhoneSecret())
+                .oldRegionType(user.getRegionType())
+                .newRegionType(dto.getRegionType())
+                .oldUserType(user.getUserType())
+                .newUserType(dto.getUserType())
+                .modDate(LocalDateTime.now())
+                .modUserUid(dto.getModUserUid())
+                .build();
+    }
 }
