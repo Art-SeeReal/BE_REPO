@@ -3,6 +3,7 @@ package com.ArtSeeReal.pro.entity.history;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,11 +27,13 @@ public class FileHistory {
     @Column(length = 64,nullable = false)
     private String targetUid;
 
-    @Column(length = 256, nullable = false)
-    private String oldUrl;
+    @Lob
+    @Column(length = 512,nullable = false)
+    private byte[] oldImageData;
 
-    @Column(length = 256, nullable = false)
-    private String newUrl;
+    @Lob
+    @Column(length = 512,nullable = false)
+    private byte[] newImageData;
 
     @Column(nullable = false)
     private LocalDateTime modDate;

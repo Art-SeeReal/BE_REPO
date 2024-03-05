@@ -3,6 +3,7 @@ package com.ArtSeeReal.pro.entity.main;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class File {
     @Column(length = 64,nullable = false)
     private String targetUid;
 
-    @Column(length = 256, nullable = false)
-    private String url;
+    @Lob
+    @Column(length = 512,nullable = false)
+    private byte[] imageData;
 }

@@ -3,6 +3,7 @@ package com.ArtSeeReal.pro.entity.delete;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,8 +27,9 @@ public class FileDelete {
     @Column(length = 64,nullable = false)
     private String targetUid;
 
-    @Column(length = 256, nullable = false)
-    private String url;
+    @Lob
+    @Column(length = 512,nullable = false)
+    private byte[] imageData;
 
     @Column(nullable = false)
     private LocalDateTime delDate;
