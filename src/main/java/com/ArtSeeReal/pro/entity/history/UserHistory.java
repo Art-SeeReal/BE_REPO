@@ -1,6 +1,5 @@
 package com.ArtSeeReal.pro.entity.history;
 
-import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
 import com.ArtSeeReal.pro.dto.user.UserUpdateRequestDTO;
 import com.ArtSeeReal.pro.entity.main.User;
 import com.ArtSeeReal.pro.enums.RegionType;

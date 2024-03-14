@@ -6,7 +6,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
-import com.ArtSeeReal.pro.repository.main.UserRepository;
+import com.ArtSeeReal.pro.repository.jpa.main.UserRepository;
 import com.ArtSeeReal.pro.service.MailService;
 import com.ArtSeeReal.pro.service.UserService;
 import jakarta.mail.MessagingException;
