@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -13,16 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ViewController {
 
     @GetMapping("/login")
-    public void loginPage(){
-        System.out.println("로그인컨트롤러");
-//        return "login";
+    public String loginPage(){
+        return "/security/login";
+    }
+
+    @GetMapping("/join")
+    public String joinPage(){
+        return "/security/join";
     }
 
     @GetMapping("/dashboard")
     public String dashboardPage(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("loginId", user.getUsername());
-        model.addAttribute("loginRoles", user.getAuthorities());
-        return "dashboard"; // HTML 파일의 이름만 반환합니다.
+        return "/security/dashboard";
     }
 
 }

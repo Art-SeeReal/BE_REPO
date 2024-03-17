@@ -38,6 +38,9 @@ dependencies {
 	testImplementation("org.projectlombok:lombok:1.18.26")
 	// Swagger
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4")
+
+	// 스프링 시큐리티 설정 시 필요한 ViewResolver 구성을 위해 타임리프 의존성 추가
+	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 }
 
 tasks.withType<Test> {
