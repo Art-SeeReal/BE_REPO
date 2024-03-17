@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -14,12 +15,18 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
+
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return new SimplePasswordEncoder();
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf().disable().cors().disable()
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                        .requestMatchers("/images/**","/view/login", "/view/join").permitAll()  // 로그인 안해도 접속 가능하게 예외 처리
+                        .requestMatchers("/images/**","/view/join", "/auth/join").permitAll()  // 로그인 안해도 접속 가능하게 예외 처리
                         .anyRequest().authenticated() // 어떠한 요청이라도 인증 필요
                 )
                 .formLogin(login -> login // form 방식 로그인 사용

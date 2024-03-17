@@ -43,7 +43,7 @@ public class UserRequestDTO {
                 .phoneSecret(phoneSecret)
                 .regionType(regionType)
                 .userType(userType)
-                .regDate(regDate)
+                .regDate(LocalDateTime.now())
                 .build();
     }
 }
