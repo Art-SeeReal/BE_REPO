@@ -27,10 +27,6 @@ public class QSnsDelete extends EntityPathBase<SnsDelete> {
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath url = createString("url");
-
-    public final StringPath userUid = createString("userUid");
-
     public QSnsDelete(String variable) {
         super(SnsDelete.class, forVariable(variable));
     }

@@ -19,25 +19,36 @@ public class QRecruitment extends EntityPathBase<Recruitment> {
 
     public static final QRecruitment recruitment = new QRecruitment("recruitment");
 
-    public final NumberPath<Long> category = createNumber("category", Long.class);
+    public final com.ArtSeeReal.pro.entity.module.QRecruitmentModule _super = new com.ArtSeeReal.pro.entity.module.QRecruitmentModule(this);
 
-    public final StringPath content = createString("content");
+    //inherited
+    public final NumberPath<Long> category = _super.category;
 
-    public final DateTimePath<java.time.LocalDateTime> dueDate = createDateTime("dueDate", java.time.LocalDateTime.class);
+    //inherited
+    public final StringPath content = _super.content;
 
-    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> dueDate = _super.dueDate;
 
-    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> regionType = createEnum("regionType", com.ArtSeeReal.pro.enums.RegionType.class);
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
-    public final StringPath thumbnail = createString("thumbnail");
+    //inherited
+    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> regionType = _super.regionType;
 
-    public final StringPath title = createString("title");
+    //inherited
+    public final StringPath thumbnail = _super.thumbnail;
+
+    //inherited
+    public final StringPath title = _super.title;
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
-    public final NumberPath<Long> viewCnt = createNumber("viewCnt", Long.class);
+    //inherited
+    public final NumberPath<Long> viewCnt = _super.viewCnt;
 
     public QRecruitment(String variable) {
         super(Recruitment.class, forVariable(variable));

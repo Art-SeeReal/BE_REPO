@@ -19,25 +19,33 @@ public class QRequestDelete extends EntityPathBase<RequestDelete> {
 
     public static final QRequestDelete requestDelete = new QRequestDelete("requestDelete");
 
-    public final StringPath content = createString("content");
+    public final com.ArtSeeReal.pro.entity.module.QRequestModule _super = new com.ArtSeeReal.pro.entity.module.QRequestModule(this);
+
+    //inherited
+    public final StringPath content = _super.content;
 
     public final DateTimePath<java.time.LocalDateTime> delDate = createDateTime("delDate", java.time.LocalDateTime.class);
 
     public final StringPath delUserUid = createString("delUserUid");
 
-    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     public final StringPath requestUid = createString("requestUid");
 
-    public final BooleanPath secret = createBoolean("secret");
+    //inherited
+    public final BooleanPath secret = _super.secret;
 
-    public final StringPath title = createString("title");
+    //inherited
+    public final StringPath title = _super.title;
 
-    public final NumberPath<Long> type = createNumber("type", Long.class);
+    //inherited
+    public final NumberPath<Long> type = _super.type;
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
     public QRequestDelete(String variable) {
         super(RequestDelete.class, forVariable(variable));

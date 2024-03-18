@@ -1,6 +1,6 @@
 package com.ArtSeeReal.pro.entity.delete;
 
-import com.ArtSeeReal.pro.enums.ObjType;
+import com.ArtSeeReal.pro.entity.module.UserObjModule;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserObjDelete {
+public class UserObjDelete extends UserObjModule {
 
     @Id
     @Column(length = 64,nullable = false)
@@ -23,15 +23,6 @@ public class UserObjDelete {
 
     @Column(length = 64,nullable = false)
     private String userObjUid;
-
-    @Column(length = 64,nullable = false)
-    private String userUid;
-
-    @Column(length = 64,nullable = false)
-    private String targetUid;
-
-    @Column(nullable = false)
-    private ObjType targetType;
 
     @Column(nullable = false)
     private LocalDateTime delDate;

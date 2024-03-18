@@ -1,21 +1,22 @@
 package com.ArtSeeReal.pro.entity.history;
 
+import com.ArtSeeReal.pro.entity.module.PortfolioModule;
 import com.ArtSeeReal.pro.enums.RegionType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity(name = "PORTFOLIO_HISTORY_TB")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class PortfolioHistory {
+@SuperBuilder
+public class PortfolioHistory extends PortfolioModule {
 
     @Id
     @Column(length = 64,nullable = false)
@@ -24,41 +25,20 @@ public class PortfolioHistory {
     @Column(length = 64,nullable = false)
     private String boardUid;
 
-    @Column(length = 64,nullable = false)
-    private String userUid;
-
-    @Column(nullable = false, columnDefinition = "BIGINT default 0")
-    private Long viewCnt;
-
     @Column(length = 128, nullable = false)
-    private String oldTitle;
+    private String exTitle;
 
     @Column(nullable = false, columnDefinition = "TEXT")
-    private String oldContent;
+    private String exContent;
 
     @Column(nullable = false)
-    private RegionType oldRegionType;
+    private RegionType exRegionType;
 
     @Column(nullable = false)
-    private Long oldCategory;
+    private Long exCategory;
 
     @Column(length = 256)
-    private String oldThumbnail;
-
-    @Column(length = 128, nullable = false)
-    private String newTitle;
-
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String newContent;
-
-    @Column(nullable = false)
-    private RegionType newRegionType;
-
-    @Column(nullable = false)
-    private Long newCategory;
-
-    @Column(length = 256)
-    private String newThumbnail;
+    private String exThumbnail;
 
     @Column(nullable = false)
     private LocalDateTime modDate;

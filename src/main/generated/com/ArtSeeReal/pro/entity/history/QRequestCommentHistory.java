@@ -19,21 +19,29 @@ public class QRequestCommentHistory extends EntityPathBase<RequestCommentHistory
 
     public static final QRequestCommentHistory requestCommentHistory = new QRequestCommentHistory("requestCommentHistory");
 
+    public final com.ArtSeeReal.pro.entity.module.QRequestCommentModule _super = new com.ArtSeeReal.pro.entity.module.QRequestCommentModule(this);
+
+    //inherited
+    public final StringPath content = _super.content;
+
+    public final StringPath exContent = createString("exContent");
+
     public final DateTimePath<java.time.LocalDateTime> modDate = createDateTime("modDate", java.time.LocalDateTime.class);
 
     public final StringPath modUserUid = createString("modUserUid");
 
-    public final StringPath newContent = createString("newContent");
+    //inherited
+    public final StringPath postUid = _super.postUid;
 
-    public final StringPath oldContent = createString("oldContent");
-
-    public final StringPath postUid = createString("postUid");
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     public final StringPath requestCommentUid = createString("requestCommentUid");
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
     public QRequestCommentHistory(String variable) {
         super(RequestCommentHistory.class, forVariable(variable));

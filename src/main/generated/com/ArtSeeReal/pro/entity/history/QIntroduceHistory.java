@@ -19,19 +19,23 @@ public class QIntroduceHistory extends EntityPathBase<IntroduceHistory> {
 
     public static final QIntroduceHistory introduceHistory = new QIntroduceHistory("introduceHistory");
 
+    public final com.ArtSeeReal.pro.entity.module.QIntroduceModule _super = new com.ArtSeeReal.pro.entity.module.QIntroduceModule(this);
+
+    //inherited
+    public final StringPath content = _super.content;
+
+    public final StringPath exContent = createString("exContent");
+
     public final StringPath introduceUid = createString("introduceUid");
 
     public final DateTimePath<java.time.LocalDateTime> modDate = createDateTime("modDate", java.time.LocalDateTime.class);
 
     public final StringPath modUserUid = createString("modUserUid");
 
-    public final StringPath newContent = createString("newContent");
-
-    public final StringPath oldContent = createString("oldContent");
-
     public final StringPath uid = createString("uid");
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
     public QIntroduceHistory(String variable) {
         super(IntroduceHistory.class, forVariable(variable));

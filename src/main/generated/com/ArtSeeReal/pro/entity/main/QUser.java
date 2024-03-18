@@ -19,29 +19,42 @@ public class QUser extends EntityPathBase<User> {
 
     public static final QUser user = new QUser("user");
 
-    public final StringPath email = createString("email");
+    public final com.ArtSeeReal.pro.entity.module.QUserModule _super = new com.ArtSeeReal.pro.entity.module.QUserModule(this);
 
-    public final BooleanPath emailSecret = createBoolean("emailSecret");
+    //inherited
+    public final StringPath email = _super.email;
 
-    public final StringPath name = createString("name");
+    //inherited
+    public final BooleanPath emailSecret = _super.emailSecret;
 
-    public final StringPath nickname = createString("nickname");
+    //inherited
+    public final StringPath name = _super.name;
 
-    public final StringPath password = createString("password");
+    //inherited
+    public final StringPath nickname = _super.nickname;
 
-    public final StringPath phone = createString("phone");
+    //inherited
+    public final StringPath password = _super.password;
 
-    public final BooleanPath phoneSecret = createBoolean("phoneSecret");
+    //inherited
+    public final StringPath phone = _super.phone;
 
-    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
+    //inherited
+    public final BooleanPath phoneSecret = _super.phoneSecret;
 
-    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> regionType = createEnum("regionType", com.ArtSeeReal.pro.enums.RegionType.class);
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
+
+    //inherited
+    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> regionType = _super.regionType;
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath userId = createString("userId");
+    //inherited
+    public final StringPath userId = _super.userId;
 
-    public final EnumPath<com.ArtSeeReal.pro.enums.UserType> userType = createEnum("userType", com.ArtSeeReal.pro.enums.UserType.class);
+    //inherited
+    public final EnumPath<com.ArtSeeReal.pro.enums.UserType> userType = _super.userType;
 
     public QUser(String variable) {
         super(User.class, forVariable(variable));

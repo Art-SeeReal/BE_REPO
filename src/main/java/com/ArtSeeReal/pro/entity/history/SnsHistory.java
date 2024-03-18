@@ -5,15 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity(name = "SNS_HISTORY_TB")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class SnsHistory {
 
     @Id
@@ -23,14 +23,8 @@ public class SnsHistory {
     @Column(length = 64,nullable = false)
     private String snsUid;
 
-    @Column(length = 64,nullable = false)
-    private String userUid;
-
     @Column(length = 256, nullable = false)
-    private String oldUrl;
-
-    @Column(length = 256, nullable = false)
-    private String newUrl;
+    private String exUrl;
 
     @Column(nullable = false)
     private LocalDateTime modDate;
