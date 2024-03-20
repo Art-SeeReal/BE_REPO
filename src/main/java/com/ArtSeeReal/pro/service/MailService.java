@@ -1,7 +1,7 @@
 package com.ArtSeeReal.pro.service;
 
 import com.ArtSeeReal.pro.entity.main.User;
-import com.ArtSeeReal.pro.repository.main.UserRepository;
+import com.ArtSeeReal.pro.repository.jpa.main.UserRepository;
 import jakarta.mail.internet.MimeMessage;
 import java.io.BufferedReader;
 import java.io.IOException;

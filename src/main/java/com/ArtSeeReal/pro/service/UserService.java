@@ -8,13 +8,12 @@ import com.ArtSeeReal.pro.dto.user.UserUpdateRequestDTO;
 import com.ArtSeeReal.pro.entity.delete.UserDelete;
 import com.ArtSeeReal.pro.entity.history.UserHistory;
 import com.ArtSeeReal.pro.entity.main.User;
-import com.ArtSeeReal.pro.repository.delete.UserDeleteRepository;
-import com.ArtSeeReal.pro.repository.history.UserHistoryRepository;
-import com.ArtSeeReal.pro.repository.main.UserRepository;
+import com.ArtSeeReal.pro.repository.jpa.delete.UserDeleteRepository;
+import com.ArtSeeReal.pro.repository.jpa.history.UserHistoryRepository;
+import com.ArtSeeReal.pro.repository.jpa.main.UserRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
