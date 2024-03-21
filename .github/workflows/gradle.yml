@@ -31,17 +31,24 @@ jobs:
           ./gradlew build
           ls -R
           
+      - name: copy file via ssh key
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          port: 22
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "./build/libs/pro-0.0.1-SNAPSHOT.jar"
+          target: ~/art_see_real/backend/server
+          
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }} # 내가 변수로 저장한 pem key
-          host: ${{ secrets.HOST }} # 내가 변수로 저장한 ip
-          username: ${{ secrets.USER }} # 내가 변수로 저장한 User
+          key: ${{ secrets.SSH_PRIVATE_KEY }} # EC2 인스턴스에 연결하기 위한 개인 키
+          host: ${{ secrets.HOST }} # EC2 인스턴스 IP
+          username: ${{ secrets.USER }} # EC2 인스턴스 사용자 이름
           script: |
-            cd art_see_real_backend  # 실제 애플리케이션이 배포될 디렉토리로 이동
-            # Stop any existing application
-            sudo systemctl stop artSeeReal.service
-            # Copy JAR file to the server
-            scp $GITHUB_WORKSPACE/build/libs/pro-0.0.1-SNAPSHOT.jar ${{ secrets.USER }}@${{ secrets.HOST }}:/art_see_real_backend
-            # Start the application
-            sudo systemctl start artSeeReal.service
+            sudo systemctl stop art_see_real
+            sleep 10
+            # 새로운 애플리케이션 시작
+            sudo systemctl start art_see_real
