@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "Swagger Test", description = "This is a test API")
+@Hidden // 일단 숨겨놓고 필요에 따라 다시 올리자
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin

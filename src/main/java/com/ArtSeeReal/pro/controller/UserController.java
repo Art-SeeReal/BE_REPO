@@ -1,12 +1,17 @@
 package com.ArtSeeReal.pro.controller;
 
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
+
 import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
 import com.ArtSeeReal.pro.dto.user.UserResponseDTO;
 import com.ArtSeeReal.pro.dto.user.UserUpdateRequestDTO;
 import com.ArtSeeReal.pro.service.MailService;
 import com.ArtSeeReal.pro.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import java.io.IOException;
+import jdk.jshell.spi.ExecutionControl.NotImplementedException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -16,66 +21,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+@Tag(name = "User API")
 @RestController
 @RequiredArgsConstructor
-@Log4j2
+@RequestMapping("/users")
 public class UserController {
 
-    private final UserService userService;
-    private final MailService mailService;
-
-    @GetMapping("/user")
-    public ResponseEntity<UserResponseDTO> readUser(@RequestParam String uid){
-        return new ResponseEntity<>(userService.readUser(uid),HttpStatus.OK);
-    }
-
-    @PostMapping("/user")
-    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO dto){
-        return new ResponseEntity<>(userService.createUser(dto), HttpStatus.OK);
-    }
-
-    @PutMapping("/user")
-    public ResponseEntity<UserResponseDTO> updateUser(@RequestBody UserUpdateRequestDTO dto){
-        return new ResponseEntity<>(userService.updateUser(dto),HttpStatus.OK);
-    }
-    @DeleteMapping("/user")
-    public ResponseEntity<String> deleteUser(@RequestParam String uid,@RequestParam String delUserUid){
-        return new ResponseEntity<>(userService.deleteUser(uid,delUserUid),HttpStatus.NO_CONTENT);
-    }
-
-    @GetMapping("/user/duplicate/userId")
-    public ResponseEntity<Boolean> checkDuplicateUserId(@RequestParam(name = "userId") String userId){
-        return new ResponseEntity<>(userService.checkDuplicateUserId(userId), HttpStatus.OK);
-    }
-
-    @GetMapping("/user/duplicate/nickname")
-    public ResponseEntity<Boolean> checkDuplicateNickname(@RequestParam(name = "nickname") String nickname){
-        return new ResponseEntity<>(userService.checkDuplicateUserNickname(nickname), HttpStatus.OK);
-    }
-
-    @GetMapping("/user/duplicate/email")
-    public ResponseEntity<Boolean> checkDuplicateEmail(@RequestParam(name = "email") String email){
-        return new ResponseEntity<>(userService.checkDuplicateUserEmail(email), HttpStatus.OK);
-    }
-
-    @GetMapping("/user/idFind")
-    public ResponseEntity<String> idFind(
-            @RequestParam(name = "name") String name,
-            @RequestParam(name = "email") String email) throws MessagingException, IOException {
-        mailService.findId(name,email);
-        return new ResponseEntity<>("전송되었습니다.", HttpStatus.OK);
-    }
-
-    @GetMapping("/user/changePassword")
-    public ResponseEntity<String> changePassword(
-            @RequestParam(name = "name") String name,
-            @RequestParam(name = "email") String email,
-            @RequestParam(name = "userId") String userId) throws MessagingException, IOException {
-        mailService.changePassword(name,email,userId);
-        return new ResponseEntity<>("전송되었습니다.", HttpStatus.OK);
+    @GetMapping("/{userId}/profile")
+    @Operation(summary = "미구현 상태 입니다.")
+    public ResponseEntity<UserResponseDTO> readUser(
+            @RequestParam String userId) throws NotImplementedException {
+        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
 
 }
