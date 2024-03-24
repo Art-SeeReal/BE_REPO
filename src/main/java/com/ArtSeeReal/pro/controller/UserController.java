@@ -32,6 +32,7 @@ public class UserController {
         return new ResponseEntity<>(userService.readUser(uid),HttpStatus.OK);
     }
 
+    /* 회원가입 */
     @PostMapping("/user")
     public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO dto){
         return new ResponseEntity<>(userService.createUser(dto), HttpStatus.OK);

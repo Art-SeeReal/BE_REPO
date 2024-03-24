@@ -33,7 +33,7 @@ public class UserHistory {
     @Column(length = 16, nullable = false)
     private String oldName;
 
-    @Column(length = 32, nullable = false)
+    @Column(length = 64, nullable = false)
     private String oldPassword;
 
     @Column(length = 16, nullable = false, unique = true)
@@ -60,7 +60,7 @@ public class UserHistory {
     @Column(length = 16, nullable = false)
     private String newName;
 
-    @Column(length = 32, nullable = false)
+    @Column(length = 64, nullable = false)
     private String newPassword;
 
     @Column(length = 16, nullable = false, unique = true)
