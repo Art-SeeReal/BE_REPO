@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.entity.main;
 
+import com.ArtSeeReal.pro.entity.module.BannerModule;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -13,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class Banner {
+public class Banner extends BannerModule {
 
     @Id
     @Column(length = 64,nullable = false)

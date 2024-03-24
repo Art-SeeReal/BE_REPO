@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.entity.history;
 
+import com.ArtSeeReal.pro.entity.module.SnsModule;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -14,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class SnsHistory {
+public class SnsHistory extends SnsModule {
 
     @Id
     @Column(length = 64,nullable = false)
