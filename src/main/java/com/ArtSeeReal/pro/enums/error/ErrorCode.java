@@ -15,7 +15,7 @@ public enum ErrorCode implements EnumModel {
     TEMPORARY_SERVER_ERROR(400,"C000","에러 입니다."),
     INVALID_CODE(400, "C001", "Invalid Code"),
     RESOURCE_NOT_FOUND(204, "C002", "Resource not found"),
-    EXPIRED_CODE(400, "C003", "Expired Code"),
+    NO_DATA_ERROR(400, "C003", "[ERROR] DB에 데이터가 없습니다."),
     NOT_IMPLEMENTED_EXCEPTION(400, "C004", "아직 구현이 안되었습니다.");
 
     private int status;

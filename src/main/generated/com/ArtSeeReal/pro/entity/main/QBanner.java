@@ -19,13 +19,13 @@ public class QBanner extends EntityPathBase<Banner> {
 
     public static final QBanner banner = new QBanner("banner");
 
+    public final ArrayPath<byte[], Byte> imageData = createArray("imageData", byte[].class);
+
     public final StringPath linkUrl = createString("linkUrl");
 
     public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
 
     public final StringPath uid = createString("uid");
-
-    public final StringPath url = createString("url");
 
     public QBanner(String variable) {
         super(Banner.class, forVariable(variable));

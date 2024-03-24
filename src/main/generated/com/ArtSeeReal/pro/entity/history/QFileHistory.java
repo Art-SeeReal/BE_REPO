@@ -25,9 +25,9 @@ public class QFileHistory extends EntityPathBase<FileHistory> {
 
     public final StringPath modUserUid = createString("modUserUid");
 
-    public final StringPath newUrl = createString("newUrl");
+    public final ArrayPath<byte[], Byte> newImageData = createArray("newImageData", byte[].class);
 
-    public final StringPath oldUrl = createString("oldUrl");
+    public final ArrayPath<byte[], Byte> oldImageData = createArray("oldImageData", byte[].class);
 
     public final StringPath targetUid = createString("targetUid");
 

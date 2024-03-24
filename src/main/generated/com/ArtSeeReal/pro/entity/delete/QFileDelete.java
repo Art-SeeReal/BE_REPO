@@ -25,11 +25,11 @@ public class QFileDelete extends EntityPathBase<FileDelete> {
 
     public final StringPath fileUid = createString("fileUid");
 
+    public final ArrayPath<byte[], Byte> imageData = createArray("imageData", byte[].class);
+
     public final StringPath targetUid = createString("targetUid");
 
     public final StringPath uid = createString("uid");
-
-    public final StringPath url = createString("url");
 
     public QFileDelete(String variable) {
         super(FileDelete.class, forVariable(variable));

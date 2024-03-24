@@ -4,7 +4,7 @@ import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
 import com.ArtSeeReal.pro.entity.main.File;
 import com.ArtSeeReal.pro.etc.ImageUtils;
-import com.ArtSeeReal.pro.repository.main.FileRepository;
+import com.ArtSeeReal.pro.repository.jpa.main.FileRepository;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

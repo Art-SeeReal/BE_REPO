@@ -19,11 +19,11 @@ public class QFile extends EntityPathBase<File> {
 
     public static final QFile file = new QFile("file");
 
+    public final ArrayPath<byte[], Byte> imageData = createArray("imageData", byte[].class);
+
     public final StringPath targetUid = createString("targetUid");
 
     public final StringPath uid = createString("uid");
-
-    public final StringPath url = createString("url");
 
     public QFile(String variable) {
         super(File.class, forVariable(variable));
