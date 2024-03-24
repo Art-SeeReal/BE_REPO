@@ -19,13 +19,18 @@ public class QUserObj extends EntityPathBase<UserObj> {
 
     public static final QUserObj userObj = new QUserObj("userObj");
 
-    public final EnumPath<com.ArtSeeReal.pro.enums.ObjType> targetType = createEnum("targetType", com.ArtSeeReal.pro.enums.ObjType.class);
+    public final com.ArtSeeReal.pro.entity.module.QUserObjModule _super = new com.ArtSeeReal.pro.entity.module.QUserObjModule(this);
 
-    public final StringPath targetUid = createString("targetUid");
+    //inherited
+    public final EnumPath<com.ArtSeeReal.pro.enums.ObjType> targetType = _super.targetType;
+
+    //inherited
+    public final StringPath targetUid = _super.targetUid;
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
     public QUserObj(String variable) {
         super(UserObj.class, forVariable(variable));

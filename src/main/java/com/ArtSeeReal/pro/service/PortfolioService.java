@@ -53,9 +53,12 @@ public class PortfolioService {
     public PortfolioReadResponseDTO updatePortfolio(PortfolioUpdateRequestDTO dto){
         Portfolio portfolio = portfolioRepository.findById(dto.getUid())
                 .orElseThrow(() -> new IllegalArgumentException(NO_BOARD_DATA_ERROR));
-        portfolio.updateFromDTO(dto);
         // TODO : 수정유저 데이터는 아마 스프링 시큐리티 끝나면 받아올 수 있을 듯
-        PortfolioHistory portfolioHistory = dto.createHistoryRecord(uidCreator(portfolioHistoryRepository), portfolio,"temp");
+        PortfolioHistory portfolioHistory = dto.createHistoryRecord(
+                uidCreator(portfolioHistoryRepository),
+                portfolio,
+                "temp");
+        portfolio.updateFromDTO(dto);
         portfolioHistoryRepository.save(portfolioHistory);
         Portfolio changedPortfolio = portfolioRepository.save(portfolio);
         PortfolioReadResponseDTO result = changedPortfolio.toReadResponseDTO();

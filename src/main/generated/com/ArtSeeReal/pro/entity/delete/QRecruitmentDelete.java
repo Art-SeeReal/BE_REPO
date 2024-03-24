@@ -19,31 +19,42 @@ public class QRecruitmentDelete extends EntityPathBase<RecruitmentDelete> {
 
     public static final QRecruitmentDelete recruitmentDelete = new QRecruitmentDelete("recruitmentDelete");
 
+    public final com.ArtSeeReal.pro.entity.module.QRecruitmentModule _super = new com.ArtSeeReal.pro.entity.module.QRecruitmentModule(this);
+
     public final StringPath boardUid = createString("boardUid");
 
-    public final NumberPath<Long> category = createNumber("category", Long.class);
+    //inherited
+    public final NumberPath<Long> category = _super.category;
 
-    public final StringPath content = createString("content");
+    //inherited
+    public final StringPath content = _super.content;
 
     public final DateTimePath<java.time.LocalDateTime> delDate = createDateTime("delDate", java.time.LocalDateTime.class);
 
     public final StringPath delUserUid = createString("delUserUid");
 
-    public final DateTimePath<java.time.LocalDateTime> dueDate = createDateTime("dueDate", java.time.LocalDateTime.class);
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> dueDate = _super.dueDate;
 
-    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
-    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> regionType = createEnum("regionType", com.ArtSeeReal.pro.enums.RegionType.class);
+    //inherited
+    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> regionType = _super.regionType;
 
-    public final StringPath thumbnail = createString("thumbnail");
+    //inherited
+    public final StringPath thumbnail = _super.thumbnail;
 
-    public final StringPath title = createString("title");
+    //inherited
+    public final StringPath title = _super.title;
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
-    public final NumberPath<Long> viewCnt = createNumber("viewCnt", Long.class);
+    //inherited
+    public final NumberPath<Long> viewCnt = _super.viewCnt;
 
     public QRecruitmentDelete(String variable) {
         super(RecruitmentDelete.class, forVariable(variable));

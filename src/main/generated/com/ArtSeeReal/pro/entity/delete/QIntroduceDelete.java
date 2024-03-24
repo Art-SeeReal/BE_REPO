@@ -19,7 +19,10 @@ public class QIntroduceDelete extends EntityPathBase<IntroduceDelete> {
 
     public static final QIntroduceDelete introduceDelete = new QIntroduceDelete("introduceDelete");
 
-    public final StringPath content = createString("content");
+    public final com.ArtSeeReal.pro.entity.module.QIntroduceModule _super = new com.ArtSeeReal.pro.entity.module.QIntroduceModule(this);
+
+    //inherited
+    public final StringPath content = _super.content;
 
     public final DateTimePath<java.time.LocalDateTime> delDate = createDateTime("delDate", java.time.LocalDateTime.class);
 
@@ -29,7 +32,8 @@ public class QIntroduceDelete extends EntityPathBase<IntroduceDelete> {
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
     public QIntroduceDelete(String variable) {
         super(IntroduceDelete.class, forVariable(variable));

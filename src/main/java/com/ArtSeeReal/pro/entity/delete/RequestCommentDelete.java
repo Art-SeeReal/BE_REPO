@@ -1,20 +1,21 @@
 package com.ArtSeeReal.pro.entity.delete;
 
+import com.ArtSeeReal.pro.entity.module.RequestCommentModule;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity(name = "REQUEST_COMMENT_DELETE_TB")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class RequestCommentDelete {
+@SuperBuilder
+public class RequestCommentDelete extends RequestCommentModule {
 
     @Id
     @Column(length = 64,nullable = false)
@@ -22,18 +23,6 @@ public class RequestCommentDelete {
 
     @Column(length = 64,nullable = false)
     private String requestCommentUid;
-
-    @Column(length = 64,nullable = false)
-    private String userUid;
-
-    @Column(length = 64,nullable = false)
-    private String postUid;
-
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String content;
-
-    @Column(nullable = false)
-    private LocalDateTime regDate;
 
     @Column(nullable = false)
     private LocalDateTime delDate;

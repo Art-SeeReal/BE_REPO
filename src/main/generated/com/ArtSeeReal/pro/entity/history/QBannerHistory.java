@@ -19,21 +19,28 @@ public class QBannerHistory extends EntityPathBase<BannerHistory> {
 
     public static final QBannerHistory bannerHistory = new QBannerHistory("bannerHistory");
 
+    public final com.ArtSeeReal.pro.entity.module.QBannerModule _super = new com.ArtSeeReal.pro.entity.module.QBannerModule(this);
+
     public final StringPath bannerUid = createString("bannerUid");
+
+    public final StringPath exLinkUrl = createString("exLinkUrl");
+
+    public final StringPath exUrl = createString("exUrl");
+
+    //inherited
+    public final StringPath linkUrl = _super.linkUrl;
 
     public final DateTimePath<java.time.LocalDateTime> modDate = createDateTime("modDate", java.time.LocalDateTime.class);
 
     public final StringPath modUserUid = createString("modUserUid");
 
-    public final StringPath newLinkUrl = createString("newLinkUrl");
-
-    public final StringPath newUrl = createString("newUrl");
-
-    public final StringPath oldLinkUrl = createString("oldLinkUrl");
-
-    public final StringPath oldUrl = createString("oldUrl");
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     public final StringPath uid = createString("uid");
+
+    //inherited
+    public final StringPath url = _super.url;
 
     public QBannerHistory(String variable) {
         super(BannerHistory.class, forVariable(variable));

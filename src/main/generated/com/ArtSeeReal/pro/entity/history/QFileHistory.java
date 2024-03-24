@@ -19,19 +19,23 @@ public class QFileHistory extends EntityPathBase<FileHistory> {
 
     public static final QFileHistory fileHistory = new QFileHistory("fileHistory");
 
+    public final com.ArtSeeReal.pro.entity.module.QFileModule _super = new com.ArtSeeReal.pro.entity.module.QFileModule(this);
+
+    public final StringPath exUrl = createString("exUrl");
+
     public final StringPath fileUid = createString("fileUid");
 
     public final DateTimePath<java.time.LocalDateTime> modDate = createDateTime("modDate", java.time.LocalDateTime.class);
 
     public final StringPath modUserUid = createString("modUserUid");
 
-    public final ArrayPath<byte[], Byte> newImageData = createArray("newImageData", byte[].class);
-
-    public final ArrayPath<byte[], Byte> oldImageData = createArray("oldImageData", byte[].class);
-
-    public final StringPath targetUid = createString("targetUid");
+    //inherited
+    public final StringPath targetUid = _super.targetUid;
 
     public final StringPath uid = createString("uid");
+
+    //inherited
+    public final StringPath url = _super.url;
 
     public QFileHistory(String variable) {
         super(FileHistory.class, forVariable(variable));
