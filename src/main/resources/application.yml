@@ -19,12 +19,9 @@ spring:
     path match:
       matching-strategy: ant_path_matcher
 
-  thymeleaf: # 스프링 시큐리티 설정 시 필요한 ViewResolver 구성을 위해 타임리프 추가
-    prefix: classpath:/templates/
-    suffix: .html
-    mode: HTML
-    encoding: UTF-8
-    cache: false # 개발 중에는 캐시를 비활성화하는 것이 좋음.
+  jwt:
+    secret: artseerealqwertyuioplkjhgfdsazxcvbnm
+
 
 Email:
 
@@ -34,11 +31,11 @@ passwordPath:
   template: /templates/passwordForm.html
 
 
-logging:
-  level:
-    org:
-      springframework:
-        security: debug
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        security: debug
 
 spring-doc:
   packages-to-scan: com.ArtSeeReal.pro.controller

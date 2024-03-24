@@ -14,6 +14,7 @@ import com.ArtSeeReal.pro.repository.jpa.main.UserRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,10 +30,13 @@ public class UserService {
     private final UserHistoryRepository userHistoryRepository;
     private final UserDeleteRepository userDeleteRepository;
 
+    private final BCryptPasswordEncoder passwordEncoder; // 비밀번호 암호화(최대 60자) 저장
+
     public UserResponseDTO createUser(UserRequestDTO dto){
         dto.setUid(uidCreator(userRepository));
-        User user = userRepository.save(dto.from());
-        return user.from();
+        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+        User user = userRepository.save(dto.from()); // 요청 DTO에서 User 객체로 변환
+        return user.from(); // User 객체에서 응답 DTO로 변환
     }
 
     public UserResponseDTO readUser(String uid){
