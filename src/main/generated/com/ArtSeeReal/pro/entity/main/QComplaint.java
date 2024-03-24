@@ -19,15 +19,21 @@ public class QComplaint extends EntityPathBase<Complaint> {
 
     public static final QComplaint complaint = new QComplaint("complaint");
 
-    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
+    public final com.ArtSeeReal.pro.entity.module.QComplaintModule _super = new com.ArtSeeReal.pro.entity.module.QComplaintModule(this);
 
-    public final StringPath targetUid = createString("targetUid");
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
-    public final EnumPath<com.ArtSeeReal.pro.enums.ComplaintType> type = createEnum("type", com.ArtSeeReal.pro.enums.ComplaintType.class);
+    //inherited
+    public final StringPath targetUid = _super.targetUid;
+
+    //inherited
+    public final EnumPath<com.ArtSeeReal.pro.enums.ComplaintType> type = _super.type;
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
     public QComplaint(String variable) {
         super(Complaint.class, forVariable(variable));

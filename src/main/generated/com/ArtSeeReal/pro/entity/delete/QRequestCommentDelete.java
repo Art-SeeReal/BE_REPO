@@ -19,21 +19,27 @@ public class QRequestCommentDelete extends EntityPathBase<RequestCommentDelete> 
 
     public static final QRequestCommentDelete requestCommentDelete = new QRequestCommentDelete("requestCommentDelete");
 
-    public final StringPath content = createString("content");
+    public final com.ArtSeeReal.pro.entity.module.QRequestCommentModule _super = new com.ArtSeeReal.pro.entity.module.QRequestCommentModule(this);
+
+    //inherited
+    public final StringPath content = _super.content;
 
     public final DateTimePath<java.time.LocalDateTime> delDate = createDateTime("delDate", java.time.LocalDateTime.class);
 
     public final StringPath delUserUid = createString("delUserUid");
 
-    public final StringPath postUid = createString("postUid");
+    //inherited
+    public final StringPath postUid = _super.postUid;
 
-    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     public final StringPath requestCommentUid = createString("requestCommentUid");
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
     public QRequestCommentDelete(String variable) {
         super(RequestCommentDelete.class, forVariable(variable));

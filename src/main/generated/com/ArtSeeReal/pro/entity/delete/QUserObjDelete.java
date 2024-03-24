@@ -19,19 +19,24 @@ public class QUserObjDelete extends EntityPathBase<UserObjDelete> {
 
     public static final QUserObjDelete userObjDelete = new QUserObjDelete("userObjDelete");
 
+    public final com.ArtSeeReal.pro.entity.module.QUserObjModule _super = new com.ArtSeeReal.pro.entity.module.QUserObjModule(this);
+
     public final DateTimePath<java.time.LocalDateTime> delDate = createDateTime("delDate", java.time.LocalDateTime.class);
 
     public final StringPath delUserUid = createString("delUserUid");
 
-    public final EnumPath<com.ArtSeeReal.pro.enums.ObjType> targetType = createEnum("targetType", com.ArtSeeReal.pro.enums.ObjType.class);
+    //inherited
+    public final EnumPath<com.ArtSeeReal.pro.enums.ObjType> targetType = _super.targetType;
 
-    public final StringPath targetUid = createString("targetUid");
+    //inherited
+    public final StringPath targetUid = _super.targetUid;
 
     public final StringPath uid = createString("uid");
 
     public final StringPath userObjUid = createString("userObjUid");
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
     public QUserObjDelete(String variable) {
         super(UserObjDelete.class, forVariable(variable));

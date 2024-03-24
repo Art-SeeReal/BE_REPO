@@ -19,11 +19,15 @@ public class QFile extends EntityPathBase<File> {
 
     public static final QFile file = new QFile("file");
 
-    public final StringPath targetUid = createString("targetUid");
+    public final com.ArtSeeReal.pro.entity.module.QFileModule _super = new com.ArtSeeReal.pro.entity.module.QFileModule(this);
+
+    //inherited
+    public final StringPath targetUid = _super.targetUid;
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath url = createString("url");
+    //inherited
+    public final StringPath url = _super.url;
 
     public QFile(String variable) {
         super(File.class, forVariable(variable));

@@ -59,11 +59,12 @@ public class RecruitmentService {
     public RecruitmentReadResponseDTO updateRecruitment(RecruitmentUpdateRequestDTO dto){
         Recruitment recruitment = recruitmentRepository.findById(dto.getUid())
                 .orElseThrow(() -> new IllegalArgumentException(NO_BOARD_DATA_ERROR));
-        recruitment.updateFromDTO(dto);
-        // TODO : 수정유저 데이터는 아마 스프링 시큐리티 끝나면 받아올 수 있을 듯
-        RecruitmentHistory recruitmentHistory = dto.createHistoryRecord(uidCreator(recruitmentHistoryRepository),
+        RecruitmentHistory recruitmentHistory = dto.createHistoryRecord(
+                uidCreator(recruitmentHistoryRepository),
                 recruitment,
                 "temp");
+        recruitment.updateFromDTO(dto);
+        // TODO : 수정유저 데이터는 아마 스프링 시큐리티 끝나면 받아올 수 있을 듯
         recruitmentHistoryRepository.save(recruitmentHistory);
         Recruitment changedRecruitment = recruitmentRepository.save(recruitment);
         RecruitmentReadResponseDTO result = changedRecruitment.toReadResponseDTO();

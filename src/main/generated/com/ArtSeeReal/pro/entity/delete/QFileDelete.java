@@ -19,17 +19,21 @@ public class QFileDelete extends EntityPathBase<FileDelete> {
 
     public static final QFileDelete fileDelete = new QFileDelete("fileDelete");
 
+    public final com.ArtSeeReal.pro.entity.module.QFileModule _super = new com.ArtSeeReal.pro.entity.module.QFileModule(this);
+
     public final DateTimePath<java.time.LocalDateTime> delDate = createDateTime("delDate", java.time.LocalDateTime.class);
 
     public final StringPath delUserUid = createString("delUserUid");
 
     public final StringPath fileUid = createString("fileUid");
 
-    public final StringPath targetUid = createString("targetUid");
+    //inherited
+    public final StringPath targetUid = _super.targetUid;
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath url = createString("url");
+    //inherited
+    public final StringPath url = _super.url;
 
     public QFileDelete(String variable) {
         super(FileDelete.class, forVariable(variable));
