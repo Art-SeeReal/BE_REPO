@@ -3,7 +3,6 @@ package com.ArtSeeReal.pro.bannerTests;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.ArtSeeReal.pro.dto.banner.BannerCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.banner.BannerCreateResponseDTO;
 import com.ArtSeeReal.pro.dto.banner.BannerReadResponseDTO;
 import com.ArtSeeReal.pro.service.BannerService;
 import java.io.IOException;

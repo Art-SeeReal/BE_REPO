@@ -3,7 +3,6 @@ package com.ArtSeeReal.pro.bannerTests;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.ArtSeeReal.pro.dto.banner.BannerCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.banner.BannerReadResponseDTO;
 import com.ArtSeeReal.pro.service.BannerService;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -49,7 +48,7 @@ public class BannerDeleteTest {
     }
 
     @Test
-    void 배너_읽어오기(){
+    void 배너_삭제하기(){
         bannerService.deleteBanner(uid);
     }
 }

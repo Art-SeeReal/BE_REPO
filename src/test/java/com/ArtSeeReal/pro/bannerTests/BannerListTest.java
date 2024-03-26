@@ -3,11 +3,9 @@ package com.ArtSeeReal.pro.bannerTests;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.ArtSeeReal.pro.dto.banner.BannerCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.banner.BannerReadResponseDTO;
 import com.ArtSeeReal.pro.service.BannerService;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
