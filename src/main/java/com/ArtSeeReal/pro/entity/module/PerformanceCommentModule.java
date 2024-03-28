@@ -2,6 +2,7 @@ package com.ArtSeeReal.pro.entity.module;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -12,10 +13,13 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @MappedSuperclass
 @SuperBuilder
-public abstract class FileModule {
-    @Column(length = 64,nullable = false)
+public abstract class PerformanceCommentModule {
+    @Column(nullable = false,length = 64)
+    protected String UserUid;
+    @Column(nullable = false)
     protected String targetUid;
-
-    @Column(length = 256, nullable = false)
-    protected String url;
+    @Column(nullable = false,length = 512)
+    protected String comment;
+    @Column(nullable = false)
+    protected LocalDateTime regDate;
 }

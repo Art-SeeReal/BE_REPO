@@ -24,7 +24,7 @@ public class BannerHistory extends BannerModule {
     @Column(length = 64,nullable = false)
     private String bannerUid;
 
-    @Column(length = 256, nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String exUrl;
 
     @Column(length = 512, nullable = false)

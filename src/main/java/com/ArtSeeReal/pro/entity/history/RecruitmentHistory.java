@@ -37,7 +37,7 @@ public class RecruitmentHistory extends RecruitmentModule {
     @Column(nullable = false)
     private Long exCategory;
 
-    @Column(length = 256)
+    @Column(columnDefinition = "TEXT")
     private String exThumbnail;
 
     @Column(nullable = false)
