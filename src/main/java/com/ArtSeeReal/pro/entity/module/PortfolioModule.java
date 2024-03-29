@@ -37,7 +37,7 @@ public abstract class PortfolioModule {
     protected LocalDateTime regDate;
 
     // TODO : 아마 바이트타입으로 바꿀 필요 있을 듯
-    @Column(length = 256)
+    @Column(columnDefinition = "TEXT")
     protected String thumbnail;
 
 }

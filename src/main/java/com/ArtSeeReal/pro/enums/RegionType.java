@@ -5,29 +5,31 @@ import lombok.Getter;
 @Getter
 public enum RegionType {
 
-    SEOUL("Seoul","서울",0),
-    BUSAN("Busan","부산",1),
-    DAEGU("Daegu","대구",2),
-    GWANGJU("Gwangju","광주",3),
-    INCHEON("incheon","인천",4),
-    DAEJEON("Daejeon","대전",5),
-    ULSAN("Ulsan","울산",6),
-    GYEONGGI("Gyeonggi","경기",7),
-    JEONNAM("Jeonnam","전남",8),
-    JEONBUK("Jeonbuk","전북",9),
-    GYEONGNAM("Gyeongnam","경남",10),
-    GYEONGBUK("Gyeongbuk","경북",11),
-    CHUNGNAM("Chungnam","충남",12),
-    CHUNGBUK("Chungbuk","충북",13),
-    JEJU("Jeju","제주",14);
+    SEOUL("I000","서울"),
+    BUSAN("H000","부산"),
+    DAEGU("F000","대구"),
+    GWANGJU("E000","광주"),
+    INCHEON("K000","인천"),
+    DAEJEON("G000","대전"),
+    ULSAN("J000","울산"),
+    SEJONG("1000","세종"),
+    GYEONGGI("B000","경기"),
+    GANGWON("A000","강원"),
+    JEONNAM("L000","전남"),
+    JEONBUK("M000","전북"),
+    GYEONGNAM("C000","경남"),
+    GYEONGBUK("D000","경북"),
+    CHUNGNAM("O000","충남"),
+    CHUNGBUK("P000","충북"),
+    JEJU("N000","제주");
 
-    private final String name;
-    private final String korean;
-    private final int number;
+    private final String code;
+    private final String label;
 
-    RegionType(String name,String korean, int number){
-        this.name = name;
-        this.korean = korean;
-        this.number = number;
+    RegionType(String code,String label){
+        this.code = code;
+        this.label = label;
     }
 }
+
+
