@@ -1,6 +1,6 @@
 package com.ArtSeeReal.pro.entity.history;
 
-import com.ArtSeeReal.pro.entity.module.FileModule;
+import com.ArtSeeReal.pro.entity.module.PerformanceCommentModule;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,26 +10,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-@Entity(name = "FILE_HISTORY_TB")
+@Entity(name = "SHOW_COMMENT_HISTORY_TB")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class FileHistory extends FileModule {
+public class PerformanceCommentHistory extends PerformanceCommentModule {
 
     @Id
     @Column(length = 64,nullable = false)
     private String uid;
 
     @Column(length = 64,nullable = false)
-    private String fileUid;
+    private String commentUid;
 
-    @Column(length = 256, nullable = false)
-    private String exUrl;
+    @Column(length = 64,nullable = false)
+    private String exComment;
 
     @Column(nullable = false)
     private LocalDateTime modDate;
 
     @Column(length = 64,nullable = false)
     private String modUserUid;
+
 }

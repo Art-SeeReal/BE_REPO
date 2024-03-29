@@ -19,7 +19,18 @@ public class QBanner extends EntityPathBase<Banner> {
 
     public static final QBanner banner = new QBanner("banner");
 
+    public final com.ArtSeeReal.pro.entity.module.QBannerModule _super = new com.ArtSeeReal.pro.entity.module.QBannerModule(this);
+
+    //inherited
+    public final StringPath linkUrl = _super.linkUrl;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
+
     public final StringPath uid = createString("uid");
+
+    //inherited
+    public final StringPath url = _super.url;
 
     public QBanner(String variable) {
         super(Banner.class, forVariable(variable));

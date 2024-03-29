@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @MappedSuperclass
 @SuperBuilder
 public abstract class BannerModule {
-    @Column(length = 256, nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     protected String url;
 
     @Column(length = 512, nullable = false)
