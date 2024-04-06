@@ -34,10 +34,10 @@ public class UserHistory extends UserModule {
     @Column(length = 32, nullable = false)
     private String exPassword;
 
-    @Column(length = 16, nullable = false, unique = true)
+    @Column(length = 16, nullable = false) // unique = true
     private String exNickname;
 
-    @Column(length = 64, nullable = false, unique = true)
+    @Column(length = 64, nullable = false) // unique = true
     private String exEmail;
 
     @Column(nullable = false)
@@ -90,4 +90,5 @@ public class UserHistory extends UserModule {
                 .modUserUid(dto.getModUserUid())
                 .build();
     }
+
 }

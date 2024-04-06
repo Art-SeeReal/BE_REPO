@@ -2,6 +2,7 @@ package com.ArtSeeReal.pro.entity.main;
 
 import com.ArtSeeReal.pro.dto.user.UserResponseDTO;
 import com.ArtSeeReal.pro.entity.delete.UserDelete;
+import com.ArtSeeReal.pro.entity.history.UserHistory;
 import com.ArtSeeReal.pro.entity.module.UserModule;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -60,6 +61,35 @@ public class User extends UserModule {
                 .regDate(regDate)
                 .delDate(LocalDateTime.now())
                 .delUserUid(delUserUid)
+                .build();
+    }
+
+    public UserHistory passwordOfUserHistory(String uid, String password){
+        return UserHistory.builder()
+                .uid(uid)
+                .userUid(this.uid)
+                .userId(userId)
+                .name(name)
+                .password(password)
+                .nickname(nickname)
+                .email(email)
+                .emailSecret(emailSecret)
+                .phone(phone)
+                .phoneSecret(phoneSecret)
+                .regionType(regionType)
+                .userType(userType)
+                .exName(name)
+                .exPassword(this.password)
+                .exNickname(nickname)
+                .exEmail(email)
+                .exEmailSecret(emailSecret)
+                .exPhone(phone)
+                .exPhoneSecret(phoneSecret)
+                .exRegionType(regionType)
+                .exUserType(userType)
+                .regDate(regDate)
+                .modDate(LocalDateTime.now())
+                .modUserUid(this.uid)
                 .build();
     }
 

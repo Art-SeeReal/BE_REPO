@@ -16,7 +16,11 @@ public enum ErrorCode implements EnumModel {
     INVALID_CODE(400, "C001", "Invalid Code"),
     RESOURCE_NOT_FOUND(204, "C002", "Resource not found"),
     EXPIRED_CODE(400, "C003", "Expired Code"),
-    NOT_IMPLEMENTED_EXCEPTION(400, "C004", "아직 구현이 안되었습니다.");
+    NOT_IMPLEMENTED_EXCEPTION(400, "C004", "아직 구현이 안되었습니다."),
+    EMAIL_NOT_EQUAL_ERROR(400,"C005","[ERROR] 이메일이 존재하지 않습니다."),
+    NAME_NOT_EQUAL_ERROR(400,"C005","[ERROR] 이름이 존재하지 않습니다."),
+    ID_NOT_EQUAL_ERROR(400,"C007","[ERROR] 주어진 이메일의 아이디와 제공된 아이디가 다릅니다."),
+    ID_NOT_FOUND(500,"C008","[ERROR] 아이디가 존재하지 않습니다."),;
 
     private int status;
     private String code;
@@ -38,4 +42,5 @@ public enum ErrorCode implements EnumModel {
     public String getValue() {
         return this.message;
     }
+
 }
