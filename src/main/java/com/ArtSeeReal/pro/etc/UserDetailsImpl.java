@@ -1,4 +1,4 @@
-package com.ArtSeeReal.pro.dto.user;
+package com.ArtSeeReal.pro.etc;
 
 import com.ArtSeeReal.pro.entity.main.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -7,10 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class CustomUserDetails implements UserDetails {
+public class UserDetailsImpl implements UserDetails {
     private final User user;
 
-    public CustomUserDetails(User user) {
+    public UserDetailsImpl(User user) {
         this.user = user;
     }
 
@@ -27,8 +27,16 @@ public class CustomUserDetails implements UserDetails {
     }
 
     @Override
-    public String getUsername() { // id 값 반환
+    public String getUsername() { // id 값 반환. 아래 getUserId 쓰는 것이 더 직관적.
         return user.getUserId();
+    }
+
+    public String getUserId(){
+        return user.getUserId();
+    }
+
+    public String getUserUid(){ // todo view로 보내줄 때 사용?
+        return user.getUid();
     }
 
     @Override

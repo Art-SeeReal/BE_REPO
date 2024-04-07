@@ -1,10 +1,11 @@
 package com.ArtSeeReal.pro.jwt;
 
-import com.ArtSeeReal.pro.service.CustomUserDetailsService;
+import com.ArtSeeReal.pro.service.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,12 +14,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+@Log4j2
 public class JWTFilter extends OncePerRequestFilter {
 
     private final JWTUtil jwtUtil;
-    private final CustomUserDetailsService userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
-    public JWTFilter(JWTUtil jwtUtil, CustomUserDetailsService userDetailsService) {
+    public JWTFilter(JWTUtil jwtUtil, UserDetailsServiceImpl userDetailsService) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
     }
@@ -30,19 +32,19 @@ public class JWTFilter extends OncePerRequestFilter {
 
         //Authorization 헤더 검증
         if (authorization == null || !authorization.startsWith("Bearer ")) {
-            System.out.println("token null");
+            log.error("token null");
             filterChain.doFilter(request, response);
             return;
         }
 
-        System.out.println("authorization now");
+        log.info("authorization now");
 
         //Bearer 부분 제거 후 순수 토큰만 획득
         String token = authorization.split(" ")[1];
 
         //토큰 소멸 시간 검증
         if (jwtUtil.isExpired(token)) {
-            System.out.println("token expired");
+            log.error("token expired");
             filterChain.doFilter(request, response);
             return;
         }

@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.controller;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +13,7 @@ import java.util.Iterator;
 
 @Controller
 @ResponseBody
+@Hidden // todo Swagger에 안 뜨는지 확인
 public class MainController {
 
     @GetMapping("/")

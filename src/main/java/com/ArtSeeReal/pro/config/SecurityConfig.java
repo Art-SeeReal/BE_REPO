@@ -3,8 +3,9 @@ package com.ArtSeeReal.pro.config;
 import com.ArtSeeReal.pro.jwt.JWTFilter;
 import com.ArtSeeReal.pro.jwt.JWTUtil;
 import com.ArtSeeReal.pro.jwt.LoginFilter;
-import com.ArtSeeReal.pro.service.CustomUserDetailsService;
+import com.ArtSeeReal.pro.service.UserDetailsServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,16 +23,17 @@ import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration; //AuthenticationManager가 인자로 받을 AuthenticationConfiguraion 객체
     private final JWTUtil jwtUtil;
-    private final CustomUserDetailsService userDetailsService;
-
-    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil, CustomUserDetailsService userDetailsService) {
-        this.authenticationConfiguration = authenticationConfiguration;
-        this.jwtUtil = jwtUtil;
-        this.userDetailsService = userDetailsService;
-    }
+    private final UserDetailsServiceImpl userDetailsService;
+//
+//    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil, CustomUserDetailsService userDetailsService) {
+//        this.authenticationConfiguration = authenticationConfiguration;
+//        this.jwtUtil = jwtUtil;
+//        this.userDetailsService = userDetailsService;
+//    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -63,14 +65,14 @@ public class SecurityConfig {
             }
         })));
 
-        http.csrf((auth) -> auth.disable());
+        http.csrf((auth) -> auth.disable()); // todo able로 로그인 처리 되도록 해야함
 
         http.formLogin((auth) -> auth.disable());
 
         http.httpBasic((auth) -> auth.disable());
 
         http.authorizeHttpRequests((auth) -> auth
-                .requestMatchers("/user","/login","/").permitAll()
+                .requestMatchers("/user","/login","/", "/swagger-ui/index.html").permitAll() // todo swagger 접속 가능하도록 수정
                 .requestMatchers("/admin").hasAuthority("ROLE_ADMIN") // admin 권한을 가진 경우만 해당 경로 접근 혀용 .hasRole("ADMIN")로도 사용 가능
                 .anyRequest().authenticated());
 
