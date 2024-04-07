@@ -45,6 +45,10 @@ public class UserService {
                 .from();
     }
 
+    public Optional<User> findUserId(String userId){
+        return userRepository.findByUserId(userId);
+    }
+
     public UserResponseDTO updateUser(UserUpdateRequestDTO dto){
         User user = userRepository.findById(dto.getUid())
                 .orElseThrow(() -> new IllegalArgumentException(NO_USER_DATA_ERROR));
