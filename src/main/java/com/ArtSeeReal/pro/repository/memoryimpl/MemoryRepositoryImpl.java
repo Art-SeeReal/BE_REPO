@@ -4,9 +4,11 @@ import com.ArtSeeReal.pro.enums.system.SystemConstantEnum;
 import com.ArtSeeReal.pro.etc.UserAuthVO;
 import com.ArtSeeReal.pro.repository.memory.MemoryRepository;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.stereotype.Repository;
 
@@ -47,7 +49,7 @@ public class MemoryRepositoryImpl implements MemoryRepository {
 
     @Override // TODO : 메서드 이름 잘못된듯 authNumbers 에서 찾는건데 이런 이름은 전체에서 뒤지는 느낌임
     public String findByUserUidFromAuthNumbers(String authStr) {
-        return authNumbers.get(authNumbers).getUserUid();
+        return authNumbers.get(authStr).getUserUid();
     }
 
     @Override
@@ -77,6 +79,20 @@ public class MemoryRepositoryImpl implements MemoryRepository {
     @Override
     public String findByUserUidFromTokens(String token) {
         return tokens.get(token).getUserUid();
+    }
+
+    @Override
+    public String findAuthStr() {
+        return authNumbers.keySet()
+                .iterator()
+                .next();
+    }
+
+    @Override
+    public String findTokens() {
+        return tokens.keySet()
+                .iterator()
+                .next();
     }
 
     @Override

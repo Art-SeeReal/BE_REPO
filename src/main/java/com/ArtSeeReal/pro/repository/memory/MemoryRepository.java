@@ -9,6 +9,8 @@ public interface MemoryRepository {
     boolean existToken(String token);
     void deleteToken(String token);
     String findByUserUidFromTokens(String token);
+    String findAuthStr();
+    String findTokens();
     void removeExpiredAuthNumbers();
     void removeExpiredTokens();
 

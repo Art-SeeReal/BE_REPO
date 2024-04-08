@@ -19,14 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Transactional
-public class findIdTest {
+public class FindIdTest {
 
     private final MailService mailService;
     private final UserService userService;
     private String userUid;
 
     @Autowired
-    public findIdTest(MailService mailService, UserService userService) {
+    public FindIdTest(MailService mailService, UserService userService) {
         this.mailService = mailService;
         this.userService = userService;
     }

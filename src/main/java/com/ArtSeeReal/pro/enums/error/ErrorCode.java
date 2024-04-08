@@ -20,7 +20,10 @@ public enum ErrorCode implements EnumModel {
     EMAIL_NOT_EQUAL_ERROR(400,"C005","[ERROR] 이메일이 존재하지 않습니다."),
     NAME_NOT_EQUAL_ERROR(400,"C005","[ERROR] 이름이 존재하지 않습니다."),
     ID_NOT_EQUAL_ERROR(400,"C007","[ERROR] 주어진 이메일의 아이디와 제공된 아이디가 다릅니다."),
-    ID_NOT_FOUND(500,"C008","[ERROR] 아이디가 존재하지 않습니다."),;
+    ID_NOT_FOUND(500,"C008","[ERROR] 아이디가 존재하지 않습니다."),
+    NO_DATA_ERROR(500,"C009","[ERROR] 데이터가 존재하지 않습니다."),
+    NO_TOKEN_ERROR(500,"C010","[ERROR] 토큰이 존재하지 않습니다."),
+    NO_AUTH_STR_ERROR(500,"C011","[ERROR] 인증 문자열이 존재하지 않습니다."),;
 
     private int status;
     private String code;

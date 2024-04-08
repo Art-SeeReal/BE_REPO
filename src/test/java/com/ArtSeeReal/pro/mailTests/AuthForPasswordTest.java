@@ -2,29 +2,43 @@ package com.ArtSeeReal.pro.mailTests;
 
 import static com.ArtSeeReal.pro.enums.RegionType.SEOUL;
 import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
+import com.ArtSeeReal.pro.repository.memory.MemoryRepository;
 import com.ArtSeeReal.pro.service.MailService;
 import com.ArtSeeReal.pro.service.UserService;
 import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Scanner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Transactional
-public class authForPasswordTest {
+@ExtendWith(MockitoExtension.class)
+public class AuthForPasswordTest {
 
     private final MailService mailService;
     private final UserService userService;
     private String userUid;
     @Autowired
-    public authForPasswordTest(MailService mailService, UserService userService) {
+    public AuthForPasswordTest(MailService mailService, UserService userService) {
         this.mailService = mailService;
         this.userService = userService;
     }
@@ -37,8 +51,8 @@ public class authForPasswordTest {
                 .name("테스트")
                 .password("test1234")
                 .nickname("testNickname")
-//                .email("test@gmail.com")
-                .email("yusm1231@gmail.com")
+                .email("test@gmail.com")
+//                .email("yusm1231@gmail.com")
                 .emailSecret(true)
                 .phone("010-1234-5678")
                 .phoneSecret(true)
@@ -81,12 +95,11 @@ public class authForPasswordTest {
     }
 
     @Test
-    void 정상작동() throws MessagingException, IOException {
+    void 정상작동_이메일전송() throws MessagingException, IOException {
         String name = "테스트";
-        String email = "yusm1231@gmail.com";
+        String email = "test@gmail.com";
         String id = "testUser";
 
-        mailService.authForPassword(name,email,id);
-
+        mailService.authForPassword(name, email, id);
     }
 }

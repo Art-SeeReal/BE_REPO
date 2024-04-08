@@ -3,6 +3,9 @@ package com.ArtSeeReal.pro.serviceImpl;
 import static com.ArtSeeReal.pro.enums.error.ErrorCode.EMAIL_NOT_EQUAL_ERROR;
 import static com.ArtSeeReal.pro.enums.error.ErrorCode.ID_NOT_FOUND;
 import static com.ArtSeeReal.pro.enums.error.ErrorCode.NAME_NOT_EQUAL_ERROR;
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_AUTH_STR_ERROR;
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_DATA_ERROR;
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_TOKEN_ERROR;
 import static com.ArtSeeReal.pro.enums.system.SystemConstantEnum.ID_MINIMUM_LENGTH;
 import static com.ArtSeeReal.pro.enums.system.SystemConstantEnum.ID_REFERENCE_POINT;
 import static com.ArtSeeReal.pro.enums.system.SystemStringEnum.EMAIL_TITLE;
@@ -72,7 +75,6 @@ public class MailServiceImpl implements MailService {
             String setFrom = env.getProperty("auth_email");
             String msgg = getTemplate("password");
             msgg = msgg.replace("{name}", name);
-            // TODO : 5분 지나면 이 문자열을 리포지토리에서 삭제하는 기능 추가
             String authStr = memoryRepository.saveAuthStr(pwLostUser.getUid(), SystemStringEnum.generateRandomString());
             msgg = msgg.replace("{authStr}", authStr);
             mailSend(setFrom, email, EMAIL_TITLE.getText(), msgg);
@@ -86,27 +88,27 @@ public class MailServiceImpl implements MailService {
     @Override
     public String authCreateToken(String authRandomStr) {
         if(memoryRepository.existAuthStr(authRandomStr)) {
-            // TODO : 1차적으로는 리포지토리에 Token을 만들어서 사용 5분 지나면 리포에서 삭제
             // TODO : 2차적으로는 JWT 토큰으로 수정 해도 될듯
             String userUid = memoryRepository.findByUserUidFromAuthNumbers(authRandomStr);
             memoryRepository.deleteAuthStr(authRandomStr);
             return memoryRepository.saveToken(userUid, UUID.randomUUID().toString());
         }else
-            throw new IllegalArgumentException("");
+            throw new IllegalArgumentException(NO_AUTH_STR_ERROR.getMessage());
     }
 
     @Override
     public void changePassword(String token, String password) {
         if (memoryRepository.existToken(token)){
             User user = userRepository.findById(memoryRepository.findByUserUidFromTokens(token))
-                    .orElseThrow(() -> new IllegalArgumentException(""));
+                    .orElseThrow(() -> new IllegalArgumentException(NO_DATA_ERROR.getMessage()));
             UserHistory userHistory = user.passwordOfUserHistory(uidCreator(userHistoryRepository), password);
             // TODO : 스프링 시큐리티 적용 후 비밀번호 암호화 요망
             user.passwordChange(password);
             userHistoryRepository.save(userHistory);
             userRepository.save(user);
             memoryRepository.deleteToken(token);
-        }
+        }else
+            throw new IllegalArgumentException(NO_TOKEN_ERROR.getMessage());
     }
 
     @Override
