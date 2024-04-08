@@ -4,6 +4,7 @@ import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.with.PortfolioWithUserDTO;
@@ -77,15 +78,12 @@ public class PortfolioService {
     }
 
     // TODO : 페이징 군을 나눌 때 지역, 분야, 제목, 작성자
-    public Page<PortfolioReadResponseDTO> pageReadPortfolio(Integer pageNum){
-        if (pageNum == null || pageNum < 1)
+    public Page<PortfolioReadResponseDTO> pageReadPortfolio(PortfolioReadRequestDTO dto){
+        if (dto.getPageNum() == null || dto.getPageNum() < 1)
             throw new IllegalArgumentException(NO_PAGE_ERROR);
 
-        // TODO : 페이지 갯수에 따라서 정할 수 있을 듯
-        Pageable pageable = PageRequest.of(pageNum - 1, 10);
-
         Page<PortfolioWithUserDTO> portfolioWithPage = portfolioQueryDslRepository
-                .findByUserAndPortfolioOrderByRegDateDesc(pageable);
+                .findByUserAndPortfolioOrderByRegDateDesc(dto);
 
         List<PortfolioReadResponseDTO> portfolioReadResponseDTOList = portfolioWithPage.getContent()
                 .stream()

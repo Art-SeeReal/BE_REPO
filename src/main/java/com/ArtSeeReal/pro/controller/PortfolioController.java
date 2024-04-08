@@ -4,6 +4,7 @@ import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION
 
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
 import com.ArtSeeReal.pro.service.PortfolioService;
@@ -57,7 +58,7 @@ public class PortfolioController {
     // TODO : 1차적으로는 페이징 처리만 했지만 검색과 합쳐야 할듯
     @GetMapping("/page")
     @Operation(summary = "준구현 상태 입니다.",description = "모든 포트폴리오를 시간의 역순으로 정렬하여 10개 반환 합니다.")
-    public ResponseEntity<Page<PortfolioReadResponseDTO>> pagePortfolio(Integer pageNum){
+    public ResponseEntity<Page<PortfolioReadResponseDTO>> pagePortfolio(PortfolioReadRequestDTO dto){
         return new ResponseEntity<>(portfolioService.pageReadPortfolio(pageNum), HttpStatus.OK);
     }
 
