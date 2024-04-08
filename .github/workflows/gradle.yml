@@ -48,4 +48,4 @@ jobs:
           host: ${{ secrets.HOST }} # EC2 인스턴스 IP
           username: ${{ secrets.USER }} # EC2 인스턴스 사용자 이름
           script: |
-            sudo /home/ubuntu/art_see_real/backend/server/art_see_real.sh
+            /home/ubuntu/art_see_real/backend/server/art_see_real.sh
