@@ -21,9 +21,9 @@ public class EmailConfig {
         mailSender.setHost("smtp.gmail.com"); // 메일 서버 호스트 설정
         mailSender.setPort(587); // 메일 서버 포트 설정
 
-        // 환경변수에 각 이름으로 운영자의 아이디 비밀번호를 넣어야 작동함
-        mailSender.setUsername(env.getProperty("auth_email")); // 인증에 사용할 이메일 계정 설정
-        mailSender.setPassword(env.getProperty("auth_password")); // 인증에 사용할 이메일 계정의 비밀번호 설정
+        // 환경변수에 각 이름으로 운영자의 아이디 비밀번호를 넣어야 작동함 // TODO : 대문자로 바꾸자 상수니까!
+        mailSender.setUsername(System.getenv("AUTH_EMAIL")); // 인증에 사용할 이메일 계정 설정
+        mailSender.setPassword(System.getenv("AUTH_PASSWORD")); // 인증에 사용할 이메일 계정의 비밀번호 설정
 
         Properties props = mailSender.getJavaMailProperties(); // JavaMail의 속성(Properties) 설정 객체 얻기
         props.put("mail.transport.protocol", "smtp"); // 메일 전송 프로토콜 설정
@@ -34,4 +34,5 @@ public class EmailConfig {
 
         return mailSender; // 생성된 JavaMailSender 객체 반환
     }
+
 }
