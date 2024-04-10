@@ -37,6 +37,7 @@ public class UserController {
     public ResponseEntity<UserResponseDTO> signUp(@RequestBody UserRequestDTO dto){
         return new ResponseEntity<>(userService.createUser(dto), HttpStatus.OK);
     }
+
     @DeleteMapping
     public ResponseEntity<String> deleteUser(@RequestParam String uid){
         // TODO : tempUser는 스프링 시큐리티 문제가 해결되면 될라나?

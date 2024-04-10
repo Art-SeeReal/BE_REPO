@@ -14,6 +14,8 @@ import com.ArtSeeReal.pro.repository.jpa.main.UserRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,8 +31,17 @@ public class UserService {
     private final UserHistoryRepository userHistoryRepository;
     private final UserDeleteRepository userDeleteRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     public UserResponseDTO createUser(UserRequestDTO dto){
+        checkDuplicateUserId(dto.getUserId());
+        checkDuplicateUserNickname(dto.getNickname());
+        checkDuplicateUserEmail(dto.getEmail());
+
         dto.setUid(uidCreator(userRepository));
+        dto.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
+System.out.println("dto = > " + dto);
         User user = userRepository.save(dto.from());
         return user.from();
     }
