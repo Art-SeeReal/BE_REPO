@@ -7,7 +7,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
 import com.ArtSeeReal.pro.repository.jpa.main.UserRepository;
-import com.ArtSeeReal.pro.serviceImpl.MailServiceImpl;
+import com.ArtSeeReal.pro.service.MailService;
 import com.ArtSeeReal.pro.service.UserService;
 import jakarta.mail.MessagingException;
 import java.io.IOException;
@@ -22,12 +22,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserLostInfo {
 
-    private final MailServiceImpl mailService;
+    private final MailService mailService;
     private final UserService userService;
     private final UserRepository userRepository;
 
     @Autowired
-    public UserLostInfo(MailServiceImpl mailService, UserService userService, UserRepository userRepository) {
+    public UserLostInfo(MailService mailService, UserService userService, UserRepository userRepository) {
         this.mailService = mailService;
         this.userService = userService;
         this.userRepository = userRepository;
@@ -71,13 +71,13 @@ public class UserLostInfo {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @Test
-    public void 아이디_찾기_정상작동() throws MessagingException, IOException {
-        String name = "테스트";
-        String email = "yusm1231@gmail.com"; // 자신의 이메일을 넣어서 실험 해보면 됩니다.
-
-        mailService.findId(name, email);
-    }
+//    @Test
+//    public void 아이디_찾기_정상작동() throws MessagingException, IOException {
+//        String name = "테스트";
+//        String email = "yusm1231@gmail.com"; // 자신의 이메일을 넣어서 실험 해보면 됩니다.
+//
+//        mailService.findId(name, email);
+//    }
 
 //    @Test
 //    public void 비밀번호찾기_이메일이_존재하지_않을_때() throws MessagingException, IOException {
