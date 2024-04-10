@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public abstract class BannerModule {
     @Column(columnDefinition = "TEXT", nullable = false)
-    protected String url;
+    protected byte[] imageData;
 
     @Column(length = 512, nullable = false)
     protected String linkUrl;

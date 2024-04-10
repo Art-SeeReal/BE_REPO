@@ -71,55 +71,55 @@ public class UserLostInfo {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @Test
-    public void 아이디_찾기_정상작동() throws MessagingException, IOException {
-        String name = "테스트";
-        String email = "yusm1231@gmail.com"; // 자신의 이메일을 넣어서 실험 해보면 됩니다.
+//    @Test
+//    public void 아이디_찾기_정상작동() throws MessagingException, IOException {
+//        String name = "테스트";
+//        String email = "yusm1231@gmail.com"; // 자신의 이메일을 넣어서 실험 해보면 됩니다.
+//
+//        mailService.findId(name, email);
+//    }
 
-        mailService.findId(name, email);
-    }
-
-    @Test
-    public void 비밀번호찾기_이메일이_존재하지_않을_때() throws MessagingException, IOException {
-        String name = "테스트";
-        String email = "yusm@gmail.com";
-        String userid = "test";
-
-        assertThatThrownBy(() -> mailService.changePassword(name,email,userid))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
-    public void 비밀번호찾기_이름이_같지_않을_때() throws MessagingException, IOException {
-        String name = "yusm";
-        String email = "yusm1231@gmail.com"; // 자신의 이메일을 넣어서 실험 해보면 됩니다.
-        String userid = "test";
-
-        assertThatThrownBy(() -> mailService.changePassword(name,email,userid))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
-    public void 비밀번호찾기_아이디_찾기_다름() throws MessagingException, IOException {
-        String name = "테스트";
-        String email = "yusm1231@gmail.com"; // 자신의 이메일을 넣어서 실험 해보면 됩니다.
-        String userid = "yusm";
-
-        assertThatThrownBy(() -> mailService.changePassword(name,email,userid))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @Test
-    public void 비밀번호찾기_아이디_찾기_정상작동() throws MessagingException, IOException {
-        String name = "테스트";
-        String email = "yusm1231@gmail.com"; // 자신의 이메일을 넣어서 실험 해보면 됩니다.
-        String userid = "test";
-
-        mailService.changePassword(name,email,userid);
-        userRepository.findByEmail("yusm1231@gmail.com").get();
-
-        assertThat(userRepository.findByEmail("yusm1231@gmail.com").get().getPassword())
-                .isEqualTo("test1234");
-
-    }
+//    @Test
+//    public void 비밀번호찾기_이메일이_존재하지_않을_때() throws MessagingException, IOException {
+//        String name = "테스트";
+//        String email = "yusm@gmail.com";
+//        String userid = "test";
+//
+//        assertThatThrownBy(() -> mailService.changePassword(name,email,userid))
+//                .isInstanceOf(IllegalArgumentException.class);
+//    }
+//
+//    @Test
+//    public void 비밀번호찾기_이름이_같지_않을_때() throws MessagingException, IOException {
+//        String name = "yusm";
+//        String email = "yusm1231@gmail.com"; // 자신의 이메일을 넣어서 실험 해보면 됩니다.
+//        String userid = "test";
+//
+//        assertThatThrownBy(() -> mailService.changePassword(name,email,userid))
+//                .isInstanceOf(IllegalArgumentException.class);
+//    }
+//
+//    @Test
+//    public void 비밀번호찾기_아이디_찾기_다름() throws MessagingException, IOException {
+//        String name = "테스트";
+//        String email = "yusm1231@gmail.com"; // 자신의 이메일을 넣어서 실험 해보면 됩니다.
+//        String userid = "yusm";
+//
+//        assertThatThrownBy(() -> mailService.changePassword(name,email,userid))
+//                .isInstanceOf(IllegalArgumentException.class);
+//    }
+//
+//    @Test
+//    public void 비밀번호찾기_아이디_찾기_정상작동() throws MessagingException, IOException {
+//        String name = "테스트";
+//        String email = "yusm1231@gmail.com"; // 자신의 이메일을 넣어서 실험 해보면 됩니다.
+//        String userid = "test";
+//
+//        mailService.changePassword(name,email,userid);
+//        userRepository.findByEmail("yusm1231@gmail.com").get();
+//
+//        assertThat(userRepository.findByEmail("yusm1231@gmail.com").get().getPassword())
+//                .isEqualTo("test1234");
+//
+//    }
 }

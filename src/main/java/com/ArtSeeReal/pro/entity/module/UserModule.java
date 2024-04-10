@@ -17,7 +17,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public abstract class UserModule {
 
-    @Column(length = 32, nullable = false, unique = true)
+    @Column(length = 32, nullable = false) // unique = true
     protected String userId;
 
     @Column(length = 16, nullable = false)
@@ -26,10 +26,10 @@ public abstract class UserModule {
     @Column(length = 32, nullable = false)
     protected String password;
 
-    @Column(length = 16, nullable = false, unique = true)
+    @Column(length = 16, nullable = false) // unique = true
     protected String nickname;
 
-    @Column(length = 64, nullable = false, unique = true)
+    @Column(length = 64, nullable = false) // unique = true
     protected String email;
 
     @Column(nullable = false)

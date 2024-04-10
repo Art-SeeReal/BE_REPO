@@ -25,7 +25,7 @@ public class BannerHistory extends BannerModule {
     private String bannerUid;
 
     @Column(columnDefinition = "TEXT", nullable = false)
-    private String exUrl;
+    private byte[] exImageData;
 
     @Column(length = 512, nullable = false)
     private String exLinkUrl;
