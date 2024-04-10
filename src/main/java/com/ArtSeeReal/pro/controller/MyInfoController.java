@@ -25,8 +25,4 @@ public class MyInfoController {
     public ResponseEntity<UserResponseDTO> readUser(@RequestParam String uid){
         return new ResponseEntity<>(userService.readUser(uid),HttpStatus.OK);
     }
-    @PutMapping
-    public ResponseEntity<UserResponseDTO> updateUser(@RequestBody UserUpdateRequestDTO dto){
-        return new ResponseEntity<>(userService.updateUser(dto), HttpStatus.OK);
-    }
 }

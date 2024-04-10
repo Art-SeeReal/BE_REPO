@@ -3,6 +3,7 @@ package com.ArtSeeReal.pro.dto.user;
 import com.ArtSeeReal.pro.entity.main.User;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.enums.UserType;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -42,6 +43,7 @@ public class UserUpdateRequestDTO {
                 .phoneSecret(phoneSecret)
                 .regionType(regionType)
                 .userType(userType)
+                .regDate(LocalDateTime.now())
                 .build();
     }
 }

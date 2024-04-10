@@ -23,12 +23,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@EnableScheduling
 @Log4j2
 public class RecruitmentService {
 
@@ -102,13 +104,12 @@ public class RecruitmentService {
     }
 
     @Scheduled(cron = "0 0 0 * * *")
-    private void automaticDeletionOfNotices(){
+    public void automaticDeletionOfNotices(){
         LocalDateTime today = LocalDateTime.now()
                 .minusWeeks(1);
         List<String> dataToDelete = recruitmentRepository.findUidByDueDateAfter(today);
         for (String uid : dataToDelete)
             // TODO : 삭제유저 데이터는 아마 스프링 시큐리티 끝나면 받아올 수 있을 듯
             deleteRecruitment(uid);
-
     }
 }
