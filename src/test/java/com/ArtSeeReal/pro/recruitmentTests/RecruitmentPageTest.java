@@ -7,6 +7,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.service.RecruitmentService;
 import com.ArtSeeReal.pro.service.UserService;
@@ -57,8 +58,8 @@ public class RecruitmentPageTest {
                         .userUid(userUid)
                         .title("testTitle"+j*i)
                         .content("testContent"+j*i)
-                        .regionType(RegionType.SEOUL)
-                        .category((long) j*i)
+                        .region(RegionType.SEOUL)
+                        .category(CategoryType.ART)
                         .thumbnail("testThumbnail"+j*i)
                         .dueDate(LocalDateTime.now())
                         .build();

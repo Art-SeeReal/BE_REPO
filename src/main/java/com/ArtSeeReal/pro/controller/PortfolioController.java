@@ -59,7 +59,7 @@ public class PortfolioController {
     @GetMapping("/page")
     @Operation(summary = "준구현 상태 입니다.",description = "모든 포트폴리오를 시간의 역순으로 정렬하여 10개 반환 합니다.")
     public ResponseEntity<Page<PortfolioReadResponseDTO>> pagePortfolio(PortfolioReadRequestDTO dto){
-        return new ResponseEntity<>(portfolioService.pageReadPortfolio(pageNum), HttpStatus.OK);
+        return new ResponseEntity<>(portfolioService.pageReadPortfolio(dto), HttpStatus.OK);
     }
 
     @GetMapping("/latest")

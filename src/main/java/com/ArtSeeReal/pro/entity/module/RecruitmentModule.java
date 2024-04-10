@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.entity.module;
 
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
@@ -31,7 +32,7 @@ public abstract class RecruitmentModule {
     protected RegionType regionType;
 
     @Column(nullable = false)
-    protected Long category;
+    protected CategoryType category;
 
     @Column(nullable = false)
     protected LocalDateTime regDate;

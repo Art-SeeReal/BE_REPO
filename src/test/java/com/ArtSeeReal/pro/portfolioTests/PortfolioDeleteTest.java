@@ -1,6 +1,7 @@
 package com.ArtSeeReal.pro.portfolioTests;
 
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.service.PortfolioService;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,8 +27,8 @@ public class PortfolioDeleteTest {
                 .userUid("testUid")
                 .title("testTitle")
                 .content("testContent")
-                .regionType(RegionType.SEOUL)
-                .category(0L)
+                .region(RegionType.SEOUL)
+                .category(CategoryType.ART)
                 .thumbnail("testThumbnail")
                 .build();
         uid = portfolioService.createPortfolio(dto).getUid();

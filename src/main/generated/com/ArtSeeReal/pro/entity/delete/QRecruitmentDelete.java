@@ -24,7 +24,7 @@ public class QRecruitmentDelete extends EntityPathBase<RecruitmentDelete> {
     public final StringPath boardUid = createString("boardUid");
 
     //inherited
-    public final NumberPath<Long> category = _super.category;
+    public final EnumPath<com.ArtSeeReal.pro.enums.CategoryType> category = _super.category;
 
     //inherited
     public final StringPath content = _super.content;

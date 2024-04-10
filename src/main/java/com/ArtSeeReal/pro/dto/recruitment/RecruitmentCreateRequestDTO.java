@@ -1,6 +1,7 @@
 package com.ArtSeeReal.pro.dto.recruitment;
 
 import com.ArtSeeReal.pro.entity.main.Recruitment;
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -21,8 +22,8 @@ public class RecruitmentCreateRequestDTO {
     private Long viewCnt;
     private String title;
     private String content;
-    private RegionType regionType;
-    private Long category;
+    private RegionType region;
+    private CategoryType category;
     private LocalDateTime regDate;
     private String thumbnail;
     private LocalDateTime dueDate;
@@ -34,7 +35,7 @@ public class RecruitmentCreateRequestDTO {
                 .viewCnt(0L)
                 .title(title)
                 .content(content)
-                .regionType(regionType)
+                .regionType(region)
                 .category(category)
                 .regDate(LocalDateTime.now())
                 .dueDate(dueDate)

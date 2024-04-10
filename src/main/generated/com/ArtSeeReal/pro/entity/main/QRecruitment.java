@@ -22,7 +22,7 @@ public class QRecruitment extends EntityPathBase<Recruitment> {
     public final com.ArtSeeReal.pro.entity.module.QRecruitmentModule _super = new com.ArtSeeReal.pro.entity.module.QRecruitmentModule(this);
 
     //inherited
-    public final NumberPath<Long> category = _super.category;
+    public final EnumPath<com.ArtSeeReal.pro.enums.CategoryType> category = _super.category;
 
     //inherited
     public final StringPath content = _super.content;

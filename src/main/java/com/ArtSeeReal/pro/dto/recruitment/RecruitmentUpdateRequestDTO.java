@@ -2,6 +2,7 @@ package com.ArtSeeReal.pro.dto.recruitment;
 
 import com.ArtSeeReal.pro.entity.history.RecruitmentHistory;
 import com.ArtSeeReal.pro.entity.main.Recruitment;
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -20,8 +21,8 @@ public class RecruitmentUpdateRequestDTO {
     private String uid;
     private String title;
     private String content;
-    private RegionType regionType;
-    private Long category;
+    private RegionType region;
+    private CategoryType category;
     private String thumbnail;
     private LocalDateTime dueDate;
 
@@ -33,7 +34,7 @@ public class RecruitmentUpdateRequestDTO {
                 .viewCnt(recruitment.getViewCnt())
                 .title(title)
                 .content(content)
-                .regionType(regionType)
+                .regionType(region)
                 .category(category)
                 .thumbnail(thumbnail)
                 .dueDate(dueDate)

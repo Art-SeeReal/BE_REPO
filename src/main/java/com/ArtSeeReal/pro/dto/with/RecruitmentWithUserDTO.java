@@ -26,7 +26,7 @@ public class RecruitmentWithUserDTO {
                 .viewCnt(recruitment.getViewCnt())
                 .title(recruitment.getTitle())
                 .content(recruitment.getContent())
-                .regionType(recruitment.getRegionType())
+                .region(recruitment.getRegionType())
                 .category(recruitment.getCategory())
                 .regDate(recruitment.getRegDate())
                 .dueDate(recruitment.getDueDate())

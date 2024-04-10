@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PortfolioService {
 
     private final PortfolioRepository portfolioRepository;
@@ -50,7 +51,6 @@ public class PortfolioService {
         return result;
     }
 
-    @Transactional
     public PortfolioReadResponseDTO updatePortfolio(PortfolioUpdateRequestDTO dto){
         Portfolio portfolio = portfolioRepository.findById(dto.getUid())
                 .orElseThrow(() -> new IllegalArgumentException(NO_BOARD_DATA_ERROR));
@@ -66,7 +66,6 @@ public class PortfolioService {
         return result;
     }
 
-    @Transactional
     public String deletePortfolio(String boardUid){
         Portfolio portfolio = portfolioRepository.findById(boardUid)
                 .orElseThrow(() -> new IllegalArgumentException(NO_BOARD_DATA_ERROR));
@@ -82,15 +81,17 @@ public class PortfolioService {
         if (dto.getPageNum() == null || dto.getPageNum() < 1)
             throw new IllegalArgumentException(NO_PAGE_ERROR);
 
-        Page<PortfolioWithUserDTO> portfolioWithPage = portfolioQueryDslRepository
+        List<PortfolioWithUserDTO> portfolioWithUser = portfolioQueryDslRepository
                 .findByUserAndPortfolioOrderByRegDateDesc(dto);
 
-        List<PortfolioReadResponseDTO> portfolioReadResponseDTOList = portfolioWithPage.getContent()
+        List<PortfolioReadResponseDTO> portfolioReadResponseDTOList = portfolioWithUser
                 .stream()
-                .map(dto -> dto.toReadResponseDTO())
+                .map(pwuDTO -> pwuDTO.toReadResponseDTO())
                 .collect(Collectors.toList());
 
-        return new PageImpl<>(portfolioReadResponseDTOList, pageable, portfolioWithPage.getTotalElements());
+        Pageable pageable = PageRequest.of(dto.getPageNum(),dto.getLimit());
+
+        return new PageImpl<>(portfolioReadResponseDTOList, pageable, portfolioRepository.count());
     }
 
 }

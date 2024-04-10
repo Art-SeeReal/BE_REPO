@@ -19,7 +19,7 @@ public class QRecruitmentModule extends EntityPathBase<RecruitmentModule> {
 
     public static final QRecruitmentModule recruitmentModule = new QRecruitmentModule("recruitmentModule");
 
-    public final NumberPath<Long> category = createNumber("category", Long.class);
+    public final EnumPath<com.ArtSeeReal.pro.enums.CategoryType> category = createEnum("category", com.ArtSeeReal.pro.enums.CategoryType.class);
 
     public final StringPath content = createString("content");
 

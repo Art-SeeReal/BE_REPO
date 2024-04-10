@@ -1,16 +1,19 @@
 package com.ArtSeeReal.pro.dto.portfolio;
 
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import java.util.List;
 import java.util.Locale.Category;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class PortfolioReadRequestDTO {
     private String userUid;
     private String nickname;
     private String title;
-    private List<Category> categories;
+    private List<CategoryType> categories;
     private List<RegionType> regionTypes;
     private Integer pageNum;
     private Integer limit;

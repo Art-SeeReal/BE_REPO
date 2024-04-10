@@ -2,6 +2,7 @@ package com.ArtSeeReal.pro.dto.portfolio;
 
 import com.ArtSeeReal.pro.entity.history.PortfolioHistory;
 import com.ArtSeeReal.pro.entity.main.Portfolio;
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -20,8 +21,8 @@ public class PortfolioUpdateRequestDTO {
     private String uid;
     private String title;
     private String content;
-    private RegionType regionType;
-    private Long category;
+    private RegionType region;
+    private CategoryType category;
     private String thumbnail;
 
     public PortfolioHistory createHistoryRecord(String uid, Portfolio portfolio, String modUserUid){
@@ -32,13 +33,13 @@ public class PortfolioUpdateRequestDTO {
                 .viewCnt(portfolio.getViewCnt())
                 .title(title)
                 .content(content)
-                .regionType(regionType)
+                .region(region)
                 .category(category)
                 .thumbnail(thumbnail)
                 .regDate(portfolio.getRegDate())
                 .exTitle(portfolio.getTitle())
                 .exContent(portfolio.getContent())
-                .exRegionType(portfolio.getRegionType())
+                .exRegionType(portfolio.getRegion())
                 .exCategory(portfolio.getCategory())
                 .exThumbnail(portfolio.getThumbnail())
                 .modDate(LocalDateTime.now())
