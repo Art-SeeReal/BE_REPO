@@ -5,6 +5,7 @@ import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
 import com.ArtSeeReal.pro.enums.CategoryType;
@@ -13,6 +14,7 @@ import com.ArtSeeReal.pro.enums.UserType;
 import com.ArtSeeReal.pro.service.PortfolioService;
 import com.ArtSeeReal.pro.service.UserService;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +75,17 @@ public class PortfolioPageTest {
     }
     @Test
     public void 포트폴리오_페이징(){
+        PortfolioReadRequestDTO dto = PortfolioReadRequestDTO.builder()
+                .nickname("testNickname3")
+                .title("testTitle")
+                .categories(new ArrayList<>())
+                .regionTypes()
+                .pageNum(0)
+                .limit(10)
+                .sortField()
+                .sortType()
+                .build();
+
         Page<PortfolioReadResponseDTO> dto = portfolioService.pageReadPortfolio(null);
         assertThat(dto.getContent().get(5).getContent()).isEqualTo("testContent50");
         for (int i = 0; i < dto.getContent().size(); i++) {
