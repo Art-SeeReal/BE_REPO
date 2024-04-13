@@ -23,7 +23,7 @@ public abstract class UserModule {
     @Column(length = 16, nullable = false)
     protected String name;
 
-    @Column(length = 32, nullable = false)
+    @Column(length = 64, nullable = false)
     protected String password;
 
     @Column(length = 16, nullable = false) // unique = true
