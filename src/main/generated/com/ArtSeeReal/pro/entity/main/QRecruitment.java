@@ -34,7 +34,7 @@ public class QRecruitment extends EntityPathBase<Recruitment> {
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     //inherited
-    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> regionType = _super.regionType;
+    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> region = _super.region;
 
     //inherited
     public final StringPath thumbnail = _super.thumbnail;

@@ -9,6 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PortfolioRepository extends JpaRepository<Portfolio, String> , ModuleRepository {
     Page<Portfolio> findAllByOrderByRegDateDesc(Pageable pageable);
-    Page<Portfolio> findByRegionTypeOrderByRegDateDesc(RegionType regionType, Pageable pageable);
     Page<Portfolio> findByTitleContainingOrderByRegDateDesc(String title, Pageable pageable);
 }

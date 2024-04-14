@@ -35,7 +35,7 @@ public class RecruitmentCreateRequestDTO {
                 .viewCnt(0L)
                 .title(title)
                 .content(content)
-                .regionType(region)
+                .region(region)
                 .category(category)
                 .regDate(LocalDateTime.now())
                 .dueDate(dueDate)

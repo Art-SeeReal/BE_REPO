@@ -78,7 +78,7 @@ public class PortfolioService {
 
     // TODO : 페이징 군을 나눌 때 지역, 분야, 제목, 작성자
     public Page<PortfolioReadResponseDTO> pageReadPortfolio(PortfolioReadRequestDTO dto){
-        if (dto.getPageNum() == null || dto.getPageNum() < 1)
+        if (dto.getPageNum() == null || dto.getPageNum() < 0)
             throw new IllegalArgumentException(NO_PAGE_ERROR);
 
         List<PortfolioWithUserDTO> portfolioWithUser = portfolioQueryDslRepository

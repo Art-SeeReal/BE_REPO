@@ -29,7 +29,7 @@ public abstract class RecruitmentModule {
     protected String content;
 
     @Column(nullable = false)
-    protected RegionType regionType;
+    protected RegionType region;
 
     @Column(nullable = false)
     protected CategoryType category;

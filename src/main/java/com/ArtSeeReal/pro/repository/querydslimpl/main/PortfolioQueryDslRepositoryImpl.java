@@ -7,8 +7,11 @@ import com.ArtSeeReal.pro.entity.main.QUser;
 import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.repository.querydsl.main.PortfolioQueryDslRepository;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -26,49 +29,89 @@ public class PortfolioQueryDslRepositoryImpl implements PortfolioQueryDslReposit
         QPortfolio portfolio = QPortfolio.portfolio;
         QUser user = QUser.user;
 
-        BooleanExpression whereClause = null;
+        BooleanExpression whereClause = buildWhereClause(dto, user, portfolio);
 
-        if (!dto.getNickname().isEmpty()) {
-            whereClause = user.nickname.toLowerCase().contains(dto.getNickname().toLowerCase());
-        }
-
-        if (!dto.getTitle().isEmpty()) {
-            BooleanExpression titleCondition = portfolio.title.toLowerCase().contains(dto.getTitle().toLowerCase());
-            whereClause = whereClause != null ? whereClause.or(titleCondition) : titleCondition;
-        }
-
-        if (dto.getCategories() != null && !dto.getCategories().isEmpty()) {
-            for (Object categoryObj : dto.getCategories()) {
-                if (categoryObj instanceof CategoryType) {
-                    CategoryType category = (CategoryType) categoryObj;
-                    BooleanExpression categoryCondition = portfolio.category.eq(category);
-                    whereClause = whereClause != null ? whereClause.or(categoryCondition) : categoryCondition;
-                }
-            }
-        }
-
-        if (dto.getRegionTypes() != null && !dto.getRegionTypes().isEmpty()) {
-            for (Object regionObj : dto.getRegionTypes()) {
-                if (regionObj instanceof RegionType) {
-                    RegionType region = (RegionType) regionObj;
-                    BooleanExpression regionTypeCondition = portfolio.region.eq(region);
-                    whereClause = whereClause != null ? whereClause.or(regionTypeCondition) : regionTypeCondition;
-                }
-            }
-        }
-
-        int offset = dto.getPageNum() != null ? dto.getPageNum() * (dto.getLimit() != null ? dto.getLimit() : 10) : 0;
+        int offset = calculateOffset(dto);
         int limit = dto.getLimit() != null ? dto.getLimit() : 10;
 
         return jpaQueryFactory
                 .select(Projections.constructor(PortfolioWithUserDTO.class, portfolio, user))
                 .from(portfolio)
-                .join(user).on(portfolio.userUid.eq(user.uid))
+                .join(user)
+                .on(portfolio.userUid.eq(user.uid))
                 .where(whereClause)
-                .orderBy(dto.getSortType().equalsIgnoreCase("desc") ? portfolio.regDate.desc() : portfolio.regDate.asc().nullsLast())
+                .orderBy(getOrderSpecifier(dto))
                 .offset(offset)
                 .limit(limit)
                 .fetch();
+    }
+
+    private BooleanExpression buildWhereClause(PortfolioReadRequestDTO dto, QUser user, QPortfolio portfolio) {
+        BooleanExpression whereClause = null;
+
+        // 닉네임 필터링 조건
+        if (dto.getNickname() != null && !dto.getNickname().isEmpty())
+            whereClause = addUserNicknameCondition(dto.getNickname(), user, whereClause);
+
+        // 제목 필터링 조건
+        if (dto.getTitle() != null && !dto.getTitle().isEmpty())
+            whereClause = addPortfolioTitleCondition(dto.getTitle(), portfolio, whereClause);
+
+        // 지역 필터링 조건
+        if (dto.getRegionTypes() != null && !dto.getRegionTypes().isEmpty())
+            whereClause = addRegionTypeCondition(dto.getRegionTypes(), portfolio, whereClause);
+
+        // 카테고리 필터링 조건
+        if (dto.getCategories() != null && !dto.getCategories().isEmpty())
+            whereClause = addCategoryTypeCondition(dto.getCategories(), portfolio, whereClause);
+
+        return whereClause;
+    }
+
+    private BooleanExpression addUserNicknameCondition(String nickname, QUser user, BooleanExpression whereClause) {
+        return whereClause != null ?
+                whereClause.and(user.nickname.toLowerCase().contains(nickname.toLowerCase())) :
+                user.nickname.toLowerCase().contains(nickname.toLowerCase());
+    }
+
+    private BooleanExpression addPortfolioTitleCondition(String title, QPortfolio portfolio, BooleanExpression whereClause) {
+        return whereClause != null ?
+                whereClause.and(portfolio.title.toLowerCase().contains(title.toLowerCase())) :
+                portfolio.title.toLowerCase().contains(title.toLowerCase());
+    }
+
+    private BooleanExpression addRegionTypeCondition(List<RegionType> regionTypes, QPortfolio portfolio, BooleanExpression whereClause) {
+        BooleanExpression regionTypeCondition = null;
+        for (Object regionObj : regionTypes) {
+            if (regionObj instanceof RegionType) {
+                RegionType region = (RegionType) regionObj;
+                BooleanExpression condition = portfolio.region.eq(region);
+                regionTypeCondition = regionTypeCondition != null ? regionTypeCondition.or(condition) : condition;
+            }
+        }
+        return whereClause != null ?
+                whereClause.and(regionTypeCondition) :
+                regionTypeCondition;
+    }
+
+    private BooleanExpression addCategoryTypeCondition(List<CategoryType> categories, QPortfolio portfolio, BooleanExpression whereClause) {
+        BooleanExpression categoryTypeCondition = null;
+        for (Object categoryObj : categories) {
+            if (categoryObj instanceof CategoryType) {
+                CategoryType category = (CategoryType) categoryObj;
+                BooleanExpression condition = portfolio.category.eq(category);
+                categoryTypeCondition = categoryTypeCondition != null ? categoryTypeCondition.or(condition) : condition;
+            }
+        }
+        return whereClause != null ?
+                whereClause.and(categoryTypeCondition) :
+                categoryTypeCondition;
+    }
+
+    private int calculateOffset(PortfolioReadRequestDTO dto) {
+        return dto.getPageNum() != null ?
+                dto.getPageNum() * (dto.getLimit() != null ? dto.getLimit() : 10) :
+                0;
     }
 
     @Override
@@ -85,5 +128,18 @@ public class PortfolioQueryDslRepositoryImpl implements PortfolioQueryDslReposit
                 .on(portfolio.userUid.eq(user.uid))
                 .where(portfolio.uid.eq(uid))
                 .fetchOne();
+    }
+
+    private OrderSpecifier<?> getOrderSpecifier(PortfolioReadRequestDTO dto) {
+        Order type = dto.getSortType().equals("ASC")? Order.ASC : Order.DESC;
+
+        switch (dto.getSortField()) {
+            case "regDate":
+                return new OrderSpecifier<>(type, QPortfolio.portfolio.regDate);
+            case "title":
+                return new OrderSpecifier<>(type, QPortfolio.portfolio.title);
+            default:
+                return new OrderSpecifier<>(type, Expressions.stringPath(dto.getSortField()));
+        }
     }
 }

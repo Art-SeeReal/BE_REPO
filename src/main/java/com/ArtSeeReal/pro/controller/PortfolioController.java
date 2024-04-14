@@ -55,16 +55,19 @@ public class PortfolioController {
         return new ResponseEntity<>(portfolioService.deletePortfolio(portfolioUid), HttpStatus.NO_CONTENT);
     }
 
-    // TODO : 1차적으로는 페이징 처리만 했지만 검색과 합쳐야 할듯
     @GetMapping("/page")
-    @Operation(summary = "준구현 상태 입니다.",description = "모든 포트폴리오를 시간의 역순으로 정렬하여 10개 반환 합니다.")
     public ResponseEntity<Page<PortfolioReadResponseDTO>> pagePortfolio(PortfolioReadRequestDTO dto){
         return new ResponseEntity<>(portfolioService.pageReadPortfolio(dto), HttpStatus.OK);
     }
 
-    @GetMapping("/latest")
+    @PostMapping("/scrap")
     @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<Page<PortfolioReadResponseDTO>> latest() throws NotImplementedException {
+    public ResponseEntity<?> portfolioScrap() throws NotImplementedException {
+        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    }
+    @DeleteMapping("/scrap")
+    @Operation(summary = "미구현 상태 입니다.")
+    public ResponseEntity<?> portfolioScrap(String id) throws NotImplementedException {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
 

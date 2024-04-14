@@ -27,7 +27,7 @@ public class QRecruitmentModule extends EntityPathBase<RecruitmentModule> {
 
     public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
 
-    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> regionType = createEnum("regionType", com.ArtSeeReal.pro.enums.RegionType.class);
+    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> region = createEnum("region", com.ArtSeeReal.pro.enums.RegionType.class);
 
     public final StringPath thumbnail = createString("thumbnail");
 
