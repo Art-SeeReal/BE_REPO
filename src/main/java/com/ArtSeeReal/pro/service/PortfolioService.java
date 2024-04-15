@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PortfolioService {
 
     private final PortfolioRepository portfolioRepository;
@@ -93,6 +94,10 @@ public class PortfolioService {
                 .collect(Collectors.toList());
 
         return new PageImpl<>(portfolioReadResponseDTOList, pageable, portfolioWithPage.getTotalElements());
+    }
+
+    public void viewCountPlus(String uid){
+        portfolioRepository.incrementViewCnt(uid);
     }
 
 }

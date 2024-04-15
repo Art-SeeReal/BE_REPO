@@ -31,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @EnableScheduling
+@Transactional
 @Log4j2
 public class RecruitmentService {
 
@@ -111,5 +112,8 @@ public class RecruitmentService {
         for (String uid : dataToDelete)
             // TODO : 삭제유저 데이터는 아마 스프링 시큐리티 끝나면 받아올 수 있을 듯
             deleteRecruitment(uid);
+    }
+    public void viewCountPlus(String uid){
+        recruitmentRepository.incrementViewCnt(uid);
     }
 }
