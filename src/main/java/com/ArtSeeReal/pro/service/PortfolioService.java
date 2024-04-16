@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.service;
 
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_DATA_ERROR;
 import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
@@ -103,11 +104,15 @@ public class PortfolioService {
         // TODO : 검증로직을 만들 필요가 있지 않을까? EX) 유저 pk, 포트폴리오 pk의 유효성을 검사하는
         // TODO : 이거하다가 생각났는데 검증로직을 하나의 별도 서비스로 분리할 필요가 있지 않을까?
         FavoritePortfolioKey likes = new FavoritePortfolioKey(userUid,portfolioUid);
+        if(favoritePortfoliosRepository.existsById(likes))
+            throw new IllegalArgumentException(NO_DATA_ERROR.toString());
         favoritePortfoliosRepository.save(new FavoritePortfolios(likes));
     }
 
     public void favoritePortfolioDelete(String userUid, String portfolioUid){
         FavoritePortfolioKey likes = new FavoritePortfolioKey(userUid,portfolioUid);
+        if(!favoritePortfoliosRepository.existsById(likes))
+            throw new IllegalArgumentException(NO_DATA_ERROR.toString());
         favoritePortfoliosRepository.deleteById(likes);
     }
 
