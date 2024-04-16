@@ -8,16 +8,13 @@ import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateResponseDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.with.RecruitmentWithUserDTO;
-import com.ArtSeeReal.pro.entity.composite.FavoritePortfolioKey;
 import com.ArtSeeReal.pro.entity.composite.FavoriteRecruitmentKey;
 import com.ArtSeeReal.pro.entity.delete.RecruitmentDelete;
 import com.ArtSeeReal.pro.entity.history.RecruitmentHistory;
-import com.ArtSeeReal.pro.entity.main.FavoritePortfolios;
 import com.ArtSeeReal.pro.entity.main.FavoriteRecruitments;
 import com.ArtSeeReal.pro.entity.main.Recruitment;
 import com.ArtSeeReal.pro.repository.jpa.delete.RecruitmentDeleteRepository;
 import com.ArtSeeReal.pro.repository.jpa.history.RecruitmentHistoryRepository;
-import com.ArtSeeReal.pro.repository.jpa.main.FavoritePortfoliosRepository;
 import com.ArtSeeReal.pro.repository.jpa.main.FavoriteRecruitmentsRepository;
 import com.ArtSeeReal.pro.repository.jpa.main.RecruitmentRepository;
 import com.ArtSeeReal.pro.repository.querydsl.main.RecruitmentQueryDslRepository;
@@ -111,20 +108,21 @@ public class RecruitmentService {
         return new PageImpl<>(recruitmentReadResponseDTOList, pageable, recruitmentReadResponseDTOs.getTotalElements());
     }
 
-    public void favoritePortfolioCreate(String userUid, String recruitmentUid){
+    public void favoriteRecruitmentCreate(String userUid, String recruitmentUid){
         // TODO : 검증로직을 만들 필요가 있지 않을까? EX) 유저 pk, 포트폴리오 pk의 유효성을 검사하는
         // TODO : 이거하다가 생각났는데 검증로직을 하나의 별도 서비스로 분리할 필요가 있지 않을까?
         FavoriteRecruitmentKey likes = new FavoriteRecruitmentKey(userUid,recruitmentUid);
         if(favoriteRecruitmentsRepository.existsById(likes))
-            throw new IllegalArgumentException(NO_DATA_ERROR.toString());
+            throw new IllegalArgumentException(NO_DATA_ERROR.getMessage());
         favoriteRecruitmentsRepository.save(new FavoriteRecruitments(likes));
     }
 
-    public void favoritePortfolioDelete(String userUid, String recruitmentUid){
+    public void favoriteRecruitmentDelete(String userUid, String recruitmentUid){
         FavoriteRecruitmentKey likes = new FavoriteRecruitmentKey(userUid,recruitmentUid);
-        if(!favoriteRecruitmentsRepository.existsById(likes))
-            throw new IllegalArgumentException(NO_DATA_ERROR.toString());
-        favoriteRecruitmentsRepository.deleteById(likes);
+        if(favoriteRecruitmentsRepository.existsById(likes))
+            favoriteRecruitmentsRepository.deleteById(likes);
+        else
+            throw new IllegalArgumentException(NO_DATA_ERROR.getMessage());
     }
 
     @Scheduled(cron = "0 0 0 * * *")

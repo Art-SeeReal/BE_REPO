@@ -61,4 +61,18 @@ public class RecruitmentController {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
 
+    @PostMapping("/scrap")
+    public ResponseEntity<Void> recruitmentScrapCreate(String recruitUid){
+        // TODO : userUid 가져 온 다음 수정
+        recruitService.favoriteRecruitmentCreate("userUid",recruitUid);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/scrap")
+    public ResponseEntity<Void> recruitmentScrapDelete(String recruitUid){
+        // TODO : userUid 가져 온 다음 수정
+        recruitService.favoriteRecruitmentDelete("userUid",recruitUid);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

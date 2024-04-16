@@ -105,15 +105,16 @@ public class PortfolioService {
         // TODO : 이거하다가 생각났는데 검증로직을 하나의 별도 서비스로 분리할 필요가 있지 않을까?
         FavoritePortfolioKey likes = new FavoritePortfolioKey(userUid,portfolioUid);
         if(favoritePortfoliosRepository.existsById(likes))
-            throw new IllegalArgumentException(NO_DATA_ERROR.toString());
+            throw new IllegalArgumentException(NO_DATA_ERROR.getMessage());
         favoritePortfoliosRepository.save(new FavoritePortfolios(likes));
     }
 
     public void favoritePortfolioDelete(String userUid, String portfolioUid){
         FavoritePortfolioKey likes = new FavoritePortfolioKey(userUid,portfolioUid);
-        if(!favoritePortfoliosRepository.existsById(likes))
-            throw new IllegalArgumentException(NO_DATA_ERROR.toString());
-        favoritePortfoliosRepository.deleteById(likes);
+        if(favoritePortfoliosRepository.existsById(likes))
+            favoritePortfoliosRepository.deleteById(likes);
+        else
+            throw new IllegalArgumentException(NO_DATA_ERROR.getMessage());
     }
 
 }

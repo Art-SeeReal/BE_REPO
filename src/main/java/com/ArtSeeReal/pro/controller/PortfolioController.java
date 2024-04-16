@@ -67,4 +67,18 @@ public class PortfolioController {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
 
+    @PostMapping("/scrap")
+    public ResponseEntity<Void> portfolioScrapCreate(String recruitUid){
+        // TODO : userUid 가져 온 다음 수정
+        portfolioService.favoritePortfolioCreate("userUid",recruitUid);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/scrap")
+    public ResponseEntity<Void> portfolioScrapDelete(String recruitUid){
+        // TODO : userUid 가져 온 다음 수정
+        portfolioService.favoritePortfolioDelete("userUid",recruitUid);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
