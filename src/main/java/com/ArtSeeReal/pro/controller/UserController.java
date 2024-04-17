@@ -66,15 +66,15 @@ public class UserController {
     public ResponseEntity<UserType> recruits() throws NotImplementedException {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
-    @PostMapping("/like/:userId")
-    @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<UserType> userLike() throws NotImplementedException {
-        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    @PostMapping("/like")
+    public ResponseEntity<Void> userLike(String yourUserUid) {
+        userService.userLikesCreate("tempUid",yourUserUid);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    @DeleteMapping("/like/:userId")
-    @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<UserType> userLikeDelete() throws NotImplementedException {
-        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    @DeleteMapping("/like")
+    public ResponseEntity<Void> userLikeDelete(String yourUserUid) {
+        userService.userLikesDelete("tempUid",yourUserUid);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @GetMapping("/exist/nickname")
     public ResponseEntity<Boolean> checkNickname(@RequestParam(name = "nickname") String nickname) {
