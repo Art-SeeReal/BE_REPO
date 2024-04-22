@@ -2,8 +2,10 @@ package com.ArtSeeReal.pro.controller;
 
 import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
 
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentUpdateRequestDTO;
 import com.ArtSeeReal.pro.service.RecruitmentService;
@@ -48,16 +50,19 @@ public class RecruitmentController {
         return new ResponseEntity<>(recruitService.deleteRecruitment(recruitmentUid), HttpStatus.NO_CONTENT);
     }
 
-    // TODO : 1차적으로는 페이징 처리만 했지만 검색과 합쳐야 할듯
     @GetMapping("/page")
-    @Operation(summary = "준구현 상태 입니다.",description = "모든 공고를 시간의 역순으로 정렬하여 10개 반환 합니다.")
-    public ResponseEntity<Page<RecruitmentReadResponseDTO>> pageRecruitment(Integer pageNum){
-        return new ResponseEntity<>(recruitService.pageReadRecruitment(pageNum), HttpStatus.OK);
+    public ResponseEntity<Page<RecruitmentReadResponseDTO>> pageRecruitment(RecruitmentReadRequestDTO dto){
+        return new ResponseEntity<>(recruitService.pageReadRecruitment(dto), HttpStatus.OK);
     }
 
-    @GetMapping("/latest")
+    @PostMapping("/scrap")
     @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<Page<RecruitmentReadResponseDTO>> latest() throws NotImplementedException {
+    public ResponseEntity<?> recruitmentScrap() throws NotImplementedException {
+        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    }
+    @DeleteMapping("/scrap")
+    @Operation(summary = "미구현 상태 입니다.")
+    public ResponseEntity<?> recruitmentScrap(String id) throws NotImplementedException {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
 

@@ -5,6 +5,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentUpdateRequestDTO;
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.service.RecruitmentService;
 import java.time.LocalDateTime;
@@ -31,8 +32,8 @@ public class RecruitmentUpdateTest {
                 .userUid("testUid")
                 .title("testTitle")
                 .content("testContent")
-                .regionType(RegionType.SEOUL)
-                .category(0L)
+                .region(RegionType.SEOUL)
+                .category(CategoryType.ART)
                 .thumbnail("testThumbnail")
                 .dueDate(LocalDateTime.now())
                 .build();
@@ -44,8 +45,8 @@ public class RecruitmentUpdateTest {
                 .uid(uid)
                 .title("updateTitle")
                 .content("UpdateContent")
-                .regionType(RegionType.BUSAN)
-                .category(1L)
+                .region(RegionType.BUSAN)
+                .category(CategoryType.CRAFT)
                 .thumbnail("updateThumbnail")
                 .dueDate(LocalDateTime.now())
                 .build();

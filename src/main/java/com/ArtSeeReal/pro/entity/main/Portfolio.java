@@ -32,7 +32,7 @@ public class Portfolio extends PortfolioModule {
                 .viewCnt(viewCnt)
                 .title(title)
                 .content(content)
-                .regionType(regionType)
+                .region(region)
                 .category(category)
                 .regDate(regDate)
                 .build();
@@ -45,7 +45,7 @@ public class Portfolio extends PortfolioModule {
                 .viewCnt(viewCnt)
                 .title(title)
                 .content(content)
-                .regionType(regionType)
+                .region(region)
                 .category(category)
                 .regDate(regDate)
                 .build();
@@ -54,7 +54,7 @@ public class Portfolio extends PortfolioModule {
     public void updateFromDTO(PortfolioUpdateRequestDTO dto){
         title = dto.getTitle();
         content = dto.getContent();
-        regionType = dto.getRegionType();
+        region = dto.getRegion();
         category = dto.getCategory();
     }
 
@@ -66,7 +66,7 @@ public class Portfolio extends PortfolioModule {
                 .viewCnt(viewCnt)
                 .title(title)
                 .content(content)
-                .regionType(regionType)
+                .region(region)
                 .category(category)
                 .regDate(regDate)
                 .thumbnail(thumbnail)

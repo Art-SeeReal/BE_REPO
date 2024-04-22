@@ -34,7 +34,7 @@ public class Recruitment extends RecruitmentModule {
                 .viewCnt(viewCnt)
                 .title(title)
                 .content(content)
-                .regionType(regionType)
+                .region(region)
                 .category(category)
                 .regDate(regDate)
                 .dueDate(dueDate)
@@ -48,7 +48,7 @@ public class Recruitment extends RecruitmentModule {
                 .viewCnt(viewCnt)
                 .title(title)
                 .content(content)
-                .regionType(regionType)
+                .region(region)
                 .category(category)
                 .regDate(regDate)
                 .dueDate(dueDate)
@@ -58,7 +58,7 @@ public class Recruitment extends RecruitmentModule {
     public void updateFromDTO(RecruitmentUpdateRequestDTO dto){
         title = dto.getTitle();
         content = dto.getContent();
-        regionType = dto.getRegionType();
+        region = dto.getRegion();
         category = dto.getCategory();
         dueDate = dto.getDueDate();
     }
@@ -71,7 +71,7 @@ public class Recruitment extends RecruitmentModule {
                 .viewCnt(viewCnt)
                 .title(title)
                 .content(content)
-                .regionType(regionType)
+                .region(region)
                 .category(category)
                 .regDate(regDate)
                 .thumbnail(thumbnail)

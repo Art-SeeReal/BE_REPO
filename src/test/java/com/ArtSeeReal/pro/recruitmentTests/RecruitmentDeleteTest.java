@@ -1,6 +1,7 @@
 package com.ArtSeeReal.pro.recruitmentTests;
 
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.service.RecruitmentService;
 import java.time.LocalDateTime;
@@ -26,8 +27,8 @@ public class RecruitmentDeleteTest {
                 .userUid("testUid")
                 .title("testTitle")
                 .content("testContent")
-                .regionType(RegionType.SEOUL)
-                .category(0L)
+                .region(RegionType.SEOUL)
+                .category(CategoryType.ART)
                 .thumbnail("testThumbnail")
                 .dueDate(LocalDateTime.now())
                 .build();

@@ -1,6 +1,7 @@
 package com.ArtSeeReal.pro.entity.history;
 
 import com.ArtSeeReal.pro.entity.module.RecruitmentModule;
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,7 +36,7 @@ public class RecruitmentHistory extends RecruitmentModule {
     private RegionType exRegionType;
 
     @Column(nullable = false)
-    private Long exCategory;
+    private CategoryType exCategory;
 
     @Column(columnDefinition = "TEXT")
     private String exThumbnail;

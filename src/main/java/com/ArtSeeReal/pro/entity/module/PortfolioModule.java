@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.entity.module;
 
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
@@ -28,10 +29,10 @@ public abstract class PortfolioModule {
     protected String content;
 
     @Column(nullable = false)
-    protected RegionType regionType;
+    protected RegionType region;
 
     @Column(nullable = false)
-    protected Long category;
+    protected CategoryType category;
 
     @Column(nullable = false)
     protected LocalDateTime regDate;

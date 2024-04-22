@@ -1,15 +1,14 @@
-package com.ArtSeeReal.pro.dto.portfolio;
+package com.ArtSeeReal.pro.dto.recruitment;
 
 import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import java.util.List;
-import java.util.Locale.Category;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class PortfolioReadRequestDTO {
+public class RecruitmentReadRequestDTO {
     private String userUid;
     private String nickname;
     private String title;

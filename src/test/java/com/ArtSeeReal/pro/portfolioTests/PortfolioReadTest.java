@@ -7,6 +7,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.service.PortfolioService;
 import com.ArtSeeReal.pro.service.UserService;
@@ -54,8 +55,8 @@ public class PortfolioReadTest {
                 .userUid(userUid)
                 .title("testTitle")
                 .content("testContent")
-                .regionType(RegionType.SEOUL)
-                .category(0L)
+                .region(RegionType.SEOUL)
+                .category(CategoryType.ART)
                 .thumbnail("testThumbnail")
                 .build();
 
