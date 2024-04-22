@@ -48,3 +48,14 @@ spring-doc:
     path: /api-docs
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
+
+  # s3
+cloud:
+  aws:
+    s3:
+      bucket: [ bucket name ]
+    stack.auto: false
+    region.static: ap-northeast-2
+    credentials:
+      accessKey: [ access key ]
+      secretKey: [ secret key ]

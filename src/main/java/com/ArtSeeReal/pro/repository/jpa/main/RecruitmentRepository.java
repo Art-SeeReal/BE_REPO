@@ -11,7 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RecruitmentRepository extends JpaRepository<Recruitment,String>, ModuleRepository {
     Page<Recruitment> findAllByOrderByRegDateDesc(Pageable pageable);
-    Page<Recruitment> findByRegionTypeOrderByRegDateDesc(RegionType regionType, Pageable pageable);
     Page<Recruitment> findByTitleContainingOrderByRegDateDesc(String title, Pageable pageable);
     List<String> findUidByDueDateAfter(LocalDateTime oneWeekAgo);
 }

@@ -1,6 +1,7 @@
 package com.ArtSeeReal.pro.dto.portfolio;
 
 import com.ArtSeeReal.pro.entity.main.Portfolio;
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -21,8 +22,8 @@ public class PortfolioCreateRequestDTO {
     private Long viewCnt;
     private String title;
     private String content;
-    private RegionType regionType;
-    private Long category;
+    private RegionType region;
+    private CategoryType category;
     private LocalDateTime regDate;
     private String thumbnail;
 
@@ -33,7 +34,7 @@ public class PortfolioCreateRequestDTO {
                 .viewCnt(0L)
                 .title(title)
                 .content(content)
-                .regionType(regionType)
+                .region(region)
                 .category(category)
                 .regDate(LocalDateTime.now())
                 .build();

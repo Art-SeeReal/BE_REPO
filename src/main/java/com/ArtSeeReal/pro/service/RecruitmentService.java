@@ -3,18 +3,25 @@ package com.ArtSeeReal.pro.service;
 import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_DATA_ERROR;
 import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.with.PortfolioWithUserDTO;
 import com.ArtSeeReal.pro.dto.with.RecruitmentWithUserDTO;
+import com.ArtSeeReal.pro.entity.composite.ApplyRecruitmentKey;
 import com.ArtSeeReal.pro.entity.composite.FavoriteRecruitmentKey;
 import com.ArtSeeReal.pro.entity.delete.RecruitmentDelete;
 import com.ArtSeeReal.pro.entity.history.RecruitmentHistory;
+import com.ArtSeeReal.pro.entity.main.ApplyRecruitments;
 import com.ArtSeeReal.pro.entity.main.FavoriteRecruitments;
 import com.ArtSeeReal.pro.entity.main.Recruitment;
 import com.ArtSeeReal.pro.repository.jpa.delete.RecruitmentDeleteRepository;
 import com.ArtSeeReal.pro.repository.jpa.history.RecruitmentHistoryRepository;
+import com.ArtSeeReal.pro.repository.jpa.main.ApplyRecruitmentsRepository;
 import com.ArtSeeReal.pro.repository.jpa.main.FavoriteRecruitmentsRepository;
 import com.ArtSeeReal.pro.repository.jpa.main.RecruitmentRepository;
 import com.ArtSeeReal.pro.repository.querydsl.main.RecruitmentQueryDslRepository;
@@ -42,6 +49,7 @@ public class RecruitmentService {
     private final RecruitmentQueryDslRepository recruitmentQueryDslRepository;
     private final RecruitmentHistoryRepository recruitmentHistoryRepository;
     private final RecruitmentDeleteRepository recruitmentDeleteRepository;
+    private final ApplyRecruitmentsRepository applyRecruitmentsRepository;
     private final FavoriteRecruitmentsRepository favoriteRecruitmentsRepository;
 
     private final String NO_BOARD_DATA_ERROR = "[ERROR] 게시물 데이터가 없습니다.";
@@ -90,22 +98,39 @@ public class RecruitmentService {
     }
 
     // TODO : 페이징 군을 나눌 때 지역, 분야, 제목, 작성자
-    public Page<RecruitmentReadResponseDTO> pageReadRecruitment(Integer pageNum){
-        if (pageNum == null || pageNum < 1)
+    public Page<RecruitmentReadResponseDTO> pageReadRecruitment(RecruitmentReadRequestDTO dto){
+        if (dto.getPageNum() == null || dto.getPageNum() < 0)
             throw new IllegalArgumentException(NO_PAGE_ERROR);
 
-        // TODO : 페이지 갯수에 따라서 정할 수 있을 듯
-        Pageable pageable = PageRequest.of(pageNum - 1, 10);
 
-        Page<RecruitmentWithUserDTO> recruitmentReadResponseDTOs =
-                recruitmentQueryDslRepository.findByUserAndRecruitmentOrderByRegDateDesc(pageable);
+        List<RecruitmentWithUserDTO> recruitmentWithUser = recruitmentQueryDslRepository
+                .findByUserAndRecruitmentOrderByRegDateDesc(dto);
 
-        List<RecruitmentReadResponseDTO> recruitmentReadResponseDTOList = recruitmentReadResponseDTOs.getContent()
+        List<RecruitmentReadResponseDTO> recruitmentReadResponseDTOList = recruitmentWithUser
                 .stream()
-                .map(dto -> dto.toReadResponseDTO())
+                .map(rwuDTO -> rwuDTO.toReadResponseDTO())
                 .collect(Collectors.toList());
 
-        return new PageImpl<>(recruitmentReadResponseDTOList, pageable, recruitmentReadResponseDTOs.getTotalElements());
+        Pageable pageable = PageRequest.of(dto.getPageNum(),dto.getLimit());
+
+        return new PageImpl<>(recruitmentReadResponseDTOList, pageable, recruitmentRepository.count());
+    }
+
+    public void applyRecruitmentCreate(String userUid, String recruitmentUid){
+        // TODO : 검증로직을 만들 필요가 있지 않을까? EX) 유저 pk, 포트폴리오 pk의 유효성을 검사하는
+        // TODO : 이거하다가 생각났는데 검증로직을 하나의 별도 서비스로 분리할 필요가 있지 않을까?
+        ApplyRecruitmentKey likes = new ApplyRecruitmentKey(userUid,recruitmentUid);
+        if(applyRecruitmentsRepository.existsById(likes))
+            throw new IllegalArgumentException(NO_DATA_ERROR.getMessage());
+        applyRecruitmentsRepository.save(new ApplyRecruitments(likes));
+    }
+
+    public void applyRecruitmentDelete(String userUid, String recruitmentUid){
+        ApplyRecruitmentKey likes = new ApplyRecruitmentKey(userUid,recruitmentUid);
+        if(applyRecruitmentsRepository.existsById(likes))
+            applyRecruitmentsRepository.deleteById(likes);
+        else
+            throw new IllegalArgumentException(NO_DATA_ERROR.getMessage());
     }
 
     public void favoriteRecruitmentCreate(String userUid, String recruitmentUid){

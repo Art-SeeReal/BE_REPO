@@ -5,6 +5,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.service.PortfolioService;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,8 +31,8 @@ public class PortfolioUpdateTest {
                 .userUid("testUid")
                 .title("testTitle")
                 .content("testContent")
-                .regionType(RegionType.SEOUL)
-                .category(0L)
+                .region(RegionType.SEOUL)
+                .category(CategoryType.ART)
                 .thumbnail("testThumbnail")
                 .build();
         uid = portfolioService.createPortfolio(dto).getUid();
@@ -42,8 +43,8 @@ public class PortfolioUpdateTest {
                 .uid(uid)
                 .title("UpdateTitle")
                 .content("UpdateContent")
-                .regionType(RegionType.BUSAN)
-                .category(0L)
+                .region(RegionType.BUSAN)
+                .category(CategoryType.ART)
                 .thumbnail("UpdateThumbnail")
                 .build();
         PortfolioReadResponseDTO result = portfolioService.updatePortfolio(dto);

@@ -5,6 +5,7 @@ import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.with.PortfolioWithUserDTO;
@@ -30,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PortfolioService {
 
     private final PortfolioRepository portfolioRepository;
@@ -54,7 +56,6 @@ public class PortfolioService {
         return result;
     }
 
-    @Transactional
     public PortfolioReadResponseDTO updatePortfolio(PortfolioUpdateRequestDTO dto){
         Portfolio portfolio = portfolioRepository.findById(dto.getUid())
                 .orElseThrow(() -> new IllegalArgumentException(NO_BOARD_DATA_ERROR));
@@ -70,7 +71,6 @@ public class PortfolioService {
         return result;
     }
 
-    @Transactional
     public String deletePortfolio(String boardUid){
         Portfolio portfolio = portfolioRepository.findById(boardUid)
                 .orElseThrow(() -> new IllegalArgumentException(NO_BOARD_DATA_ERROR));
@@ -82,22 +82,21 @@ public class PortfolioService {
     }
 
     // TODO : 페이징 군을 나눌 때 지역, 분야, 제목, 작성자
-    public Page<PortfolioReadResponseDTO> pageReadPortfolio(Integer pageNum){
-        if (pageNum == null || pageNum < 1)
+    public Page<PortfolioReadResponseDTO> pageReadPortfolio(PortfolioReadRequestDTO dto){
+        if (dto.getPageNum() == null || dto.getPageNum() < 0)
             throw new IllegalArgumentException(NO_PAGE_ERROR);
 
-        // TODO : 페이지 갯수에 따라서 정할 수 있을 듯
-        Pageable pageable = PageRequest.of(pageNum - 1, 10);
+        List<PortfolioWithUserDTO> portfolioWithUser = portfolioQueryDslRepository
+                .findByUserAndPortfolioOrderByRegDateDesc(dto);
 
-        Page<PortfolioWithUserDTO> portfolioWithPage = portfolioQueryDslRepository
-                .findByUserAndPortfolioOrderByRegDateDesc(pageable);
-
-        List<PortfolioReadResponseDTO> portfolioReadResponseDTOList = portfolioWithPage.getContent()
+        List<PortfolioReadResponseDTO> portfolioReadResponseDTOList = portfolioWithUser
                 .stream()
-                .map(dto -> dto.toReadResponseDTO())
+                .map(pwuDTO -> pwuDTO.toReadResponseDTO())
                 .collect(Collectors.toList());
 
-        return new PageImpl<>(portfolioReadResponseDTOList, pageable, portfolioWithPage.getTotalElements());
+        Pageable pageable = PageRequest.of(dto.getPageNum(),dto.getLimit());
+
+        return new PageImpl<>(portfolioReadResponseDTOList, pageable, portfolioRepository.count());
     }
 
     public void favoritePortfolioCreate(String userUid, String portfolioUid){

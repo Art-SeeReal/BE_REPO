@@ -24,12 +24,12 @@ public class QPortfolioHistory extends EntityPathBase<PortfolioHistory> {
     public final StringPath boardUid = createString("boardUid");
 
     //inherited
-    public final NumberPath<Long> category = _super.category;
+    public final EnumPath<com.ArtSeeReal.pro.enums.CategoryType> category = _super.category;
 
     //inherited
     public final StringPath content = _super.content;
 
-    public final NumberPath<Long> exCategory = createNumber("exCategory", Long.class);
+    public final EnumPath<com.ArtSeeReal.pro.enums.CategoryType> exCategory = createEnum("exCategory", com.ArtSeeReal.pro.enums.CategoryType.class);
 
     public final StringPath exContent = createString("exContent");
 
@@ -47,7 +47,7 @@ public class QPortfolioHistory extends EntityPathBase<PortfolioHistory> {
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     //inherited
-    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> regionType = _super.regionType;
+    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> region = _super.region;
 
     //inherited
     public final StringPath thumbnail = _super.thumbnail;
