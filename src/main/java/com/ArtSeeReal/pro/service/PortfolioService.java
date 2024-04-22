@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.service;
 
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_DATA_ERROR;
 import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
@@ -8,11 +9,14 @@ import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.with.PortfolioWithUserDTO;
+import com.ArtSeeReal.pro.entity.composite.FavoritePortfolioKey;
 import com.ArtSeeReal.pro.entity.delete.PortfolioDelete;
 import com.ArtSeeReal.pro.entity.history.PortfolioHistory;
+import com.ArtSeeReal.pro.entity.main.FavoritePortfolios;
 import com.ArtSeeReal.pro.entity.main.Portfolio;
 import com.ArtSeeReal.pro.repository.jpa.delete.PortfolioDeleteRepository;
 import com.ArtSeeReal.pro.repository.jpa.history.PortfolioHistoryRepository;
+import com.ArtSeeReal.pro.repository.jpa.main.FavoritePortfoliosRepository;
 import com.ArtSeeReal.pro.repository.jpa.main.PortfolioRepository;
 import com.ArtSeeReal.pro.repository.querydsl.main.PortfolioQueryDslRepository;
 import java.util.List;
@@ -34,6 +38,7 @@ public class PortfolioService {
     private final PortfolioQueryDslRepository portfolioQueryDslRepository;
     private final PortfolioHistoryRepository portfolioHistoryRepository;
     private final PortfolioDeleteRepository portfolioDeleteRepository;
+    private final FavoritePortfoliosRepository favoritePortfoliosRepository;
 
     private final String NO_BOARD_DATA_ERROR = "[ERROR] 게시물 데이터가 없습니다.";
     private final String NO_PAGE_ERROR = "[ERROR] 페이지가 1미만 또는 NULL값입니다.";
@@ -92,6 +97,23 @@ public class PortfolioService {
         Pageable pageable = PageRequest.of(dto.getPageNum(),dto.getLimit());
 
         return new PageImpl<>(portfolioReadResponseDTOList, pageable, portfolioRepository.count());
+    }
+
+    public void favoritePortfolioCreate(String userUid, String portfolioUid){
+        // TODO : 검증로직을 만들 필요가 있지 않을까? EX) 유저 pk, 포트폴리오 pk의 유효성을 검사하는
+        // TODO : 이거하다가 생각났는데 검증로직을 하나의 별도 서비스로 분리할 필요가 있지 않을까?
+        FavoritePortfolioKey likes = new FavoritePortfolioKey(userUid,portfolioUid);
+        if(favoritePortfoliosRepository.existsById(likes))
+            throw new IllegalArgumentException(NO_DATA_ERROR.getMessage());
+        favoritePortfoliosRepository.save(new FavoritePortfolios(likes));
+    }
+
+    public void favoritePortfolioDelete(String userUid, String portfolioUid){
+        FavoritePortfolioKey likes = new FavoritePortfolioKey(userUid,portfolioUid);
+        if(favoritePortfoliosRepository.existsById(likes))
+            favoritePortfoliosRepository.deleteById(likes);
+        else
+            throw new IllegalArgumentException(NO_DATA_ERROR.getMessage());
     }
 
 }

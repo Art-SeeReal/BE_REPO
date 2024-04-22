@@ -1,9 +1,12 @@
-package com.ArtSeeReal.pro.userTests;
+package com.ArtSeeReal.pro.portfolioTests;
 
 import static com.ArtSeeReal.pro.enums.RegionType.SEOUL;
 import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
 
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
+import com.ArtSeeReal.pro.enums.RegionType;
+import com.ArtSeeReal.pro.service.PortfolioService;
 import com.ArtSeeReal.pro.service.UserService;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,13 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Transactional
-public class UserLikesDeleteTest {
+public class PortfolioFavoriteDeleteTest {
 
+    private final PortfolioService portfolioService;
     private final UserService userService;
-    private String yourUserUid;
-    private String myUserUid;
+    private String portfolioUid;
+    private String userUid;
+
     @Autowired
-    public UserLikesDeleteTest(UserService userService) {
+    public PortfolioFavoriteDeleteTest(PortfolioService portfolioService, UserService userService) {
+        this.portfolioService = portfolioService;
         this.userService = userService;
     }
 
@@ -41,28 +47,24 @@ public class UserLikesDeleteTest {
                 .regDate(LocalDateTime.now())
                 .build();
 
-        myUserUid = userService.createUser(userRequestDTO).getUid();
+        userUid = userService.createUser(userRequestDTO).getUid();
 
-        UserRequestDTO userRequestDTO2 = UserRequestDTO
-                .builder()
-                .userId("test1")
-                .name("테스트1")
-                .password("test12341")
-                .nickname("testNickname1")
-                .email("test@gmail.com1")
-                .emailSecret(true)
-                .phone("010-1234-56781")
-                .phoneSecret(true)
-                .regionType(SEOUL)
-                .userType(AUTHOR)
-                .regDate(LocalDateTime.now())
+        PortfolioCreateRequestDTO dto = PortfolioCreateRequestDTO.builder()
+                .userUid("testUid")
+                .title("testTitle")
+                .content("testContent")
+                .regionType(RegionType.SEOUL)
+                .category(0L)
+                .thumbnail("testThumbnail")
                 .build();
-        yourUserUid = userService.createUser(userRequestDTO2).getUid();
-        userService.userLikesCreate(myUserUid,yourUserUid);
+
+        portfolioUid = portfolioService.createPortfolio(dto).getUid();
+
+        portfolioService.favoritePortfolioCreate(userUid,portfolioUid);
     }
 
     @Test
-    void 유저_좋아요_삭제_성공(){
-        userService.userLikesDelete(myUserUid,yourUserUid);
+    void 포트폴리오_즐겨찾기_삭제_성공(){
+        portfolioService.favoritePortfolioDelete(userUid,portfolioUid);
     }
 }

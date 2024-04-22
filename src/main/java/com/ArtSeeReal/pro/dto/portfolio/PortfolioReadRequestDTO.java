@@ -3,7 +3,6 @@ package com.ArtSeeReal.pro.dto.portfolio;
 import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import java.util.List;
-import java.util.Locale.Category;
 import lombok.Builder;
 import lombok.Data;
 

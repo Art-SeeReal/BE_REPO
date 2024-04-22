@@ -2,7 +2,6 @@ package com.ArtSeeReal.pro.controller;
 
 import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
 
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateResponseDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadRequestDTO;
@@ -55,15 +54,24 @@ public class RecruitmentController {
         return new ResponseEntity<>(recruitService.pageReadRecruitment(dto), HttpStatus.OK);
     }
 
-    @PostMapping("/scrap")
+    @GetMapping("/latest")
     @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<?> recruitmentScrap() throws NotImplementedException {
+    public ResponseEntity<Page<RecruitmentReadResponseDTO>> latest() throws NotImplementedException {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
+
+    @PostMapping("/scrap")
+    public ResponseEntity<Void> recruitmentScrapCreate(String recruitUid){
+        // TODO : userUid 가져 온 다음 수정
+        recruitService.favoriteRecruitmentCreate("userUid",recruitUid);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
     @DeleteMapping("/scrap")
-    @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<?> recruitmentScrap(String id) throws NotImplementedException {
-        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    public ResponseEntity<Void> recruitmentScrapDelete(String recruitUid){
+        // TODO : userUid 가져 온 다음 수정
+        recruitService.favoriteRecruitmentDelete("userUid",recruitUid);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/apply")

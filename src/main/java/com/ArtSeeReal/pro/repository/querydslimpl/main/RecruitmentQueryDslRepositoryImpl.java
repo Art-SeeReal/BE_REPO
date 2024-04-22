@@ -1,15 +1,11 @@
 package com.ArtSeeReal.pro.repository.querydslimpl.main;
 
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadRequestDTO;
-import com.ArtSeeReal.pro.dto.with.PortfolioWithUserDTO;
 import com.ArtSeeReal.pro.dto.with.RecruitmentWithUserDTO;
-import com.ArtSeeReal.pro.entity.main.QPortfolio;
 import com.ArtSeeReal.pro.entity.main.QRecruitment;
 import com.ArtSeeReal.pro.entity.main.QUser;
 import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
-import com.ArtSeeReal.pro.repository.jpa.main.RecruitmentRepository;
 import com.ArtSeeReal.pro.repository.querydsl.main.RecruitmentQueryDslRepository;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
@@ -20,9 +16,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository

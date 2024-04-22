@@ -1,14 +1,10 @@
 package com.ArtSeeReal.pro.portfolioTests;
 
-import static com.ArtSeeReal.pro.enums.RegionType.SEOUL;
-import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadRequestDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
 import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
@@ -17,7 +13,6 @@ import com.ArtSeeReal.pro.service.PortfolioService;
 import com.ArtSeeReal.pro.service.UserService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
