@@ -61,4 +61,18 @@ public class RecruitmentController {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
 
+    @PostMapping("/apply")
+    public ResponseEntity<Void> recruitmentApplyCreate(String recruitUid){
+        // TODO : userUid 가져 온 다음 수정
+        recruitService.applyRecruitmentCreate("userUid",recruitUid);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/apply")
+    public ResponseEntity<Void> recruitmentApplyDelete(String recruitUid){
+        // TODO : userUid 가져 온 다음 수정
+        recruitService.applyRecruitmentDelete("userUid",recruitUid);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
