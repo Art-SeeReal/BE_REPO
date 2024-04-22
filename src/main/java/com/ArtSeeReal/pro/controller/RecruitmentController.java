@@ -2,7 +2,6 @@ package com.ArtSeeReal.pro.controller;
 
 import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
 
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateResponseDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadRequestDTO;

@@ -1,7 +1,6 @@
 package com.ArtSeeReal.pro.repository.jpa.main;
 
 import com.ArtSeeReal.pro.entity.main.Recruitment;
-import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.repository.jpa.module.ModuleRepository;
 import java.time.LocalDateTime;
 import java.util.List;

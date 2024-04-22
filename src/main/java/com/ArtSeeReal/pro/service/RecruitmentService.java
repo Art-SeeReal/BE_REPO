@@ -3,14 +3,11 @@ package com.ArtSeeReal.pro.service;
 import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_DATA_ERROR;
 import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateResponseDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentUpdateRequestDTO;
-import com.ArtSeeReal.pro.dto.with.PortfolioWithUserDTO;
 import com.ArtSeeReal.pro.dto.with.RecruitmentWithUserDTO;
 import com.ArtSeeReal.pro.entity.composite.ApplyRecruitmentKey;
 import com.ArtSeeReal.pro.entity.composite.FavoriteRecruitmentKey;

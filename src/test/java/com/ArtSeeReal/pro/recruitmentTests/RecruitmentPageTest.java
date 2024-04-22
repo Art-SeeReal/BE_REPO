@@ -1,11 +1,7 @@
 package com.ArtSeeReal.pro.recruitmentTests;
 
-import static com.ArtSeeReal.pro.enums.RegionType.SEOUL;
-import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;

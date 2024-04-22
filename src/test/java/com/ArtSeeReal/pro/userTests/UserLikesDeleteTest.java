@@ -3,10 +3,7 @@ package com.ArtSeeReal.pro.userTests;
 import static com.ArtSeeReal.pro.enums.RegionType.SEOUL;
 import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
 
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
-import com.ArtSeeReal.pro.enums.RegionType;
-import com.ArtSeeReal.pro.service.RecruitmentService;
 import com.ArtSeeReal.pro.service.UserService;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;

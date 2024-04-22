@@ -61,17 +61,6 @@ public class PortfolioController {
     }
 
     @PostMapping("/scrap")
-    @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<?> portfolioScrap() throws NotImplementedException {
-        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
-    }
-    @DeleteMapping("/scrap")
-    @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<?> portfolioScrap(String id) throws NotImplementedException {
-        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
-    }
-
-    @PostMapping("/scrap")
     public ResponseEntity<Void> portfolioScrapCreate(String recruitUid){
         // TODO : userUid 가져 온 다음 수정
         portfolioService.favoritePortfolioCreate("userUid",recruitUid);
