@@ -1,15 +1,19 @@
 package com.ArtSeeReal.pro.service;
 
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_DATA_ERROR;
 import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
 import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
 import com.ArtSeeReal.pro.dto.user.UserResponseDTO;
 import com.ArtSeeReal.pro.dto.user.UserUpdateRequestDTO;
+import com.ArtSeeReal.pro.entity.composite.UserLikeKey;
 import com.ArtSeeReal.pro.entity.delete.UserDelete;
 import com.ArtSeeReal.pro.entity.history.UserHistory;
 import com.ArtSeeReal.pro.entity.main.User;
+import com.ArtSeeReal.pro.entity.main.UserLikes;
 import com.ArtSeeReal.pro.repository.jpa.delete.UserDeleteRepository;
 import com.ArtSeeReal.pro.repository.jpa.history.UserHistoryRepository;
+import com.ArtSeeReal.pro.repository.jpa.main.UserLikesRepository;
 import com.ArtSeeReal.pro.repository.jpa.main.UserRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +32,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserHistoryRepository userHistoryRepository;
     private final UserDeleteRepository userDeleteRepository;
+    private final UserLikesRepository userLikesRepository;
 
     public UserResponseDTO createUser(UserRequestDTO dto){
         dto.setUid(uidCreator(userRepository));
@@ -80,6 +85,23 @@ public class UserService {
             throw new IllegalArgumentException(EMAIL_DUPLICATE_ERROR);
         else
             return false;
+    }
+
+    public void userLikesCreate(String myUserUid, String yourUserUid){
+        // TODO : 검증로직을 만들 필요가 있지 않을까? EX) 유저 pk, 포트폴리오 pk의 유효성을 검사하는
+        // TODO : 이거하다가 생각났는데 검증로직을 하나의 별도 서비스로 분리할 필요가 있지 않을까?
+        UserLikeKey likes = new UserLikeKey(myUserUid,yourUserUid);
+        if(userLikesRepository.existsById(likes))
+            throw new IllegalArgumentException(NO_DATA_ERROR.getMessage());
+        userLikesRepository.save(new UserLikes(likes));
+    }
+
+    public void userLikesDelete(String myUserUid, String yourUserUid){
+        UserLikeKey likes = new UserLikeKey(myUserUid,yourUserUid);
+        if(userLikesRepository.existsById(likes))
+            userLikesRepository.deleteById(likes);
+        else
+            throw new IllegalArgumentException(NO_DATA_ERROR.getMessage());
     }
 
 }

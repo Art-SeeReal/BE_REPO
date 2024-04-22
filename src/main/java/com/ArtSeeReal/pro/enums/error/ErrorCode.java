@@ -22,7 +22,6 @@ public enum ErrorCode implements EnumModel {
     NO_DATA_ERROR(500,"C009","[ERROR] 데이터가 존재하지 않습니다."),
     NO_TOKEN_ERROR(500,"C010","[ERROR] 토큰이 존재하지 않습니다."),
     NO_AUTH_STR_ERROR(500,"C011","[ERROR] 인증 문자열이 존재하지 않습니다."),
-    NO_DATA_ERROR(400, "C003", "[ERROR] DB에 데이터가 없습니다."),
     NOT_IMPLEMENTED_EXCEPTION(400, "C004", "아직 구현이 안되었습니다.");
 
     private int status;
