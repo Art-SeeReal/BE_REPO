@@ -15,9 +15,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 public class Complaint extends ComplaintModule {
-
     @Id
     @Column(length = 64,nullable = false)
     private String uid;
-
 }

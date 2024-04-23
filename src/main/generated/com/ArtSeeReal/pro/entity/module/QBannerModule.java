@@ -19,7 +19,7 @@ public class QBannerModule extends EntityPathBase<BannerModule> {
 
     public static final QBannerModule bannerModule = new QBannerModule("bannerModule");
 
-    public final ArrayPath<byte[], Byte> imageData = createArray("imageData", byte[].class);
+    public final StringPath imageUrl = createString("imageUrl");
 
     public final StringPath linkUrl = createString("linkUrl");
 

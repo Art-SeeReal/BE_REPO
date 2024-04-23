@@ -5,7 +5,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
-import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
+import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.enums.UserType;
@@ -43,7 +43,7 @@ public class PortfolioPageTest {
         String userUid;
 
         for (int i = 1; i <= 3; i++) {
-            UserRequestDTO userRequestDTO = UserRequestDTO.builder()
+            UserCreateRequestDTO userCreateRequestDTO = UserCreateRequestDTO.builder()
                     .userId("test" + i)
                     .name("테스트" + i)
                     .password("test1234" + i)
@@ -52,12 +52,11 @@ public class PortfolioPageTest {
                     .emailSecret(true)
                     .phone("010-1234-5678" + i)
                     .phoneSecret(true)
-                    .regionType(RegionType.SEOUL)
                     .userType(UserType.AUTHOR)
                     .regDate(LocalDateTime.now())
                     .build();
 
-            userUid = userService.createUser(userRequestDTO).getUid();
+            userUid = userService.createUser(userCreateRequestDTO).getUid();
 
             for (int j = 1; j <= 3; j++) {
                 for (CategoryType category : CategoryType.values()) {
@@ -66,7 +65,6 @@ public class PortfolioPageTest {
                                 .userUid(userUid)
                                 .title("testTitle" + i * j)
                                 .content("testContent" + i * j)
-                                .region(region)
                                 .category(category)
                                 .thumbnail("testThumbnail" + i * j)
                                 .build();
@@ -77,17 +75,15 @@ public class PortfolioPageTest {
         }
     }
     @Test
-    public void 포트폴리오_READ_NTCR(){ // N : 닉네임 T : 타이틀 C : 카테고리 R : 지역
+    public void 포트폴리오_READ_NTC(){ // N : 닉네임 T : 타이틀 C : 카테고리
         String nickname = appendRandomNumberToName("testNickname");
         String title = appendRandomNumberToName("testTitle");
         List<CategoryType> categoryTypes = categoryListReturner();
-        List<RegionType> regionTypes = RegionListReturner();
 
         PortfolioReadRequestDTO dto = PortfolioReadRequestDTO.builder()
                 .nickname(nickname)
                 .title(title)
                 .categories(categoryTypes)
-                .regionTypes(regionTypes)
                 .pageNum(0)
                 .limit(100)
                 .sortField("regDate")
@@ -100,103 +96,10 @@ public class PortfolioPageTest {
             assertThat(result.getContent().get(i).getNickname()).contains(nickname);
             assertThat(result.getContent().get(i).getTitle()).contains(title);
             assertThat(categoryTypes.contains(result.getContent().get(i).getCategory())).isTrue();
-            assertThat(regionTypes.contains(result.getContent().get(i).getRegion())).isTrue();
         }
     }
     @Test
-    public void 포트폴리오_READ_NTC(){ // N : 닉네임 T : 타이틀 C : 카테고리 R : 지역
-        String nickname = appendRandomNumberToName("testNickname");
-        String title = appendRandomNumberToName("testTitle");
-        List<CategoryType> categoryTypes = categoryListReturner();
-
-        PortfolioReadRequestDTO dto = PortfolioReadRequestDTO.builder()
-                .nickname(nickname)
-                .title(title)
-                .categories(categoryTypes)
-                .pageNum(0)
-                .limit(100)
-                .sortField("regDate")
-                .sortType("DESC")
-                .build();
-
-        Page<PortfolioReadResponseDTO> result = portfolioService.pageReadPortfolio(dto);
-        for (int i = 0; i < result.getContent().size(); i++) {
-            assertThat(result.getContent().get(i).getNickname()).contains(nickname);
-            assertThat(result.getContent().get(i).getTitle()).contains(title);
-            assertThat(categoryTypes.contains(result.getContent().get(i).getCategory())).isTrue();
-        }
-    }
-    @Test
-    public void 포트폴리오_READ_NTR(){ // N : 닉네임 T : 타이틀 C : 카테고리 R : 지역
-        String nickname = appendRandomNumberToName("testNickname");
-        String title = appendRandomNumberToName("testTitle");
-        List<RegionType> regionTypes = RegionListReturner();
-
-        PortfolioReadRequestDTO dto = PortfolioReadRequestDTO.builder()
-                .nickname(nickname)
-                .title(title)
-                .regionTypes(regionTypes)
-                .pageNum(0)
-                .limit(100)
-                .sortField("regDate")
-                .sortType("DESC")
-                .build();
-
-        Page<PortfolioReadResponseDTO> result = portfolioService.pageReadPortfolio(dto);
-        for (int i = 0; i < result.getContent().size(); i++) {
-            assertThat(result.getContent().get(i).getNickname()).contains(nickname);
-            assertThat(result.getContent().get(i).getTitle()).contains(title);
-            assertThat(regionTypes.contains(result.getContent().get(i).getRegion())).isTrue();
-        }
-    }
-    @Test
-    public void 포트폴리오_READ_NCR(){ // N : 닉네임 T : 타이틀 C : 카테고리 R : 지역
-        String nickname = appendRandomNumberToName("testNickname");
-        List<CategoryType> categoryTypes = categoryListReturner();
-        List<RegionType> regionTypes = RegionListReturner();
-
-        PortfolioReadRequestDTO dto = PortfolioReadRequestDTO.builder()
-                .nickname(nickname)
-                .categories(categoryTypes)
-                .regionTypes(regionTypes)
-                .pageNum(0)
-                .limit(100)
-                .sortField("regDate")
-                .sortType("DESC")
-                .build();
-
-        Page<PortfolioReadResponseDTO> result = portfolioService.pageReadPortfolio(dto);
-        for (int i = 0; i < result.getContent().size(); i++) {
-            assertThat(result.getContent().get(i).getNickname()).contains(nickname);
-            assertThat(categoryTypes.contains(result.getContent().get(i).getCategory())).isTrue();
-            assertThat(regionTypes.contains(result.getContent().get(i).getRegion())).isTrue();
-        }
-    }
-    @Test
-    public void 포트폴리오_READ_TCR(){ // N : 닉네임 T : 타이틀 C : 카테고리 R : 지역
-        String title = appendRandomNumberToName("testTitle");
-        List<CategoryType> categoryTypes = categoryListReturner();
-        List<RegionType> regionTypes = RegionListReturner();
-
-        PortfolioReadRequestDTO dto = PortfolioReadRequestDTO.builder()
-                .title(title)
-                .categories(categoryTypes)
-                .regionTypes(regionTypes)
-                .pageNum(0)
-                .limit(100)
-                .sortField("regDate")
-                .sortType("DESC")
-                .build();
-
-        Page<PortfolioReadResponseDTO> result = portfolioService.pageReadPortfolio(dto);
-        for (int i = 0; i < result.getContent().size(); i++) {
-            assertThat(result.getContent().get(i).getTitle()).contains(title);
-            assertThat(categoryTypes.contains(result.getContent().get(i).getCategory())).isTrue();
-            assertThat(regionTypes.contains(result.getContent().get(i).getRegion())).isTrue();
-        }
-    }
-    @Test
-    public void 포트폴리오_READ_NT(){ // N : 닉네임 T : 타이틀 C : 카테고리 R : 지역
+    public void 포트폴리오_READ_NT(){ // N : 닉네임 T : 타이틀 C : 카테고리
         String nickname = appendRandomNumberToName("testNickname");
         String title = appendRandomNumberToName("testTitle");
 
@@ -216,7 +119,7 @@ public class PortfolioPageTest {
         }
     }
     @Test
-    public void 포트폴리오_READ_NC(){ // N : 닉네임 T : 타이틀 C : 카테고리 R : 지역
+    public void 포트폴리오_READ_NC(){ // N : 닉네임 T : 타이틀 C : 카테고리
         String nickname = appendRandomNumberToName("testNickname");
         List<CategoryType> categoryTypes = categoryListReturner();
 
@@ -236,7 +139,7 @@ public class PortfolioPageTest {
         }
     }
     @Test
-    public void 포트폴리오_READ_TC(){ // N : 닉네임 T : 타이틀 C : 카테고리 R : 지역
+    public void 포트폴리오_READ_TC(){ // N : 닉네임 T : 타이틀 C : 카테고리
         String title = appendRandomNumberToName("testTitle");
         List<CategoryType> categoryTypes = categoryListReturner();
 
@@ -256,118 +159,7 @@ public class PortfolioPageTest {
         }
     }
     @Test
-    public void 포트폴리오_READ_NR(){ // N : 닉네임 T : 타이틀 C : 카테고리 R : 지역
-        String nickname = appendRandomNumberToName("testNickname");
-        List<RegionType> regionTypes = RegionListReturner();
-
-        PortfolioReadRequestDTO dto = PortfolioReadRequestDTO.builder()
-                .nickname(nickname)
-                .regionTypes(regionTypes)
-                .pageNum(0)
-                .limit(100)
-                .sortField("regDate")
-                .sortType("DESC")
-                .build();
-
-        Page<PortfolioReadResponseDTO> result = portfolioService.pageReadPortfolio(dto);
-        for (int i = 0; i < result.getContent().size(); i++) {
-            assertThat(result.getContent().get(i).getNickname()).contains(nickname);
-            assertThat(regionTypes.contains(result.getContent().get(i).getRegion())).isTrue();
-        }
-    }
-    @Test
-    public void 포트폴리오_READ_TR(){ // N : 닉네임 T : 타이틀 C : 카테고리 R : 지역
-        String title = appendRandomNumberToName("testTitle");
-        List<RegionType> regionTypes = RegionListReturner();
-
-        PortfolioReadRequestDTO dto = PortfolioReadRequestDTO.builder()
-                .title(title)
-                .regionTypes(regionTypes)
-                .pageNum(0)
-                .limit(100)
-                .sortField("regDate")
-                .sortType("DESC")
-                .build();
-
-        Page<PortfolioReadResponseDTO> result = portfolioService.pageReadPortfolio(dto);
-        for (int i = 0; i < result.getContent().size(); i++) {
-            assertThat(result.getContent().get(i).getTitle()).contains(title);
-            assertThat(regionTypes.contains(result.getContent().get(i).getRegion())).isTrue();
-        }
-    }
-    @Test
-    public void 포트폴리오_READ_CR(){ // N : 닉네임 T : 타이틀 C : 카테고리 R : 지역
-        List<CategoryType> categoryTypes = categoryListReturner();
-        List<RegionType> regionTypes = RegionListReturner();
-
-        PortfolioReadRequestDTO dto = PortfolioReadRequestDTO.builder()
-                .categories(categoryTypes)
-                .regionTypes(regionTypes)
-                .pageNum(0)
-                .limit(100)
-                .sortField("regDate")
-                .sortType("DESC")
-                .build();
-
-        Page<PortfolioReadResponseDTO> result = portfolioService.pageReadPortfolio(dto);
-        for (int i = 0; i < result.getContent().size(); i++) {
-            assertThat(categoryTypes.contains(result.getContent().get(i).getCategory())).isTrue();
-            assertThat(regionTypes.contains(result.getContent().get(i).getRegion())).isTrue();
-        }
-    }
-    @Test
-    public void 포트폴리오_READ_R(){ // N : 닉네임 T : 타이틀 C : 카테고리 R : 지역
-        List<RegionType> regionTypes = RegionListReturner();
-
-        PortfolioReadRequestDTO dto = PortfolioReadRequestDTO.builder()
-                .regionTypes(regionTypes)
-                .pageNum(0)
-                .limit(100)
-                .sortField("regDate")
-                .sortType("DESC")
-                .build();
-
-        Page<PortfolioReadResponseDTO> result = portfolioService.pageReadPortfolio(dto);
-        for (int i = 0; i < result.getContent().size(); i++) {
-            assertThat(regionTypes.contains(result.getContent().get(i).getRegion())).isTrue();
-        }
-    }
-    @Test
-    public void 포트폴리오_READ_C(){ // N : 닉네임 T : 타이틀 C : 카테고리 R : 지역
-        List<CategoryType> categoryTypes = categoryListReturner();
-
-        PortfolioReadRequestDTO dto = PortfolioReadRequestDTO.builder()
-                .categories(categoryTypes)
-                .pageNum(0)
-                .limit(100)
-                .sortField("regDate")
-                .sortType("DESC")
-                .build();
-
-        Page<PortfolioReadResponseDTO> result = portfolioService.pageReadPortfolio(dto);
-        for (int i = 0; i < result.getContent().size(); i++) {
-            assertThat(categoryTypes.contains(result.getContent().get(i).getCategory())).isTrue();
-        }
-    }
-    @Test
-    public void 포트폴리오_READ_T(){ // N : 닉네임 T : 타이틀 C : 카테고리 R : 지역
-        String title = appendRandomNumberToName("testTitle");
-
-        PortfolioReadRequestDTO dto = PortfolioReadRequestDTO.builder()
-                .title(title)
-                .pageNum(0)
-                .limit(100)
-                .sortField("regDate")
-                .sortType("DESC")
-                .build();
-
-        Page<PortfolioReadResponseDTO> result = portfolioService.pageReadPortfolio(dto);
-        for (int i = 0; i < result.getContent().size(); i++) {
-            assertThat(result.getContent().get(i).getTitle()).contains(title);
-        }
-    }
-    @Test
-    public void 포트폴리오_READ_N(){ // N : 닉네임 T : 타이틀 C : 카테고리 R : 지역
+    public void 포트폴리오_READ_N(){ // N : 닉네임 T : 타이틀 C : 카테고리
         String nickname = appendRandomNumberToName("testNickname");
 
         PortfolioReadRequestDTO dto = PortfolioReadRequestDTO.builder()
@@ -384,11 +176,52 @@ public class PortfolioPageTest {
         }
     }
     @Test
-    public void 포트폴리오_READ_(){ // N : 닉네임 T : 타이틀 C : 카테고리 R : 지역
+    public void 포트폴리오_READ_T(){ // N : 닉네임 T : 타이틀 C : 카테고리
+        String title = appendRandomNumberToName("testTitle");
 
         PortfolioReadRequestDTO dto = PortfolioReadRequestDTO.builder()
+                .title(title)
                 .pageNum(0)
-                .limit(10)
+                .limit(100)
+                .sortField("regDate")
+                .sortType("DESC")
+                .build();
+
+        Page<PortfolioReadResponseDTO> result = portfolioService.pageReadPortfolio(dto);
+        for (int i = 0; i < result.getContent().size(); i++) {
+            assertThat(result.getContent().get(i).getTitle()).contains(title);
+        }
+    }
+    @Test
+    public void 포트폴리오_READ_C(){ // N : 닉네임 T : 타이틀 C : 카테고리
+        List<CategoryType> categoryTypes = categoryListReturner();
+
+        PortfolioReadRequestDTO dto = PortfolioReadRequestDTO.builder()
+                .categories(categoryTypes)
+                .pageNum(0)
+                .limit(100)
+                .sortField("regDate")
+                .sortType("DESC")
+                .build();
+
+        Page<PortfolioReadResponseDTO> result = portfolioService.pageReadPortfolio(dto);
+        for (int i = 0; i < result.getContent().size(); i++) {
+            assertThat(categoryTypes.contains(result.getContent().get(i).getCategory())).isTrue();
+        }
+    }
+
+    @Test
+    public void 포트폴리오_READ_(){ // N : 닉네임 T : 타이틀 C : 카테고리
+        String nickname = appendRandomNumberToName("testNickname");
+        String title = appendRandomNumberToName("testTitle");
+        List<CategoryType> categoryTypes = categoryListReturner();
+
+        PortfolioReadRequestDTO dto = PortfolioReadRequestDTO.builder()
+                .nickname(nickname)
+                .title(title)
+                .categories(categoryTypes)
+                .pageNum(0)
+                .limit(100)
                 .sortField("regDate")
                 .sortType("DESC")
                 .build();

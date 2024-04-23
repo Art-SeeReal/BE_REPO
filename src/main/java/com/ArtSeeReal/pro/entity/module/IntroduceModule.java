@@ -15,7 +15,6 @@ import lombok.experimental.SuperBuilder;
 public abstract class IntroduceModule {
     @Column(length = 64,nullable = false)
     protected String userUid;
-
     @Column(nullable = false, columnDefinition = "TEXT")
     protected String content;
 }

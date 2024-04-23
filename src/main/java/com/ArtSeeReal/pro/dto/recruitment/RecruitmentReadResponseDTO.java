@@ -27,5 +27,6 @@ public class RecruitmentReadResponseDTO {
     private LocalDateTime regDate;
     private String thumbnail;
     private LocalDateTime dueDate;
+    private Long payment;
 
 }

@@ -8,6 +8,8 @@ import com.ArtSeeReal.pro.entity.module.RecruitmentModule;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,12 +23,11 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 @ToString
+@Table(indexes = {@Index(name = "idx_recruitment_title", columnList = "title")})
 public class Recruitment extends RecruitmentModule {
-
     @Id
     @Column(length = 64,nullable = false)
     private String uid;
-
     public RecruitmentCreateResponseDTO toCreateResponseDTO() {
         return RecruitmentCreateResponseDTO.builder()
                 .uid(uid)
@@ -38,9 +39,9 @@ public class Recruitment extends RecruitmentModule {
                 .category(category)
                 .regDate(regDate)
                 .dueDate(dueDate)
+                .payment(payment)
                 .build();
     }
-
     public RecruitmentReadResponseDTO toReadResponseDTO() {
         return RecruitmentReadResponseDTO.builder()
                 .uid(uid)
@@ -52,17 +53,17 @@ public class Recruitment extends RecruitmentModule {
                 .category(category)
                 .regDate(regDate)
                 .dueDate(dueDate)
+                .payment(payment)
                 .build();
     }
-
     public void updateFromDTO(RecruitmentUpdateRequestDTO dto){
         title = dto.getTitle();
         content = dto.getContent();
         region = dto.getRegion();
         category = dto.getCategory();
         dueDate = dto.getDueDate();
+        payment = dto.getPayment();
     }
-
     public RecruitmentDelete toBoardDelete(String uid, String delUserUid){
         return RecruitmentDelete.builder()
                 .uid(uid)
@@ -76,6 +77,7 @@ public class Recruitment extends RecruitmentModule {
                 .regDate(regDate)
                 .thumbnail(thumbnail)
                 .dueDate(dueDate)
+                .payment(payment)
                 .delDate(LocalDateTime.now())
                 .delUserUid(delUserUid)
                 .build();

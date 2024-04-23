@@ -5,7 +5,6 @@ import com.ArtSeeReal.pro.dto.with.PortfolioWithUserDTO;
 import com.ArtSeeReal.pro.entity.main.QPortfolio;
 import com.ArtSeeReal.pro.entity.main.QUser;
 import com.ArtSeeReal.pro.enums.CategoryType;
-import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.repository.querydsl.main.PortfolioQueryDslRepository;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
@@ -57,10 +56,6 @@ public class PortfolioQueryDslRepositoryImpl implements PortfolioQueryDslReposit
         if (dto.getTitle() != null && !dto.getTitle().isEmpty())
             whereClause = addPortfolioTitleCondition(dto.getTitle(), portfolio, whereClause);
 
-        // 지역 필터링 조건
-        if (dto.getRegionTypes() != null && !dto.getRegionTypes().isEmpty())
-            whereClause = addRegionTypeCondition(dto.getRegionTypes(), portfolio, whereClause);
-
         // 카테고리 필터링 조건
         if (dto.getCategories() != null && !dto.getCategories().isEmpty())
             whereClause = addCategoryTypeCondition(dto.getCategories(), portfolio, whereClause);
@@ -78,20 +73,6 @@ public class PortfolioQueryDslRepositoryImpl implements PortfolioQueryDslReposit
         return whereClause != null ?
                 whereClause.and(portfolio.title.toLowerCase().contains(title.toLowerCase())) :
                 portfolio.title.toLowerCase().contains(title.toLowerCase());
-    }
-
-    private BooleanExpression addRegionTypeCondition(List<RegionType> regionTypes, QPortfolio portfolio, BooleanExpression whereClause) {
-        BooleanExpression regionTypeCondition = null;
-        for (Object regionObj : regionTypes) {
-            if (regionObj instanceof RegionType) {
-                RegionType region = (RegionType) regionObj;
-                BooleanExpression condition = portfolio.region.eq(region);
-                regionTypeCondition = regionTypeCondition != null ? regionTypeCondition.or(condition) : condition;
-            }
-        }
-        return whereClause != null ?
-                whereClause.and(regionTypeCondition) :
-                regionTypeCondition;
     }
 
     private BooleanExpression addCategoryTypeCondition(List<CategoryType> categories, QPortfolio portfolio, BooleanExpression whereClause) {

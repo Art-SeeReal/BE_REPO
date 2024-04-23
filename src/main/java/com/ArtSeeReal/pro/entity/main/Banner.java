@@ -22,16 +22,13 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 public class Banner extends BannerModule {
-
     @Id
     @Column(length = 64,nullable = false)
     private String uid;
-
-
     public BannerCreateResponseDTO toCreateDTO(){
         return BannerCreateResponseDTO.builder()
                 .uid(uid)
-                .imageData(imageData)
+                .imageUrl(imageUrl)
                 .linkUrl(linkUrl)
                 .regDate(regDate)
                 .build();
@@ -40,14 +37,14 @@ public class Banner extends BannerModule {
     public BannerReadResponseDTO toReadDTO(){
         return BannerReadResponseDTO.builder()
                 .uid(uid)
-                .imageData(imageData)
+                .imageUrl(imageUrl)
                 .linkUrl(linkUrl)
                 .regDate(regDate)
                 .build();
     }
 
     public void change(BannerUpdateRequestDTO dto) throws IOException {
-        imageData = dto.getImageData().getBytes();
+        imageUrl = dto.getImageUrl();
         linkUrl = dto.getLinkUrl();
     }
 
@@ -55,8 +52,8 @@ public class Banner extends BannerModule {
         return BannerHistory.builder()
                 .uid(uid)
                 .bannerUid(this.uid)
-                .imageData(dto.getImageData().getBytes())
-                .exImageData(imageData)
+                .imageUrl(dto.getImageUrl())
+                .exImageUrl(imageUrl)
                 .linkUrl(dto.getLinkUrl())
                 .exLinkUrl(linkUrl)
                 .regDate(regDate)
@@ -69,7 +66,7 @@ public class Banner extends BannerModule {
         return BannerDelete.builder()
                 .uid(uid)
                 .bannerUid(this.uid)
-                .imageData(imageData)
+                .imageUrl(imageUrl)
                 .linkUrl(linkUrl)
                 .regDate(regDate)
                 .delDate(LocalDateTime.now())

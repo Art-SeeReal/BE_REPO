@@ -6,7 +6,6 @@ import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
 import com.ArtSeeReal.pro.enums.CategoryType;
-import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.service.PortfolioService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +30,6 @@ public class PortfolioUpdateTest {
                 .userUid("testUid")
                 .title("testTitle")
                 .content("testContent")
-                .region(RegionType.SEOUL)
                 .category(CategoryType.ART)
                 .thumbnail("testThumbnail")
                 .build();
@@ -43,7 +41,6 @@ public class PortfolioUpdateTest {
                 .uid(uid)
                 .title("UpdateTitle")
                 .content("UpdateContent")
-                .region(RegionType.BUSAN)
                 .category(CategoryType.ART)
                 .thumbnail("UpdateThumbnail")
                 .build();

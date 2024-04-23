@@ -17,13 +17,10 @@ import lombok.experimental.SuperBuilder;
 public abstract class ComplaintModule {
     @Column(length = 64,nullable = false)
     protected String userUid;
-
     @Column(length = 64,nullable = false)
     protected String targetUid;
-
     @Column(nullable = false)
     protected ComplaintType type;
-
     @Column(nullable = false)
     protected LocalDateTime regDate;
 }

@@ -5,7 +5,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
-import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
+import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.enums.UserType;
@@ -41,7 +41,7 @@ public class RecruitmentPageTest {
         String userUid;
 
         for (int i = 1; i <= 3; i++) {
-            UserRequestDTO userRequestDTO = UserRequestDTO.builder()
+            UserCreateRequestDTO userCreateRequestDTO = UserCreateRequestDTO.builder()
                     .userId("test" + i)
                     .name("테스트" + i)
                     .password("test1234" + i)
@@ -50,12 +50,11 @@ public class RecruitmentPageTest {
                     .emailSecret(true)
                     .phone("010-1234-5678" + i)
                     .phoneSecret(true)
-                    .regionType(RegionType.SEOUL)
                     .userType(UserType.AUTHOR)
                     .regDate(LocalDateTime.now())
                     .build();
 
-            userUid = userService.createUser(userRequestDTO).getUid();
+            userUid = userService.createUser(userCreateRequestDTO).getUid();
 
             for (int j = 1; j <= 3; j++) {
                 for (CategoryType category : CategoryType.values()) {
@@ -68,6 +67,7 @@ public class RecruitmentPageTest {
                                 .category(category)
                                 .thumbnail("testThumbnail" + i * j)
                                 .dueDate(LocalDateTime.now())
+                                .payment(1000000L)
                                 .build();
                         recruitService.createRecruitment(dto);
                     }

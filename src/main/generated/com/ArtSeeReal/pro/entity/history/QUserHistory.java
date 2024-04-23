@@ -41,8 +41,6 @@ public class QUserHistory extends EntityPathBase<UserHistory> {
 
     public final BooleanPath exPhoneSecret = createBoolean("exPhoneSecret");
 
-    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> exRegionType = createEnum("exRegionType", com.ArtSeeReal.pro.enums.RegionType.class);
-
     public final EnumPath<com.ArtSeeReal.pro.enums.UserType> exUserType = createEnum("exUserType", com.ArtSeeReal.pro.enums.UserType.class);
 
     public final DateTimePath<java.time.LocalDateTime> modDate = createDateTime("modDate", java.time.LocalDateTime.class);
@@ -66,9 +64,6 @@ public class QUserHistory extends EntityPathBase<UserHistory> {
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
-
-    //inherited
-    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> regionType = _super.regionType;
 
     public final StringPath uid = createString("uid");
 

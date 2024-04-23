@@ -15,7 +15,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 public class PerformanceComment extends PerformanceCommentModule {
-
     @Id
     @Column(length = 64,nullable = false)
     private String uid;

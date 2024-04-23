@@ -1,9 +1,8 @@
 package com.ArtSeeReal.pro.userTests;
 
-import static com.ArtSeeReal.pro.enums.RegionType.SEOUL;
 import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
 
-import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
+import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.service.UserService;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +25,7 @@ public class UserLikesDeleteTest {
 
     @BeforeEach
     void 더미데이터_생성(){
-        UserRequestDTO userRequestDTO = UserRequestDTO
+        UserCreateRequestDTO userCreateRequestDTO = UserCreateRequestDTO
                 .builder()
                 .userId("test")
                 .name("테스트")
@@ -36,14 +35,13 @@ public class UserLikesDeleteTest {
                 .emailSecret(true)
                 .phone("010-1234-5678")
                 .phoneSecret(true)
-                .regionType(SEOUL)
                 .userType(AUTHOR)
                 .regDate(LocalDateTime.now())
                 .build();
 
-        myUserUid = userService.createUser(userRequestDTO).getUid();
+        myUserUid = userService.createUser(userCreateRequestDTO).getUid();
 
-        UserRequestDTO userRequestDTO2 = UserRequestDTO
+        UserCreateRequestDTO userCreateRequestDTO2 = UserCreateRequestDTO
                 .builder()
                 .userId("test1")
                 .name("테스트1")
@@ -53,11 +51,10 @@ public class UserLikesDeleteTest {
                 .emailSecret(true)
                 .phone("010-1234-56781")
                 .phoneSecret(true)
-                .regionType(SEOUL)
                 .userType(AUTHOR)
                 .regDate(LocalDateTime.now())
                 .build();
-        yourUserUid = userService.createUser(userRequestDTO2).getUid();
+        yourUserUid = userService.createUser(userCreateRequestDTO2).getUid();
         userService.userLikesCreate(myUserUid,yourUserUid);
     }
 

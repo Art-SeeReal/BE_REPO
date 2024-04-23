@@ -16,20 +16,15 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 public class SnsHistory extends SnsModule {
-
     @Id
     @Column(length = 64,nullable = false)
     private String uid;
-
     @Column(length = 64,nullable = false)
     private String snsUid;
-
     @Column(length = 256, nullable = false)
     private String exUrl;
-
     @Column(nullable = false)
     private LocalDateTime modDate;
-
     @Column(length = 64,nullable = false)
     private String modUserUid;
 }

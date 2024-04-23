@@ -16,17 +16,13 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 public class RecruitmentDelete extends RecruitmentModule {
-
     @Id
     @Column(length = 64,nullable = false)
     private String uid;
-
     @Column(length = 64,nullable = false)
     private String boardUid;
-
     @Column(nullable = false)
     private LocalDateTime delDate;
-
     @Column(length = 64,nullable = false)
     private String delUserUid;
 }

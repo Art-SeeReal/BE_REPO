@@ -31,6 +31,9 @@ public class QRecruitment extends EntityPathBase<Recruitment> {
     public final DateTimePath<java.time.LocalDateTime> dueDate = _super.dueDate;
 
     //inherited
+    public final NumberPath<Long> payment = _super.payment;
+
+    //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     //inherited

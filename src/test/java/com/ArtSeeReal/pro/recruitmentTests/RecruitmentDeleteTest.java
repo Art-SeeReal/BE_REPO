@@ -31,6 +31,7 @@ public class RecruitmentDeleteTest {
                 .category(CategoryType.ART)
                 .thumbnail("testThumbnail")
                 .dueDate(LocalDateTime.now())
+                .payment(1000000L)
                 .build();
         uid = recruitService.createRecruitment(dto).getUid();
     }

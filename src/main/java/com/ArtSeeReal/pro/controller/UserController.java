@@ -2,8 +2,9 @@ package com.ArtSeeReal.pro.controller;
 
 import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
 
-import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
-import com.ArtSeeReal.pro.dto.user.UserResponseDTO;
+import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.user.UserCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.user.UserReadResponseDTO;
 import com.ArtSeeReal.pro.dto.user.UserUpdateRequestDTO;
 import com.ArtSeeReal.pro.enums.UserType;
 import com.ArtSeeReal.pro.service.MailService;
@@ -34,7 +35,7 @@ public class UserController {
     private final MailService mailService;
 
     @PostMapping
-    public ResponseEntity<UserResponseDTO> signUp(@RequestBody UserRequestDTO dto){
+    public ResponseEntity<UserCreateResponseDTO> signUp(@RequestBody UserCreateRequestDTO dto){
         return new ResponseEntity<>(userService.createUser(dto), HttpStatus.OK);
     }
     @DeleteMapping
@@ -43,7 +44,7 @@ public class UserController {
         return new ResponseEntity<>(userService.deleteUser(uid,"tempUser"), HttpStatus.OK);
     }
     @PutMapping
-    public ResponseEntity<UserResponseDTO> updateUser(@RequestBody UserUpdateRequestDTO dto){
+    public ResponseEntity<UserReadResponseDTO> updateUser(@RequestBody UserUpdateRequestDTO dto){
         return new ResponseEntity<>(userService.updateUser(dto), HttpStatus.OK);
     }
     @GetMapping("/info")
@@ -115,13 +116,13 @@ public class UserController {
     }
     @GetMapping("/{userId}/profile")
     @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<UserResponseDTO> readUser(
+    public ResponseEntity<UserCreateResponseDTO> readUser(
             @RequestParam String userId) throws NotImplementedException {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
     @GetMapping("/types")
     @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<UserResponseDTO> readUserTypes() throws NotImplementedException {
+    public ResponseEntity<UserCreateResponseDTO> readUserTypes() throws NotImplementedException {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
 

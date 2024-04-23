@@ -1,11 +1,10 @@
 package com.ArtSeeReal.pro.mailTests;
 
-import static com.ArtSeeReal.pro.enums.RegionType.SEOUL;
 import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
+import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.repository.memory.MemoryRepository;
 import com.ArtSeeReal.pro.service.MailService;
 import com.ArtSeeReal.pro.service.UserService;
@@ -34,7 +33,7 @@ public class AuthCreateTokenTest {
     }
     @BeforeEach
     void 기초_세팅() throws MessagingException, IOException {
-        UserRequestDTO dto = UserRequestDTO
+        UserCreateRequestDTO dto = UserCreateRequestDTO
                 .builder()
                 .userId("testUser")
                 .name("테스트")
@@ -44,7 +43,6 @@ public class AuthCreateTokenTest {
                 .emailSecret(true)
                 .phone("010-1234-5678")
                 .phoneSecret(true)
-                .regionType(SEOUL)
                 .userType(AUTHOR)
                 .regDate(LocalDateTime.now())
                 .build();

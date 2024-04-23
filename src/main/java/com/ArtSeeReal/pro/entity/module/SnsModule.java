@@ -13,10 +13,8 @@ import lombok.experimental.SuperBuilder;
 @MappedSuperclass
 @SuperBuilder
 public abstract class SnsModule {
-
     @Column(length = 64,nullable = false)
     protected String userUid;
-
     @Column(length = 256, nullable = false)
     protected String url;
 }

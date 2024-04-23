@@ -16,13 +16,10 @@ import lombok.experimental.SuperBuilder;
 public abstract class RequestCommentModule {
     @Column(length = 64,nullable = false)
     protected String userUid;
-
     @Column(length = 64,nullable = false)
     protected String postUid;
-
     @Column(nullable = false, columnDefinition = "TEXT")
     protected String content;
-
     @Column(nullable = false)
     protected LocalDateTime regDate;
 }

@@ -14,12 +14,10 @@ import lombok.experimental.SuperBuilder;
 @MappedSuperclass
 @SuperBuilder
 public abstract class BannerModule {
-    @Column(columnDefinition = "TEXT", nullable = false)
-    protected byte[] imageData;
-
+    @Column(length = 256, nullable = false)
+    protected String imageUrl;
     @Column(length = 512, nullable = false)
     protected String linkUrl;
-
     @Column(nullable = false)
     protected LocalDateTime regDate;
 }

@@ -1,16 +1,12 @@
 package com.ArtSeeReal.pro.controller;
 
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
-
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateResponseDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
 import com.ArtSeeReal.pro.service.PortfolioService;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jdk.jshell.spi.ExecutionControl.NotImplementedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;

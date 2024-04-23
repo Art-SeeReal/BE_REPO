@@ -10,7 +10,7 @@ import lombok.ToString;
 @ToString
 public class BannerReadResponseDTO {
     private final String uid;
-    private final byte[] imageData;
+    private final String imageUrl;
     private final String linkUrl;
     private final LocalDateTime regDate;
 

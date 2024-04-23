@@ -8,6 +8,8 @@ import com.ArtSeeReal.pro.entity.module.PortfolioModule;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,12 +21,11 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@Table(indexes = {@Index(name = "idx_portfolio_title", columnList = "title")})
 public class Portfolio extends PortfolioModule {
-
     @Id
     @Column(length = 64,nullable = false)
     private String uid;
-
     public PortfolioCreateResponseDTO toCreateResponseDTO() {
         return PortfolioCreateResponseDTO.builder()
                 .uid(uid)
@@ -32,12 +33,10 @@ public class Portfolio extends PortfolioModule {
                 .viewCnt(viewCnt)
                 .title(title)
                 .content(content)
-                .region(region)
                 .category(category)
                 .regDate(regDate)
                 .build();
     }
-
     public PortfolioReadResponseDTO toReadResponseDTO() {
         return PortfolioReadResponseDTO.builder()
                 .uid(uid)
@@ -45,19 +44,15 @@ public class Portfolio extends PortfolioModule {
                 .viewCnt(viewCnt)
                 .title(title)
                 .content(content)
-                .region(region)
                 .category(category)
                 .regDate(regDate)
                 .build();
     }
-
     public void updateFromDTO(PortfolioUpdateRequestDTO dto){
         title = dto.getTitle();
         content = dto.getContent();
-        region = dto.getRegion();
         category = dto.getCategory();
     }
-
     public PortfolioDelete toBoardDelete(String uid, String delUserUid){
         return PortfolioDelete.builder()
                 .uid(uid)
@@ -66,7 +61,6 @@ public class Portfolio extends PortfolioModule {
                 .viewCnt(viewCnt)
                 .title(title)
                 .content(content)
-                .region(region)
                 .category(category)
                 .regDate(regDate)
                 .thumbnail(thumbnail)

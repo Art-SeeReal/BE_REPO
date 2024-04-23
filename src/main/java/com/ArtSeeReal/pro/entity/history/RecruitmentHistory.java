@@ -18,36 +18,27 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 public class RecruitmentHistory extends RecruitmentModule {
-
     @Id
     @Column(length = 64,nullable = false)
     private String uid;
-
     @Column(length = 64,nullable = false)
     private String boardUid;
-
     @Column(length = 128, nullable = false)
     private String exTitle;
-
     @Column(nullable = false, columnDefinition = "TEXT")
     private String exContent;
-
     @Column(nullable = false)
     private RegionType exRegionType;
-
     @Column(nullable = false)
     private CategoryType exCategory;
-
     @Column(columnDefinition = "TEXT")
     private String exThumbnail;
-
     @Column(nullable = false)
     private LocalDateTime exDueDate;
-
+    @Column(nullable = false)
+    private Long exPayment;
     @Column(nullable = false)
     private LocalDateTime modDate;
-
     @Column(length = 64,nullable = false)
     private String modUserUid;
-
 }

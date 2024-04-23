@@ -27,6 +27,7 @@ public class RecruitmentCreateRequestDTO {
     private LocalDateTime regDate;
     private String thumbnail;
     private LocalDateTime dueDate;
+    private Long payment;
 
     public Recruitment form(String uid){
         return Recruitment.builder()
@@ -39,6 +40,7 @@ public class RecruitmentCreateRequestDTO {
                 .category(category)
                 .regDate(LocalDateTime.now())
                 .dueDate(dueDate)
+                .payment(payment)
                 .build();
     }
 }

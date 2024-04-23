@@ -26,7 +26,6 @@ public class PortfolioWithUserDTO {
                 .viewCnt(portfolio.getViewCnt())
                 .title(portfolio.getTitle())
                 .content(portfolio.getContent())
-                .region(portfolio.getRegion())
                 .category(portfolio.getCategory())
                 .regDate(portfolio.getRegDate())
                 .build();
