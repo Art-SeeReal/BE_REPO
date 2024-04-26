@@ -37,6 +37,9 @@ public class QRecruitmentDelete extends EntityPathBase<RecruitmentDelete> {
     public final DateTimePath<java.time.LocalDateTime> dueDate = _super.dueDate;
 
     //inherited
+    public final NumberPath<Long> payment = _super.payment;
+
+    //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     //inherited

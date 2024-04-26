@@ -16,23 +16,17 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 public class BannerHistory extends BannerModule {
-
     @Id
     @Column(length = 64,nullable = false)
     private String uid;
-
     @Column(length = 64,nullable = false)
     private String bannerUid;
-
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private byte[] exImageData;
-
+    @Column(length = 256, nullable = false)
+    private String exImageUrl;
     @Column(length = 512, nullable = false)
     private String exLinkUrl;
-
     @Column(nullable = false)
     private LocalDateTime modDate;
-
     @Column(length = 64,nullable = false)
     private String modUserUid;
 

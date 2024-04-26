@@ -25,6 +25,7 @@ public class RecruitmentUpdateRequestDTO {
     private CategoryType category;
     private String thumbnail;
     private LocalDateTime dueDate;
+    private Long payment;
 
     public RecruitmentHistory createHistoryRecord(String uid, Recruitment recruitment, String modUserUid){
         return RecruitmentHistory.builder()
@@ -38,6 +39,7 @@ public class RecruitmentUpdateRequestDTO {
                 .category(category)
                 .thumbnail(thumbnail)
                 .dueDate(dueDate)
+                .payment(payment)
                 .regDate(recruitment.getRegDate())
                 .exTitle(recruitment.getTitle())
                 .exContent(recruitment.getContent())
@@ -45,6 +47,7 @@ public class RecruitmentUpdateRequestDTO {
                 .exCategory(recruitment.getCategory())
                 .exThumbnail(recruitment.getThumbnail())
                 .exDueDate(recruitment.getDueDate())
+                .exPayment(recruitment.getPayment())
                 .modDate(LocalDateTime.now())
                 .modUserUid(modUserUid)
                 .build();

@@ -1,6 +1,6 @@
 package com.ArtSeeReal.pro.controller;
 
-import com.ArtSeeReal.pro.dto.user.UserResponseDTO;
+import com.ArtSeeReal.pro.dto.user.UserReadResponseDTO;
 import com.ArtSeeReal.pro.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class MyInfoController {
 
     private final UserService userService;
     @GetMapping
-    public ResponseEntity<UserResponseDTO> readUser(@RequestParam String uid){
+    public ResponseEntity<UserReadResponseDTO> readUser(@RequestParam String uid){
         return new ResponseEntity<>(userService.readUser(uid),HttpStatus.OK);
     }
 }

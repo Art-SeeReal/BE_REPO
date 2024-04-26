@@ -16,21 +16,15 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 public class RequestCommentHistory extends RequestCommentModule {
-
     @Id
     @Column(length = 64,nullable = false)
     private String uid;
-
     @Column(length = 64,nullable = false)
     private String requestCommentUid;
-
     @Column(nullable = false, columnDefinition = "TEXT")
     private String exContent;
-
     @Column(nullable = false)
     private LocalDateTime modDate;
-
     @Column(length = 64,nullable = false)
     private String modUserUid;
-
 }

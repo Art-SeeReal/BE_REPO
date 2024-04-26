@@ -2,7 +2,6 @@ package com.ArtSeeReal.pro.portfolioTests;
 
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
 import com.ArtSeeReal.pro.enums.CategoryType;
-import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.service.PortfolioService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,6 @@ public class PortfolioCreateTest {
                 .userUid("testUid")
                 .title("testTitle")
                 .content("testContent")
-                .region(RegionType.SEOUL)
                 .category(CategoryType.ART)
                 .thumbnail("testThumbnail")
                 .build();

@@ -49,9 +49,6 @@ public class QUserDelete extends EntityPathBase<UserDelete> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
-    //inherited
-    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> regionType = _super.regionType;
-
     public final StringPath uid = createString("uid");
 
     //inherited

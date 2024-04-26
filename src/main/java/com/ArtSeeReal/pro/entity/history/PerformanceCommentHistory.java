@@ -16,21 +16,15 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 public class PerformanceCommentHistory extends PerformanceCommentModule {
-
     @Id
     @Column(length = 64,nullable = false)
     private String uid;
-
     @Column(length = 64,nullable = false)
     private String commentUid;
-
     @Column(length = 64,nullable = false)
     private String exComment;
-
     @Column(nullable = false)
     private LocalDateTime modDate;
-
     @Column(length = 64,nullable = false)
     private String modUserUid;
-
 }

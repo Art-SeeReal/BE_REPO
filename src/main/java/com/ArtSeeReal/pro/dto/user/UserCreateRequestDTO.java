@@ -1,7 +1,6 @@
 package com.ArtSeeReal.pro.dto.user;
 
 import com.ArtSeeReal.pro.entity.main.User;
-import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.enums.UserType;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -15,7 +14,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class UserRequestDTO {
+public class UserCreateRequestDTO {
     private String uid;
     private String userId;
     private String name;
@@ -25,11 +24,10 @@ public class UserRequestDTO {
     private boolean emailSecret;
     private String phone;
     private boolean phoneSecret;
-    private RegionType regionType;
     private UserType userType;
     private LocalDateTime regDate;
 
-    public User from(){
+    public User from(String uid){
         return User.
                 builder()
                 .uid(uid)
@@ -41,7 +39,6 @@ public class UserRequestDTO {
                 .emailSecret(emailSecret)
                 .phone(phone)
                 .phoneSecret(phoneSecret)
-                .regionType(regionType)
                 .userType(userType)
                 .regDate(regDate)
                 .build();

@@ -15,9 +15,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 public class Introduce extends IntroduceModule {
-
     @Id
     @Column(length = 64,nullable = false)
     private String uid;
-
 }

@@ -30,6 +30,7 @@ public class RecruitmentCreateTest {
                 .category(CategoryType.ART)
                 .thumbnail("testThumbnail")
                 .dueDate(LocalDateTime.now())
+                .payment(1000000L)
                 .build();
         recruitService.createRecruitment(dto);
     }

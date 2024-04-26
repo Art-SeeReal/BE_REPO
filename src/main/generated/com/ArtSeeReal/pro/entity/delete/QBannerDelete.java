@@ -28,7 +28,7 @@ public class QBannerDelete extends EntityPathBase<BannerDelete> {
     public final StringPath delUserUid = createString("delUserUid");
 
     //inherited
-    public final ArrayPath<byte[], Byte> imageData = _super.imageData;
+    public final StringPath imageUrl = _super.imageUrl;
 
     //inherited
     public final StringPath linkUrl = _super.linkUrl;

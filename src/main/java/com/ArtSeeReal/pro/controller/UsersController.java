@@ -2,7 +2,7 @@ package com.ArtSeeReal.pro.controller;
 
 import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
 
-import com.ArtSeeReal.pro.dto.user.UserResponseDTO;
+import com.ArtSeeReal.pro.dto.user.UserReadResponseDTO;
 import com.ArtSeeReal.pro.service.MailService;
 import com.ArtSeeReal.pro.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,7 +35,7 @@ public class UsersController {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
     @GetMapping("/find-user")
-    public ResponseEntity<UserResponseDTO> findUser(@RequestParam String uid){
+    public ResponseEntity<UserReadResponseDTO> findUser(@RequestParam String uid){
         return new ResponseEntity<>(userService.readUser(uid), HttpStatus.OK);
     }
 

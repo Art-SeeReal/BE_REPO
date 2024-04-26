@@ -1,11 +1,10 @@
 package com.ArtSeeReal.pro.portfolioTests;
 
-import static com.ArtSeeReal.pro.enums.RegionType.SEOUL;
 import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
 
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
-import com.ArtSeeReal.pro.enums.RegionType;
+import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.service.PortfolioService;
 import com.ArtSeeReal.pro.service.UserService;
 import java.time.LocalDateTime;
@@ -32,7 +31,7 @@ public class PortfolioFavoriteDeleteTest {
 
     @BeforeEach
     void 더미데이터_생성(){
-        UserRequestDTO userRequestDTO = UserRequestDTO
+        UserCreateRequestDTO userCreateRequestDTO = UserCreateRequestDTO
                 .builder()
                 .userId("test")
                 .name("테스트")
@@ -42,19 +41,17 @@ public class PortfolioFavoriteDeleteTest {
                 .emailSecret(true)
                 .phone("010-1234-5678")
                 .phoneSecret(true)
-                .regionType(SEOUL)
                 .userType(AUTHOR)
                 .regDate(LocalDateTime.now())
                 .build();
 
-        userUid = userService.createUser(userRequestDTO).getUid();
+        userUid = userService.createUser(userCreateRequestDTO).getUid();
 
         PortfolioCreateRequestDTO dto = PortfolioCreateRequestDTO.builder()
                 .userUid("testUid")
                 .title("testTitle")
                 .content("testContent")
-                .regionType(RegionType.SEOUL)
-                .category(0L)
+                .category(CategoryType.CRAFT)
                 .thumbnail("testThumbnail")
                 .build();
 

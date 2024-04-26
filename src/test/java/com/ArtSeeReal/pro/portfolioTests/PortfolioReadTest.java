@@ -1,14 +1,12 @@
 package com.ArtSeeReal.pro.portfolioTests;
 
-import static com.ArtSeeReal.pro.enums.RegionType.SEOUL;
 import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
-import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
+import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.enums.CategoryType;
-import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.service.PortfolioService;
 import com.ArtSeeReal.pro.service.UserService;
 import java.time.LocalDateTime;
@@ -34,7 +32,7 @@ public class PortfolioReadTest {
 
     @BeforeEach
     public void 공고_만들기(){
-        UserRequestDTO userDto = UserRequestDTO
+        UserCreateRequestDTO userDto = UserCreateRequestDTO
                 .builder()
                 .userId("test")
                 .name("테스트")
@@ -44,7 +42,6 @@ public class PortfolioReadTest {
                 .emailSecret(true)
                 .phone("010-1234-5678")
                 .phoneSecret(true)
-                .regionType(SEOUL)
                 .userType(AUTHOR)
                 .regDate(LocalDateTime.now())
                 .build();
@@ -55,7 +52,6 @@ public class PortfolioReadTest {
                 .userUid(userUid)
                 .title("testTitle")
                 .content("testContent")
-                .region(RegionType.SEOUL)
                 .category(CategoryType.ART)
                 .thumbnail("testThumbnail")
                 .build();

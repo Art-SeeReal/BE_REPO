@@ -36,6 +36,7 @@ public class RecruitmentUpdateTest {
                 .category(CategoryType.ART)
                 .thumbnail("testThumbnail")
                 .dueDate(LocalDateTime.now())
+                .payment(1000000L)
                 .build();
         uid = recruitService.createRecruitment(dto).getUid();
     }
@@ -49,6 +50,7 @@ public class RecruitmentUpdateTest {
                 .category(CategoryType.CRAFT)
                 .thumbnail("updateThumbnail")
                 .dueDate(LocalDateTime.now())
+                .payment(2000000L)
                 .build();
         RecruitmentReadResponseDTO result = recruitService.updateRecruitment(dto);
         assertThat(result.getContent()).isEqualTo("UpdateContent");

@@ -1,6 +1,6 @@
-package com.ArtSeeReal.pro.dto.portfolio;
+package com.ArtSeeReal.pro.dto.user;
 
-import com.ArtSeeReal.pro.enums.CategoryType;
+import com.ArtSeeReal.pro.enums.UserType;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,16 +13,16 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class PortfolioReadResponseDTO {
-
+public class UserCreateResponseDTO {
     private String uid;
-    private String userUid;
+    private String userId;
+    private String name;
     private String nickname;
-    private Long viewCnt;
-    private String title;
-    private String content;
-    private CategoryType category;
+    private String email;
+    private boolean emailSecret;
+    private String phone;
+    private boolean phoneSecret;
+    private UserType userType;
     private LocalDateTime regDate;
-    private String thumbnail;
 
 }

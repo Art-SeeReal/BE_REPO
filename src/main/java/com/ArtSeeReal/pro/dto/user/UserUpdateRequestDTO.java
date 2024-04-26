@@ -1,7 +1,6 @@
 package com.ArtSeeReal.pro.dto.user;
 
 import com.ArtSeeReal.pro.entity.main.User;
-import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.enums.UserType;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -25,11 +24,10 @@ public class UserUpdateRequestDTO {
     private boolean emailSecret;
     private String phone;
     private boolean phoneSecret;
-    private RegionType regionType;
     private UserType userType;
     private String modUserUid;
 
-    public User from(){
+    public User updateDTOTOEntity(){
         return User.
                 builder()
                 .uid(uid)
@@ -41,7 +39,6 @@ public class UserUpdateRequestDTO {
                 .emailSecret(emailSecret)
                 .phone(phone)
                 .phoneSecret(phoneSecret)
-                .regionType(regionType)
                 .userType(userType)
                 .regDate(LocalDateTime.now())
                 .build();

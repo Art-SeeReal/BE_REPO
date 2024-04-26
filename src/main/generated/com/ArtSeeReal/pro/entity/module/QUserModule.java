@@ -35,8 +35,6 @@ public class QUserModule extends EntityPathBase<UserModule> {
 
     public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
 
-    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> regionType = createEnum("regionType", com.ArtSeeReal.pro.enums.RegionType.class);
-
     public final StringPath userId = createString("userId");
 
     public final EnumPath<com.ArtSeeReal.pro.enums.UserType> userType = createEnum("userType", com.ArtSeeReal.pro.enums.UserType.class);
