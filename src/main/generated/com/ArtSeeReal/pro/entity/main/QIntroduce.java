@@ -26,9 +26,6 @@ public class QIntroduce extends EntityPathBase<Introduce> {
 
     public final StringPath uid = createString("uid");
 
-    //inherited
-    public final StringPath userUid = _super.userUid;
-
     public QIntroduce(String variable) {
         super(Introduce.class, forVariable(variable));
     }

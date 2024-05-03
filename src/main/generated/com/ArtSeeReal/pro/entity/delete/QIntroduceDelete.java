@@ -32,9 +32,6 @@ public class QIntroduceDelete extends EntityPathBase<IntroduceDelete> {
 
     public final StringPath uid = createString("uid");
 
-    //inherited
-    public final StringPath userUid = _super.userUid;
-
     public QIntroduceDelete(String variable) {
         super(IntroduceDelete.class, forVariable(variable));
     }

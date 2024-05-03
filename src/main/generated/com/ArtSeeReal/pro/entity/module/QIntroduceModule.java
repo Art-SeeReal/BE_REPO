@@ -21,8 +21,6 @@ public class QIntroduceModule extends EntityPathBase<IntroduceModule> {
 
     public final StringPath content = createString("content");
 
-    public final StringPath userUid = createString("userUid");
-
     public QIntroduceModule(String variable) {
         super(IntroduceModule.class, forVariable(variable));
     }

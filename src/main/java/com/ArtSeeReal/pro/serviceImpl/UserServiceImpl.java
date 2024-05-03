@@ -20,6 +20,7 @@ import com.ArtSeeReal.pro.repository.jpa.delete.UserDeleteRepository;
 import com.ArtSeeReal.pro.repository.jpa.history.UserHistoryRepository;
 import com.ArtSeeReal.pro.repository.jpa.main.UserLikesRepository;
 import com.ArtSeeReal.pro.repository.jpa.main.UserRepository;
+import com.ArtSeeReal.pro.service.IntroduceService;
 import com.ArtSeeReal.pro.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -31,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Log4j2
 public class UserServiceImpl implements UserService {
+    private final IntroduceService introduceService;
     private final UserRepository userRepository;
     private final UserHistoryRepository userHistoryRepository;
     private final UserDeleteRepository userDeleteRepository;
@@ -39,6 +41,7 @@ public class UserServiceImpl implements UserService {
     public UserCreateResponseDTO createUser(UserCreateRequestDTO dto){
         User createUser = dto.from(uidCreator(userRepository));
         User saveduser = userRepository.save(createUser);
+        introduceService.createIntro(saveduser.getUid());
         UserCreateResponseDTO result = saveduser.entityToCreateDTO();
         return result;
     }
