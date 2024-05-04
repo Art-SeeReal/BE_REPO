@@ -7,5 +7,4 @@ public interface IntroduceService {
     IntroReadResponseDTO createIntro(String userUid);
     IntroReadResponseDTO readIntro(String userUid);
     IntroReadResponseDTO updateIntro(IntroUpdateRequestDTO dto);
-    IntroReadResponseDTO deleteIntro(String userUid);
 }

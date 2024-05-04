@@ -1,27 +1,28 @@
 package com.ArtSeeReal.pro.introduceTests;
 
-import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
-import com.ArtSeeReal.pro.dto.introduce.IntroReadResponseDTO;
 import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.user.UserProfileReadResponseDTO;
 import com.ArtSeeReal.pro.service.IntroduceService;
 import com.ArtSeeReal.pro.service.UserService;
-import java.time.LocalDateTime;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-public class IntroduceDeleteTest {
+import java.time.LocalDateTime;
 
-    private final IntroduceService introduceService;
+import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+@SpringBootTest
+@Transactional
+public class UserProfileTest {
+
     private final UserService userService;
-    private String userUid;
+
     @Autowired
-    public IntroduceDeleteTest(IntroduceService introduceService, UserService userService) {
-        this.introduceService = introduceService;
+    public UserProfileTest(UserService userService) {
         this.userService = userService;
     }
 
@@ -34,21 +35,22 @@ public class IntroduceDeleteTest {
                 .password("test1234")
                 .nickname("testNickname")
                 .email("test@gmail.com")
-                .emailSecret(true)
+                .emailSecret(false)
                 .phone("010-1234-5678")
                 .phoneSecret(true)
                 .userType(AUTHOR)
                 .regDate(LocalDateTime.now())
                 .build();
 
-        userUid = userService.createUser(dto).getUid();
-        introduceService.createIntro(userUid);
+        userService.createUser(dto);
     }
 
     @Test
-    void 자기소개_생성(){
-        IntroReadResponseDTO dto = introduceService.deleteIntro(userUid);
-        assertThat(dto.getUid()).isEqualTo(userUid);
-        assertThat(dto.getContent()).isEqualTo("");
+    void 프로파일_검색(){
+        UserProfileReadResponseDTO dto = userService.readIntro("test");
+        assertThat(dto.getNickName()).isEqualTo("testNickname");
+        assertThat(dto.getEmail()).isEqualTo("test@gmail.com");
+        assertThat(dto.getPhone()).isEqualTo(null);
+        assertThat(dto.getIntro()).isEqualTo("");
     }
 }

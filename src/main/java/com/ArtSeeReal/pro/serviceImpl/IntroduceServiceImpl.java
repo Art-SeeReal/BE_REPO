@@ -38,13 +38,4 @@ public class IntroduceServiceImpl implements IntroduceService {
         return introduceRepository.save(intro)
                 .entityToReadDTO();
     }
-
-    @Override
-    public IntroReadResponseDTO deleteIntro(String userUid) {
-        Introduce intro = introduceRepository.findById(userUid)
-                .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_DATA_ERROR.getMessage()));
-        intro.deleteContent();
-        return introduceRepository.save(intro)
-                .entityToReadDTO();
-    }
 }

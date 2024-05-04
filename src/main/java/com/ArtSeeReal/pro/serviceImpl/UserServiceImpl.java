@@ -7,10 +7,7 @@ import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_DATA_ERROR;
 import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_USER_DATA_ERROR;
 import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
-import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.user.UserCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.user.UserReadResponseDTO;
-import com.ArtSeeReal.pro.dto.user.UserUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.user.*;
 import com.ArtSeeReal.pro.entity.composite.UserLikeKey;
 import com.ArtSeeReal.pro.entity.delete.UserDelete;
 import com.ArtSeeReal.pro.entity.history.UserHistory;
@@ -20,6 +17,7 @@ import com.ArtSeeReal.pro.repository.jpa.delete.UserDeleteRepository;
 import com.ArtSeeReal.pro.repository.jpa.history.UserHistoryRepository;
 import com.ArtSeeReal.pro.repository.jpa.main.UserLikesRepository;
 import com.ArtSeeReal.pro.repository.jpa.main.UserRepository;
+import com.ArtSeeReal.pro.repository.querydsl.main.UserQueryDslRepository;
 import com.ArtSeeReal.pro.service.IntroduceService;
 import com.ArtSeeReal.pro.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +35,7 @@ public class UserServiceImpl implements UserService {
     private final UserHistoryRepository userHistoryRepository;
     private final UserDeleteRepository userDeleteRepository;
     private final UserLikesRepository userLikesRepository;
+    private final UserQueryDslRepository userQueryDslRepository;
     @Override
     public UserCreateResponseDTO createUser(UserCreateRequestDTO dto){
         User createUser = dto.from(uidCreator(userRepository));
@@ -119,6 +118,14 @@ public class UserServiceImpl implements UserService {
             userLikesRepository.deleteById(likes);
         else
             throw new IllegalArgumentException(NO_DATA_ERROR.getMessage());
+    }
+
+    @Override
+    public UserProfileReadResponseDTO readIntro(String userId) {
+        User user = userRepository.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException(NO_USER_DATA_ERROR.getMessage()));
+        return userQueryDslRepository.findUserProfileByUserUid(user.getUid())
+                .entityToDTO();
     }
 
 }
