@@ -11,20 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class UserDetailsImpl implements UserDetails {
 
     private final User user;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() { // role 값 반환
-
-//        Collection<GrantedAuthority> collection = new ArrayList<>();
-//        collection.add(new GrantedAuthority() {
-//            @Override
-//            public String getAuthority() {
-//                return user.getUserType().getName();
-//            }
-//        });
-//        return collection;
-
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(() -> "ROLE_" + user.getUserType().getName().toUpperCase());
+//        authorities.add(() -> user.getUserType().getName().toUpperCase());
         return authorities;
     }
 
@@ -34,15 +26,14 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     @Override
-    public String getUsername() {
+    public String getUsername() { // todo 이거 호출하는건 전부 getUserId로 바꾸기
         return user.getUserId();
     }
+
     public String getUserId() {
         return user.getUserId();
     }
-    public String getUserUid(){ // todo view로 보내줄 때 사용?
-        return user.getUid();
-    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

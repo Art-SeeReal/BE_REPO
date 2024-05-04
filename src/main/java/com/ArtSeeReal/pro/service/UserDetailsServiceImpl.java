@@ -21,9 +21,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userRepository.findByUserId(username)
                 .orElseThrow(() -> new IllegalArgumentException("유저아이디가 없음"));
 
-        if(user != null)
+//        if(user != null)
             return new UserDetailsImpl(user);
-
-        return null;
+//        return null;
     }
 }

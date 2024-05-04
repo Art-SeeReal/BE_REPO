@@ -30,6 +30,8 @@ idFindPath:
 passwordPath:
   template: /templates/passwordForm.html
 
+front-end:
+  server-url: http://localhost:3000
 
 #logging:
 #  level:

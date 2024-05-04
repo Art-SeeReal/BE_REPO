@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.config;
 
+//import com.ArtSeeReal.pro.jwt.CustomLogoutFilter;
 import com.ArtSeeReal.pro.jwt.CustomLogoutFilter;
 import com.ArtSeeReal.pro.jwt.JWTFilter;
 import com.ArtSeeReal.pro.jwt.JWTUtil;
@@ -7,6 +8,7 @@ import com.ArtSeeReal.pro.jwt.LoginFilter;
 import com.ArtSeeReal.pro.repository.jpa.main.RefreshRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +34,9 @@ public class SecurityConfig {
     private final JWTUtil jwtUtil;
     private final RefreshRepository refreshRepository;
 
+    @Value("${front-end.server-url}")
+    private String frontEndServerUrl;
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception{
         return configuration.getAuthenticationManager();
@@ -49,7 +54,7 @@ public class SecurityConfig {
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration configuration = new CorsConfiguration();
 
-                configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000")); // 허용할 프론트 서버
+                configuration.setAllowedOrigins(Collections.singletonList(frontEndServerUrl)); // 허용할 프론트 서버
                 configuration.setAllowedMethods(Collections.singletonList("*")); // get, post 등 모든 메소드 허용
                 configuration.setAllowCredentials(true);
                 configuration.setAllowedHeaders(Collections.singletonList("*"));
@@ -77,12 +82,10 @@ public class SecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
-//                        .requestMatchers("users","/login","/", "/swagger-ui/**","/api-docs/**").permitAll() // api-docs 는 스웨거가 API 문서를 생성하기 위해 접근하는 경로
-//                        .requestMatchers("/admin").hasAuthority("ROLE_ADMIN") // admin 권한을 가진 경우만 해당 경로
                         .requestMatchers("/users","/login","/").permitAll() // api-docs 는 스웨거가 API 문서를 생성하기 위해 접근하는 경로
-                        .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/swagger-ui/**","/api-docs/**").permitAll() // api-docs 는 스웨거가 API 문서를 생성하기 위해 접근하는 경로
                         .requestMatchers("/reissue").permitAll() // refresh 토큰으로 access 토큰 재발급하는 경로
+                        .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated());
 
         http

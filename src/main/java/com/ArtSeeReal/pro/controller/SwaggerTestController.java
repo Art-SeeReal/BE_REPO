@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @CrossOrigin
 @RequestMapping("/api")
-public class TestController {
+public class SwaggerTestController {
 
     @Operation(summary = "스웨거 GET 테스트", description = "테스트 api 1 입니다!")
     @GetMapping("/read")

@@ -13,10 +13,11 @@ import lombok.Setter;
 public class RefreshEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // todo user의 uid 값으로 저장
     private Long id;
 
     private String username;
     private String refresh;
     private String expiration;
+
 }

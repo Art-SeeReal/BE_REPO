@@ -17,6 +17,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.util.ContentCachingRequestWrapper;
 
 import java.util.Collection;
 import java.util.Date;
@@ -32,12 +33,12 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException{
-
         // 클라이언트 요청에서 username, password 추출
         String username = obtainUsername(request);
         String password = obtainPassword(request);
-        log.info("username ? " + username);
 
+        log.info("userid ?? " + username); // todo 지우자
+        log.info("password ?? " + password);
         // 스프링 시큐리티에서 userId와 password 검증하기 위해 토큰에 담기
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);
 
@@ -48,11 +49,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     // 로그인 성공 시 실행하는 메소드 (여기서 jwt 발급)
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication){
-//        UserDetailsImpl UserDetailsImpl = (UserDetailsImpl) authentication.getPrincipal();
-//        String username = UserDetailsImpl.getUsername();
-
+        log.info("successfulAuthentication ====> ok");
         String username = authentication.getName();
-System.out.println("username ? " + username);
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
@@ -60,15 +58,12 @@ System.out.println("username ? " + username);
 
         String role = auth.getAuthority();
 
-//        String token = jwtUtil.createJwt(username, role, 60*60*10L); // todo 환경변수로 빼기 (키-밸류)
-//        response.addHeader("Authorization", "Bearer " + token);
-
         //토큰 생성
-        String access = jwtUtil.createJwt("access", username, role, 600000L);
-        String refresh = jwtUtil.createJwt("refresh", username, role, 86400000L);
+        String access = jwtUtil.createJwt("access", username, role, 600000L); // 10분
+        String refresh = jwtUtil.createJwt("refresh", username, role, 86400000L); // 24시간
 
         //Refresh 토큰 저장
-        addRefreshEntity(username, refresh, 86400000L);
+        addRefreshEntity(username, refresh, 86400000L); // 24시간
 
         //응답 설정
         response.setHeader("access", access); // todo Bearer 안붙여도 되는지??
@@ -80,6 +75,7 @@ System.out.println("username ? " + username);
     // 로그인 실패 시 실행하는 메소드
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed){
+        log.info("unsuccessfulAuthentication ====> fail");
         response.setStatus(401); //로그인 실패시 401 응답 코드 반환
     }
 
@@ -100,7 +96,6 @@ System.out.println("username ? " + username);
         Cookie cookie = new Cookie(key, value);
         cookie.setMaxAge(24*60*60);
         cookie.setSecure(true); // https 통신
-        //cookie.setPath("/");
         cookie.setHttpOnly(true);
 
         return cookie;
