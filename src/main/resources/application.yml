@@ -19,6 +19,10 @@ spring:
     path match:
       matching-strategy: ant_path_matcher
 
+  jwt:
+    secret: artseerealqwertyuioplkjhgfdsazxcvbnm
+
+
 Email:
 
 idFindPath:
