@@ -82,7 +82,7 @@ log.info("accessToken ? " + accessToken);
         // 토큰 검증 성공 후 인증 정보 설정
         Authentication authToken = new UsernamePasswordAuthenticationToken(userDetailsImpl, null, userDetailsImpl.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authToken);
-        log.info("qweqweqwe"+authToken.getAuthorities().toArray()[0]);
+        log.info("qweqweqwe"+authToken.getAuthorities().toArray()[0].toString());
         // 다음 필터로 요청 전달
         filterChain.doFilter(request, response);
     }
