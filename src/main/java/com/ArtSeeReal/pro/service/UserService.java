@@ -1,9 +1,6 @@
 package com.ArtSeeReal.pro.service;
 
-import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.user.UserCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.user.UserReadResponseDTO;
-import com.ArtSeeReal.pro.dto.user.UserUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.user.*;
 
 public interface UserService {
     UserCreateResponseDTO createUser(UserCreateRequestDTO dto);
@@ -15,4 +12,5 @@ public interface UserService {
     boolean checkDuplicateUserEmail(String email);
     void userLikesCreate(String myUserUid, String yourUserUid);
     void userLikesDelete(String myUserUid, String yourUserUid);
+    UserProfileReadResponseDTO readIntro(String userId);
 }

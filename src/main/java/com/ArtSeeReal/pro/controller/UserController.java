@@ -2,11 +2,11 @@ package com.ArtSeeReal.pro.controller;
 
 import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
 
-import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.user.UserCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.user.UserReadResponseDTO;
-import com.ArtSeeReal.pro.dto.user.UserUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.introduce.IntroReadResponseDTO;
+import com.ArtSeeReal.pro.dto.introduce.IntroUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.user.*;
 import com.ArtSeeReal.pro.enums.UserType;
+import com.ArtSeeReal.pro.service.IntroduceService;
 import com.ArtSeeReal.pro.service.MailService;
 import com.ArtSeeReal.pro.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,14 +17,8 @@ import jdk.jshell.spi.ExecutionControl.NotImplementedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 @Tag(name = "User API")
 @RestController
 @RequiredArgsConstructor
@@ -33,6 +27,7 @@ public class UserController {
 
     private final UserService userService;
     private final MailService mailService;
+    private final IntroduceService introduceService;
 
     @PostMapping
     public ResponseEntity<UserCreateResponseDTO> signUp(@RequestBody UserCreateRequestDTO dto){
@@ -52,10 +47,9 @@ public class UserController {
     public ResponseEntity<UserType> info() throws NotImplementedException {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
-    @GetMapping("/intro")
-    @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<UserType> intro(@RequestParam String intro) throws NotImplementedException {
-        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    @PutMapping("/intro")
+    public ResponseEntity<IntroReadResponseDTO> intro(IntroUpdateRequestDTO dto) {
+        return new ResponseEntity<>(introduceService.updateIntro(dto),HttpStatus.OK);
     }
     @GetMapping("/like/portfolios")
     @Operation(summary = "미구현 상태 입니다.")
@@ -115,10 +109,9 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     @GetMapping("/{userId}/profile")
-    @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<UserCreateResponseDTO> readUser(
-            @RequestParam String userId) throws NotImplementedException {
-        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    public ResponseEntity<UserProfileReadResponseDTO> readUser(
+            @PathVariable String userId)  {
+        return new ResponseEntity<>(userService.readIntro(userId),HttpStatus.OK);
     }
     @GetMapping("/types")
     @Operation(summary = "미구현 상태 입니다.")

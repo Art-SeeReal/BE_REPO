@@ -2,8 +2,8 @@ package com.ArtSeeReal.pro.repository.jpa.main;
 
 import com.ArtSeeReal.pro.entity.main.Introduce;
 import com.ArtSeeReal.pro.repository.jpa.module.ModuleRepository;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IntroduceRepository extends JpaRepository<Introduce,String>, ModuleRepository {
-
 }
