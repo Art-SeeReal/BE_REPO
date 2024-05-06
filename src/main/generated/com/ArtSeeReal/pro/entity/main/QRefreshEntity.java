@@ -21,9 +21,9 @@ public class QRefreshEntity extends EntityPathBase<RefreshEntity> {
 
     public final StringPath expiration = createString("expiration");
 
-    public final NumberPath<Long> id = createNumber("id", Long.class);
-
     public final StringPath refresh = createString("refresh");
+
+    public final StringPath uid = createString("uid");
 
     public final StringPath username = createString("username");
 

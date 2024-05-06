@@ -41,7 +41,6 @@ public class UserService {
 
         dto.setUid(uidCreator(userRepository));
         dto.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
-System.out.println("dto = > " + dto);
         User user = userRepository.save(dto.from());
         return user.from();
     }

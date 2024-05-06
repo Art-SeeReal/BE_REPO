@@ -26,12 +26,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @Transactional
 public class UserDetailsServiceImplTest {
-    @Mock
-    private UserRepository userRepository;
     private final UserService userService;
     private final UserDetailsService userDetailsService;
     @Autowired
@@ -56,7 +53,6 @@ public class UserDetailsServiceImplTest {
                 .userType(UserType.AUTHOR)
                 .regDate(LocalDateTime.now())
                 .build();
-
         userService.createUser(dto);
     }
 

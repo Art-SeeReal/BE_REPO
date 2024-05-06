@@ -26,25 +26,25 @@ public class FillerTest {
         this.userService = userService;
     }
 
-//    @BeforeEach
-//    public void 더미데이터_생성(){
-//        UserRequestDTO dto = UserRequestDTO
-//                .builder()
-//                .userId("test")
-//                .name("테스트")
-//                .password("test1234")
-//                .nickname("testNickname")
-//                .email("test@gmail.com")
-//                .emailSecret(true)
-//                .phone("010-1234-5678")
-//                .phoneSecret(true)
-//                .regionType(SEOUL)
-//                .userType(AUTHOR)
-//                .regDate(LocalDateTime.now())
-//                .build();
-//
-//        userService.createUser(dto);
-//    }
+    @BeforeEach
+    public void 더미데이터_생성(){
+        UserRequestDTO dto = UserRequestDTO
+                .builder()
+                .userId("test")
+                .name("테스트")
+                .password("test1234")
+                .nickname("testNickname")
+                .email("test@gmail.com")
+                .emailSecret(true)
+                .phone("010-1234-5678")
+                .phoneSecret(true)
+                .regionType(SEOUL)
+                .userType(AUTHOR)
+                .regDate(LocalDateTime.now())
+                .build();
+
+        userService.createUser(dto);
+    }
 
     @Test
     void authenticate_무한루프_테스트(){

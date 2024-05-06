@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.controller;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,14 +13,13 @@ import java.util.Iterator;
 
 @Controller
 @ResponseBody
+@Hidden
 public class MainController {
 
     @GetMapping("/")
-    public String mainP() {
-
+    public String mainPage() {
         // 세션 현재 사용자 id
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
-
         // 세션 현재 사용자 role
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

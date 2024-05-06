@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.controller;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,14 +15,13 @@ import java.util.Iterator;
 @Controller
 @ResponseBody
 @Log4j2
+@Hidden
 public class AdminController {
 
     @GetMapping("/admin")
-    public String adminP() {
-        log.info("adminp start");
+    public String adminPage() {
         // 세션 현재 사용자 id
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
-log.info("id : " + id);
         // 세션 현재 사용자 role
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

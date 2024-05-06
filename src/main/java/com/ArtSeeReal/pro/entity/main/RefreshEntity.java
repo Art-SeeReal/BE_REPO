@@ -1,23 +1,23 @@
 package com.ArtSeeReal.pro.entity.main;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Getter
-@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RefreshEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // todo user의 uid 값으로 저장
-    private Long id;
-
+    @Column(length = 64,nullable = false)
+    private String uid;
+    @Column(length = 64,nullable = false)
     private String username;
+    @Column(length = 256,nullable = false)
     private String refresh;
+    @Column(length = 64,nullable = false)
     private String expiration;
 
 }

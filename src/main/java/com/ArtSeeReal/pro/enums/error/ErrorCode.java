@@ -23,7 +23,11 @@ public enum ErrorCode implements EnumModel {
     ID_NOT_FOUND(500,"C008","[ERROR] 아이디가 존재하지 않습니다."),
     NO_DATA_ERROR(500,"C009","[ERROR] 데이터가 존재하지 않습니다."),
     NO_TOKEN_ERROR(500,"C010","[ERROR] 토큰이 존재하지 않습니다."),
-    NO_AUTH_STR_ERROR(500,"C011","[ERROR] 인증 문자열이 존재하지 않습니다."),;
+    NO_AUTH_STR_ERROR(500,"C011","[ERROR] 인증 문자열이 존재하지 않습니다."),
+    EXPIRED_TOKEN_ERROR(500,"C012","[ERROR] 토큰의 유효기간이 지났습니다."),
+    NO_REFRESH_TOKEN_ERROR(500,"C013","[ERROR] 리프레쉬 토큰이 존재하지 않습니다."),
+    NO_TYPE_REFRESH_TOKEN_ERROR(500,"C014","[ERROR] 리프레쉬 토큰 타입이 아닙니다."),
+    NOT_EXISTS_REFRESH_TOKEN_ERROR(500,"C015","[ERROR] DB에 리프레쉬 토큰이 없습니다."),;
 
     private int status;
     private String code;

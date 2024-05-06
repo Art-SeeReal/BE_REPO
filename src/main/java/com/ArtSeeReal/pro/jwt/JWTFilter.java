@@ -3,6 +3,7 @@ package com.ArtSeeReal.pro.jwt;
 import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
 import com.ArtSeeReal.pro.enums.UserType;
 import com.ArtSeeReal.pro.etc.UserDetailsImpl;
+import com.ArtSeeReal.pro.service.TokenService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -25,13 +26,13 @@ import java.io.PrintWriter;
 public class JWTFilter extends OncePerRequestFilter {
 
     private final JWTUtil jwtUtil;
+    private final TokenService tokenService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-log.info("jwt filter 시작");
+
         // 헤더에서 access키에 담긴 토큰을 꺼냄
-        String accessToken = request.getHeader("access");
-log.info("accessToken ? " + accessToken);
+        String accessToken = tokenService.getTokenInCookie(request,"access");
         // 토큰이 없다면 다음 필터로 넘김
         if (accessToken == null) {
             filterChain.doFilter(request, response);
@@ -50,9 +51,11 @@ log.info("accessToken ? " + accessToken);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
+        // TODO 오류 띄우고 멈추려면 아래 코드를 사용하세요
+        //  tokenService.expiredCheck(accessToken);
 
         // 토큰이 access인지 확인 (발급시 페이로드에 명시)
-        String category = jwtUtil.getCategory(accessToken);
+        String category = tokenService.getCategory(accessToken);
 
         if (!category.equals("access")) {
             //response body
@@ -63,26 +66,23 @@ log.info("accessToken ? " + accessToken);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
+        // TODO 오류 띄우고 멈추려면 아래 코드를 사용하세요
+        //  tokenService.checkTokenCategory(accessToken,"access");
 
         // username, role 값을 획득
-        String username = jwtUtil.getUsername(accessToken);
-//        String userId = jwtUtil.getUserId(accessToken);
-        log.info("값을 잘 꺼냈나 ? userId : " + username);
-        String role = jwtUtil.getRole(accessToken);
+        String username = tokenService.getUserId(accessToken);
+        String role = tokenService.getRole(accessToken);
 
-        UserRequestDTO userRequestDTO = new UserRequestDTO();
-        userRequestDTO.setUserId(username);
-//        userRequestDTO.setUserId(userId);
-
-        userRequestDTO.setUserType(UserType.valueOf(role.replace("ROLE_","")));
-
-
-        UserDetailsImpl userDetailsImpl = new UserDetailsImpl(userRequestDTO.from());
+        UserDetailsImpl userDetailsImpl = new UserDetailsImpl(UserRequestDTO
+                .builder()
+                .userId(username)
+                .userType(UserType.valueOf(role.replace("ROLE_","")))
+                .build()
+                .from());
 
         // 토큰 검증 성공 후 인증 정보 설정
         Authentication authToken = new UsernamePasswordAuthenticationToken(userDetailsImpl, null, userDetailsImpl.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authToken);
-        log.info("qweqweqwe"+authToken.getAuthorities().toArray()[0].toString());
         // 다음 필터로 요청 전달
         filterChain.doFilter(request, response);
     }
