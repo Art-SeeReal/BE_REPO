@@ -30,6 +30,7 @@ public enum ErrorCode {
     NOT_IMPLEMENTED_EXCEPTION(400, "C004", "아직 구현이 안되었습니다."),
     EXPIRED_TOKEN_ERROR(500,"C012","[ERROR] 토큰의 유효기간이 지났습니다."),
     NO_REFRESH_TOKEN_ERROR(500,"C013","[ERROR] 리프레쉬 토큰이 존재하지 않습니다."),
+    NO_ACCESS_TOKEN_ERROR(500,"C013","[ERROR] 엑세스 토큰이 존재하지 않습니다."),
     NO_TYPE_REFRESH_TOKEN_ERROR(500,"C014","[ERROR] 리프레쉬 토큰 타입이 아닙니다."),
     NOT_EXISTS_REFRESH_TOKEN_ERROR(500,"C015","[ERROR] DB에 리프레쉬 토큰이 없습니다."),;
 

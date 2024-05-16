@@ -3,12 +3,9 @@ package com.ArtSeeReal.pro.dto.portfolio;
 import com.ArtSeeReal.pro.entity.history.PortfolioHistory;
 import com.ArtSeeReal.pro.entity.main.Portfolio;
 import com.ArtSeeReal.pro.enums.CategoryType;
+import lombok.*;
+
 import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @NoArgsConstructor

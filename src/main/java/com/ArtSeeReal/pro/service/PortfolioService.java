@@ -1,10 +1,6 @@
 package com.ArtSeeReal.pro.service;
 
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.portfolio.*;
 import org.springframework.data.domain.Page;
 
 public interface PortfolioService {

@@ -3,11 +3,7 @@ package com.ArtSeeReal.pro.dto.with;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.entity.main.Recruitment;
 import com.ArtSeeReal.pro.entity.main.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @NoArgsConstructor

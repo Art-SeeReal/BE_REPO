@@ -1,18 +1,19 @@
 package com.ArtSeeReal.pro.userTests;
 
-import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
 import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.user.UserReadResponseDTO;
 import com.ArtSeeReal.pro.dto.user.UserUpdateRequestDTO;
 import com.ArtSeeReal.pro.service.UserService;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+
+import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
 @Transactional

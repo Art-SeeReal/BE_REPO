@@ -4,12 +4,9 @@ import com.ArtSeeReal.pro.entity.history.RecruitmentHistory;
 import com.ArtSeeReal.pro.entity.main.Recruitment;
 import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
+import lombok.*;
+
 import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @NoArgsConstructor

@@ -1,11 +1,7 @@
 package com.ArtSeeReal.pro.jwt;
 
-import com.ArtSeeReal.pro.entity.main.RefreshEntity;
-import com.ArtSeeReal.pro.etc.UserDetailsImpl;
-import com.ArtSeeReal.pro.repository.jpa.main.RefreshRepository;
 import com.ArtSeeReal.pro.service.RefreshService;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +12,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.util.ContentCachingRequestWrapper;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
 
 @Log4j2

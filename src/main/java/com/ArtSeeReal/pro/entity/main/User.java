@@ -6,17 +6,14 @@ import com.ArtSeeReal.pro.dto.user.UserUpdateRequestDTO;
 import com.ArtSeeReal.pro.entity.delete.UserDelete;
 import com.ArtSeeReal.pro.entity.history.UserHistory;
 import com.ArtSeeReal.pro.entity.module.UserModule;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDateTime;
 
 @Entity(name = "DEF_USER_TB")
 @Getter

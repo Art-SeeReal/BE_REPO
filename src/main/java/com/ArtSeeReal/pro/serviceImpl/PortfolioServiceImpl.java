@@ -1,15 +1,6 @@
 package com.ArtSeeReal.pro.serviceImpl;
 
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_BOARD_DATA_ERROR;
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_DATA_ERROR;
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_PAGE_ERROR;
-import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
-
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.portfolio.*;
 import com.ArtSeeReal.pro.dto.with.PortfolioWithUserDTO;
 import com.ArtSeeReal.pro.entity.composite.FavoritePortfolioKey;
 import com.ArtSeeReal.pro.entity.delete.PortfolioDelete;
@@ -22,8 +13,6 @@ import com.ArtSeeReal.pro.repository.jpa.main.FavoritePortfoliosRepository;
 import com.ArtSeeReal.pro.repository.jpa.main.PortfolioRepository;
 import com.ArtSeeReal.pro.repository.querydsl.main.PortfolioQueryDslRepository;
 import com.ArtSeeReal.pro.service.PortfolioService;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -31,6 +20,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.*;
+import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
 @Service
 @RequiredArgsConstructor

@@ -7,7 +7,6 @@ import com.ArtSeeReal.pro.repository.jpa.main.UserRepository;
 import com.ArtSeeReal.pro.service.RefreshService;
 import com.ArtSeeReal.pro.service.TokenService;
 import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

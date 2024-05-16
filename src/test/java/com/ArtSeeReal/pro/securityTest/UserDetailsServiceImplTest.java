@@ -1,30 +1,21 @@
 package com.ArtSeeReal.pro.securityTest;
 
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
+import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.enums.UserType;
-import com.ArtSeeReal.pro.repository.jpa.main.UserRepository;
 import com.ArtSeeReal.pro.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @SpringBootTest
 @Transactional
@@ -39,7 +30,7 @@ public class UserDetailsServiceImplTest {
 
     @BeforeEach
     public void 더미데이터_생성(){
-        UserRequestDTO dto = UserRequestDTO
+        UserCreateRequestDTO dto = UserCreateRequestDTO
                 .builder()
                 .userId("test")
                 .name("테스트")
@@ -49,7 +40,6 @@ public class UserDetailsServiceImplTest {
                 .emailSecret(true)
                 .phone("010-1234-5678")
                 .phoneSecret(true)
-                .regionType(RegionType.SEOUL)
                 .userType(UserType.AUTHOR)
                 .regDate(LocalDateTime.now())
                 .build();

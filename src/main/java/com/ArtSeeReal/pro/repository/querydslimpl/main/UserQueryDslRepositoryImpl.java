@@ -1,13 +1,10 @@
 package com.ArtSeeReal.pro.repository.querydslimpl.main;
 
-import com.ArtSeeReal.pro.dto.with.RecruitmentWithUserDTO;
 import com.ArtSeeReal.pro.dto.with.UserWithIntroduceDTO;
 import com.ArtSeeReal.pro.entity.main.QIntroduce;
-import com.ArtSeeReal.pro.entity.main.QRecruitment;
 import com.ArtSeeReal.pro.entity.main.QUser;
 import com.ArtSeeReal.pro.repository.querydsl.main.UserQueryDslRepository;
 import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

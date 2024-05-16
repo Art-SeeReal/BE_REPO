@@ -1,16 +1,17 @@
 package com.ArtSeeReal.pro.bannerTests;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
 import com.ArtSeeReal.pro.dto.banner.BannerCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.banner.BannerReadResponseDTO;
 import com.ArtSeeReal.pro.service.BannerService;
-import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
 @Transactional

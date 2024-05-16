@@ -1,7 +1,7 @@
 package com.ArtSeeReal.pro.securityTest;
 
 import com.ArtSeeReal.pro.controller.ReissueController;
-import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
+import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.enums.UserType;
 import com.ArtSeeReal.pro.service.RefreshService;
@@ -25,8 +25,6 @@ import java.time.LocalDateTime;
 @Transactional
 @AutoConfigureMockMvc
 public class ReIssueTest {
-
-    private final ReissueController reissueController;
     private final RefreshService refreshService;
     private final UserService userService;
     private final TokenService tokenService;
@@ -34,12 +32,10 @@ public class ReIssueTest {
 
 
     @Autowired
-    public ReIssueTest(ReissueController reissueController,
-                       RefreshService refreshService,
+    public ReIssueTest(RefreshService refreshService,
                        UserService userService,
                        TokenService tokenService,
                        MockMvc mockMvc) {
-        this.reissueController = reissueController;
         this.refreshService = refreshService;
         this.userService = userService;
         this.tokenService = tokenService;
@@ -48,7 +44,7 @@ public class ReIssueTest {
 
     @BeforeEach
     public void 더미데이터_생성(){
-        UserRequestDTO dto = UserRequestDTO
+        UserCreateRequestDTO dto = UserCreateRequestDTO
                 .builder()
                 .userId("test")
                 .name("테스트")
@@ -58,7 +54,6 @@ public class ReIssueTest {
                 .emailSecret(true)
                 .phone("010-1234-5678")
                 .phoneSecret(true)
-                .regionType(RegionType.SEOUL)
                 .userType(UserType.AUTHOR)
                 .regDate(LocalDateTime.now())
                 .build();

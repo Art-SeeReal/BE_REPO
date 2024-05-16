@@ -5,17 +5,14 @@ import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentUpdateRequestDTO;
 import com.ArtSeeReal.pro.entity.delete.RecruitmentDelete;
 import com.ArtSeeReal.pro.entity.module.RecruitmentModule;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDateTime;
 
 @Entity(name = "RECRUITMENT_TB")
 @Getter

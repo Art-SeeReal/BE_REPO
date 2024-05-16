@@ -1,9 +1,7 @@
 package com.ArtSeeReal.pro.jwt;
 
-import com.ArtSeeReal.pro.repository.jpa.main.RefreshRepository;
 import com.ArtSeeReal.pro.service.RefreshService;
 import com.ArtSeeReal.pro.service.TokenService;
-import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;

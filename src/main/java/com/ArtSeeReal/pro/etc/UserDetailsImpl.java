@@ -1,11 +1,12 @@
 package com.ArtSeeReal.pro.etc;
 
 import com.ArtSeeReal.pro.entity.main.User;
-import java.util.ArrayList;
-import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {
@@ -16,7 +17,6 @@ public class UserDetailsImpl implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() { // role 값 반환
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(() -> "ROLE_" + user.getUserType().getName().toUpperCase());
-//        authorities.add(() -> user.getUserType().getName().toUpperCase());
         return authorities;
     }
 

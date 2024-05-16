@@ -1,12 +1,5 @@
 package com.ArtSeeReal.pro.serviceImpl;
 
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.EMAIL_DUPLICATE_ERROR;
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.ID_DUPLICATE_ERROR;
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.NICKNAME_DUPLICATE_ERROR;
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_DATA_ERROR;
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_USER_DATA_ERROR;
-import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
-
 import com.ArtSeeReal.pro.dto.user.*;
 import com.ArtSeeReal.pro.entity.composite.UserLikeKey;
 import com.ArtSeeReal.pro.entity.delete.UserDelete;
@@ -24,6 +17,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.*;
+import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
 @Service
 @RequiredArgsConstructor

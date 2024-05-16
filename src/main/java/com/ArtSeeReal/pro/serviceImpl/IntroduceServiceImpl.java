@@ -1,7 +1,5 @@
 package com.ArtSeeReal.pro.serviceImpl;
 
-import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
-
 import com.ArtSeeReal.pro.dto.introduce.IntroReadResponseDTO;
 import com.ArtSeeReal.pro.dto.introduce.IntroUpdateRequestDTO;
 import com.ArtSeeReal.pro.entity.main.Introduce;

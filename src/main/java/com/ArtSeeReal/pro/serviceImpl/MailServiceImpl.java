@@ -1,17 +1,5 @@
 package com.ArtSeeReal.pro.serviceImpl;
 
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.EMAIL_NOT_EQUAL_ERROR;
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.ID_NOT_FOUND;
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.NAME_NOT_EQUAL_ERROR;
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_AUTH_STR_ERROR;
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_DATA_ERROR;
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_TOKEN_ERROR;
-import static com.ArtSeeReal.pro.enums.system.SystemConstantEnum.ID_MINIMUM_LENGTH;
-import static com.ArtSeeReal.pro.enums.system.SystemConstantEnum.ID_REFERENCE_POINT;
-import static com.ArtSeeReal.pro.enums.system.SystemStringEnum.EMAIL_TITLE;
-import static com.ArtSeeReal.pro.enums.system.SystemStringEnum.MASKED_CHARACTERS;
-import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
-
 import com.ArtSeeReal.pro.entity.history.UserHistory;
 import com.ArtSeeReal.pro.entity.main.User;
 import com.ArtSeeReal.pro.enums.system.SystemStringEnum;
@@ -21,11 +9,6 @@ import com.ArtSeeReal.pro.repository.memory.MemoryRepository;
 import com.ArtSeeReal.pro.service.MailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.env.Environment;
@@ -35,6 +18,19 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.UUID;
+
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.*;
+import static com.ArtSeeReal.pro.enums.system.SystemConstantEnum.ID_MINIMUM_LENGTH;
+import static com.ArtSeeReal.pro.enums.system.SystemConstantEnum.ID_REFERENCE_POINT;
+import static com.ArtSeeReal.pro.enums.system.SystemStringEnum.EMAIL_TITLE;
+import static com.ArtSeeReal.pro.enums.system.SystemStringEnum.MASKED_CHARACTERS;
+import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
 @Service
 @RequiredArgsConstructor

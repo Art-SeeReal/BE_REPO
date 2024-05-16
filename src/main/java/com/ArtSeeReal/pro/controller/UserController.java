@@ -1,7 +1,5 @@
 package com.ArtSeeReal.pro.controller;
 
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
-
 import com.ArtSeeReal.pro.dto.introduce.IntroReadResponseDTO;
 import com.ArtSeeReal.pro.dto.introduce.IntroUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.user.*;
@@ -12,12 +10,15 @@ import com.ArtSeeReal.pro.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
-import java.io.IOException;
 import jdk.jshell.spi.ExecutionControl.NotImplementedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
 
 @Tag(name = "User API")
 @RestController
