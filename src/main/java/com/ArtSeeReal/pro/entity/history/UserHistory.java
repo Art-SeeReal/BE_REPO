@@ -25,7 +25,7 @@ public class UserHistory extends UserModule {
     private String userUid;
     @Column(length = 16, nullable = false)
     private String exName;
-    @Column(length = 32, nullable = false)
+    @Column(length = 64, nullable = false)
     private String exPassword;
     @Column(length = 16, nullable = false) // unique = true
     private String exNickname;
