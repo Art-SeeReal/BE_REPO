@@ -15,6 +15,7 @@ import com.ArtSeeReal.pro.service.IntroduceService;
 import com.ArtSeeReal.pro.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,9 +33,10 @@ public class UserServiceImpl implements UserService {
     private final UserDeleteRepository userDeleteRepository;
     private final UserLikesRepository userLikesRepository;
     private final UserQueryDslRepository userQueryDslRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     public UserCreateResponseDTO createUser(UserCreateRequestDTO dto){
-        User createUser = dto.from(uidCreator(userRepository));
+        User createUser = dto.from(uidCreator(userRepository),bCryptPasswordEncoder);
         User saveduser = userRepository.save(createUser);
         introduceService.createIntro(saveduser.getUid());
         UserCreateResponseDTO result = saveduser.entityToCreateDTO();

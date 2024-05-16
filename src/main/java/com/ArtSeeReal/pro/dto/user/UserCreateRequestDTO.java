@@ -3,6 +3,7 @@ package com.ArtSeeReal.pro.dto.user;
 import com.ArtSeeReal.pro.entity.main.User;
 import com.ArtSeeReal.pro.enums.UserType;
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -24,13 +25,13 @@ public class UserCreateRequestDTO {
     private UserType userType;
     private LocalDateTime regDate;
 
-    public User from(String uid){
+    public User from(String uid, BCryptPasswordEncoder bCryptPasswordEncoder){
         return User.
                 builder()
                 .uid(uid)
                 .userId(userId)
                 .name(name)
-                .password(password)
+                .password(bCryptPasswordEncoder.encode(password))
                 .nickname(nickname)
                 .email(email)
                 .emailSecret(emailSecret)
