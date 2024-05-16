@@ -40,7 +40,7 @@ public class UserCreateRequestDTO {
                 .phone(phone)
                 .phoneSecret(phoneSecret)
                 .userType(userType)
-                .regDate(regDate)
+                .regDate(LocalDateTime.now())
                 .build();
     }
 }

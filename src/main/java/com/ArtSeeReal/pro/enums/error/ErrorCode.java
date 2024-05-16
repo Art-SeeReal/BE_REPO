@@ -27,7 +27,11 @@ public enum ErrorCode {
     EMAIL_DUPLICATE_ERROR(500,"C015","[ERROR] 이메일이 중복되었습니다."),
     NO_BOARD_DATA_ERROR(500,"C016","[ERROR] 게시물 데이터가 없습니다."),
     NO_PAGE_ERROR(500,"C017","[ERROR] 페이지가 1미만 또는 NULL값입니다."),
-    NOT_IMPLEMENTED_EXCEPTION(400, "C004", "아직 구현이 안되었습니다."),;
+    NOT_IMPLEMENTED_EXCEPTION(400, "C004", "아직 구현이 안되었습니다."),
+    EXPIRED_TOKEN_ERROR(500,"C012","[ERROR] 토큰의 유효기간이 지났습니다."),
+    NO_REFRESH_TOKEN_ERROR(500,"C013","[ERROR] 리프레쉬 토큰이 존재하지 않습니다."),
+    NO_TYPE_REFRESH_TOKEN_ERROR(500,"C014","[ERROR] 리프레쉬 토큰 타입이 아닙니다."),
+    NOT_EXISTS_REFRESH_TOKEN_ERROR(500,"C015","[ERROR] DB에 리프레쉬 토큰이 없습니다."),;
 
     private int status;
     private String code;
