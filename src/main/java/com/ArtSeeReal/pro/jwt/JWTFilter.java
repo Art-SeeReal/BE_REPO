@@ -45,7 +45,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
         // 토큰 만료 여부 확인, 만료시 다음 필터로 넘기지 않음
         try {
-            jwtUtil.isExpired(accessToken);
+            tokenService.expiredCheck(accessToken);
         } catch (ExpiredJwtException e) {
             //response body
             PrintWriter writer = response.getWriter();
@@ -55,13 +55,9 @@ public class JWTFilter extends OncePerRequestFilter {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
-        // TODO 오류 띄우고 멈추려면 아래 코드를 사용하세요
-        //  tokenService.expiredCheck(accessToken);
 
         // 토큰이 access인지 확인 (발급시 페이로드에 명시)
-        String category = tokenService.getCategory(accessToken);
-
-        if (!category.equals("access")) {
+        if (!tokenService.checkTokenCategory(accessToken,"access")) {
             //response body
             PrintWriter writer = response.getWriter();
             writer.print("invalid access token"); // 클라이언트에게 에러 메시지를 보내기 위해 PrintWriter 사용
@@ -70,8 +66,6 @@ public class JWTFilter extends OncePerRequestFilter {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
-        // TODO 오류 띄우고 멈추려면 아래 코드를 사용하세요
-        //  tokenService.checkTokenCategory(accessToken,"access");
 
         // username, role 값을 획득
         String username = tokenService.getUserId(accessToken);

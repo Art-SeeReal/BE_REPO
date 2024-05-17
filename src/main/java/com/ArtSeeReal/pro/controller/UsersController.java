@@ -18,12 +18,7 @@ import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION
 @RequestMapping("/users")
 public class UsersController {
     private final UserService userService;
-    private final MailService mailService;
-    @PostMapping("/login")
-    @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<?> login(@RequestBody String temp) throws NotImplementedException {
-        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
-    }
+
     @PostMapping("/logout")
     @Operation(summary = "미구현 상태 입니다.")
     public ResponseEntity<?> logout(@RequestBody String temp) throws NotImplementedException {

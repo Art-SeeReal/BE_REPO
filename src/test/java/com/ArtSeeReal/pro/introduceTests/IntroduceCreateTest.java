@@ -50,7 +50,6 @@ public class IntroduceCreateTest {
     @Test
     void 자기소개_생성(){
         IntroReadResponseDTO dto = introduceService.createIntro(userUid);
-        assertThat(dto.getUid()).isEqualTo(userUid);
         assertThat(dto.getContent()).isEqualTo("");
     }
 }

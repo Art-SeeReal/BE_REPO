@@ -2,8 +2,6 @@ package com.ArtSeeReal.pro.enums;
 
 public enum CategoryType {
 
-    // TODO: 카테고리 유형 만들기
-
     ART("A000","미술"),
     CRAFT("B000","공예"),
     DESIGN("C000","디자인"),

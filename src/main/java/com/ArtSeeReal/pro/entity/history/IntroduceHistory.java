@@ -26,6 +26,4 @@ public class IntroduceHistory extends IntroduceModule {
     private String exContent;
     @Column(nullable = false)
     private LocalDateTime modDate;
-    @Column(length = 64,nullable = false)
-    private String modUserUid;
 }

@@ -73,30 +73,4 @@ public class FindIdTest {
         assertThat(mailService.findId(name,email)).isEqualTo("testU***");
     }
 
-    @Test
-    @AfterEach
-    void 정상작동_8자이하_5자이상(){
-        UserUpdateRequestDTO dto = UserUpdateRequestDTO
-                .builder()
-                .uid(userUid)
-                .userId("qwert")
-                .name("테스트")
-                .password("test1234")
-                .nickname("changedNickname")
-                .email("test@gmail.com")
-                .emailSecret(false)
-                .phone("010-1234-5678")
-                .phoneSecret(true)
-                .userType(AUTHOR)
-                .modUserUid("승미니")
-                .build();
-
-        userService.updateUser(dto);
-
-
-        String email = "test@gmail.com";
-        String name = "테스트";
-        assertThat(mailService.findId(name,email)).isEqualTo("qwe**");
-    }
-
 }

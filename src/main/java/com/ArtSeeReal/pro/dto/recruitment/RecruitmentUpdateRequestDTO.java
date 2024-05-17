@@ -46,7 +46,6 @@ public class RecruitmentUpdateRequestDTO {
                 .exDueDate(recruitment.getDueDate())
                 .exPayment(recruitment.getPayment())
                 .modDate(LocalDateTime.now())
-                .modUserUid(modUserUid)
                 .build();
     }
 }

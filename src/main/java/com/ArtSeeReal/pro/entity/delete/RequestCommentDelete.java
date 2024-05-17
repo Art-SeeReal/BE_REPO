@@ -24,6 +24,4 @@ public class RequestCommentDelete extends RequestCommentModule {
     private String requestCommentUid;
     @Column(nullable = false)
     private LocalDateTime delDate;
-    @Column(length = 64,nullable = false)
-    private String delUserUid;
 }

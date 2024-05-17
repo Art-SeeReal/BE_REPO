@@ -50,7 +50,6 @@ public class UserUpdateTest {
         UserUpdateRequestDTO dto = UserUpdateRequestDTO
                 .builder()
                 .uid(userUid)
-                .userId("changedUserId")
                 .name("테스트")
                 .password("test1234")
                 .nickname("changedNickname")
@@ -58,12 +57,9 @@ public class UserUpdateTest {
                 .emailSecret(false)
                 .phone("010-1234-5678")
                 .phoneSecret(true)
-                .userType(AUTHOR)
-                .modUserUid("승미니")
                 .build();
 
         UserReadResponseDTO urd = userService.updateUser(dto);
-        assertThat(urd.getUserId()).isEqualTo("changedUserId");
         assertThat(urd.getNickname()).isEqualTo("changedNickname");
         assertThat(urd.isEmailSecret()).isFalse();
     }

@@ -26,6 +26,4 @@ public class PerformanceCommentHistory extends PerformanceCommentModule {
     private String exComment;
     @Column(nullable = false)
     private LocalDateTime modDate;
-    @Column(length = 64,nullable = false)
-    private String modUserUid;
 }

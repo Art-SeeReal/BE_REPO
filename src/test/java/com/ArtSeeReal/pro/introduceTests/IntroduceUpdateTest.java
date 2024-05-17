@@ -56,7 +56,6 @@ public class IntroduceUpdateTest {
                 .content("updateIntro")
                 .build();
         IntroReadResponseDTO dto = introduceService.updateIntro(updateDto);
-        assertThat(dto.getUid()).isEqualTo(userUid);
         assertThat(dto.getContent()).isEqualTo("updateIntro");
     }
 }

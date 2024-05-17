@@ -19,7 +19,7 @@ public class RefreshServiceImpl implements RefreshService {
 
     private final TokenService tokenService;
     private final RefreshRepository refreshRepository;
-    private final UserRepository userRepository; // TODO : 임시사용 삭제 예정 업데이트 후 유저 서비스에 유저 UID 반환하는 서비스 만들어야 함
+    private final UserRepository userRepository;
 
     @Override
     public void reissueToken(String refreshToken) {

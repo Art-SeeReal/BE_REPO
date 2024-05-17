@@ -33,6 +33,4 @@ public class PortfolioHistory extends PortfolioModule {
     private String exThumbnail;
     @Column(nullable = false)
     private LocalDateTime modDate;
-    @Column(length = 64,nullable = false)
-    private String modUserUid;
 }

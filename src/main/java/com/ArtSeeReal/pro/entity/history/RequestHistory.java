@@ -32,6 +32,4 @@ public class RequestHistory extends RequestModule {
     private String exContent;
     @Column(nullable = false)
     private LocalDateTime modDate;
-    @Column(length = 64,nullable = false)
-    private String modUserUid;
 }

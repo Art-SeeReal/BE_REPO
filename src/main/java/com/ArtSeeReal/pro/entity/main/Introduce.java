@@ -22,7 +22,6 @@ public class Introduce extends IntroduceModule {
 
     public IntroReadResponseDTO entityToReadDTO(){
         return IntroReadResponseDTO.builder()
-                .uid(uid)
                 .content(content)
                 .build();
     }

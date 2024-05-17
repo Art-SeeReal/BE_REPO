@@ -59,7 +59,6 @@ public class Banner extends BannerModule {
                 .exLinkUrl(linkUrl)
                 .regDate(regDate)
                 .modDate(LocalDateTime.now())
-                .modUserUid(modUser)
                 .build();
     }
 
@@ -71,7 +70,6 @@ public class Banner extends BannerModule {
                 .linkUrl(linkUrl)
                 .regDate(regDate)
                 .delDate(LocalDateTime.now())
-                .delUserUid(delUser)
                 .build();
     }
 

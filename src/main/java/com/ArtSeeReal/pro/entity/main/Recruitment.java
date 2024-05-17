@@ -76,7 +76,6 @@ public class Recruitment extends RecruitmentModule {
                 .dueDate(dueDate)
                 .payment(payment)
                 .delDate(LocalDateTime.now())
-                .delUserUid(delUserUid)
                 .build();
     }
 }

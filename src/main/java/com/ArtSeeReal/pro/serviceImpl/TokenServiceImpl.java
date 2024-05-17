@@ -2,6 +2,7 @@ package com.ArtSeeReal.pro.serviceImpl;
 
 import com.ArtSeeReal.pro.enums.error.ErrorCode;
 import com.ArtSeeReal.pro.jwt.JWTUtil;
+import com.ArtSeeReal.pro.repository.jpa.main.UserRepository;
 import com.ArtSeeReal.pro.service.TokenService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class TokenServiceImpl implements TokenService {
 
     private final JWTUtil jwtUtil; // TODO 토큰 서비스랑 합쳐도 될거같음
+    private final UserRepository userRepository;
 
     @Override
     public String getTokenInCookie(HttpServletRequest request, String category) {
@@ -58,5 +60,13 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public String createToken(String category, String userId, String role, Long time) {
         return jwtUtil.createJwt(category, userId, role, time);
+    }
+
+    @Override
+    public String getUserUid(String token) {
+        String accessToken = token.split(" ")[1];
+        return userRepository.findByUserId(getUserId(accessToken))
+                .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_USER_DATA_ERROR.getCode()))
+                .getUid();
     }
 }

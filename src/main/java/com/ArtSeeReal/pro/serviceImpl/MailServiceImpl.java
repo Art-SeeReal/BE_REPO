@@ -55,7 +55,7 @@ public class MailServiceImpl implements MailService {
         String userId = lostIdUser.getUserId();
         int idLength = userId.length();
 
-        if (idLength >= ID_REFERENCE_POINT.getNumber()) // TODO : 네이밍을 어떻게 해야할지 몰것따. 3, 2 이것들
+        if (idLength >= ID_REFERENCE_POINT.getNumber())
             return userId.substring(0,idLength - 3) + MASKED_CHARACTERS.getText().repeat(3);
         else if (idLength >= ID_MINIMUM_LENGTH.getNumber())
             return userId.substring(0,idLength - 2) + MASKED_CHARACTERS.getText().repeat(2);

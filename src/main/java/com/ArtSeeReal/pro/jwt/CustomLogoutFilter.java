@@ -17,7 +17,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class CustomLogoutFilter extends GenericFilterBean {
 
-    private final JWTUtil jwtUtil;
     private final RefreshService refreshService;
     private final TokenService tokenService;
 

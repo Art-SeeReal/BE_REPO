@@ -50,7 +50,7 @@ public class Portfolio extends PortfolioModule {
         content = dto.getContent();
         category = dto.getCategory();
     }
-    public PortfolioDelete toBoardDelete(String uid, String delUserUid){
+    public PortfolioDelete toBoardDelete(String uid){
         return PortfolioDelete.builder()
                 .uid(uid)
                 .boardUid(this.uid)
@@ -62,7 +62,6 @@ public class Portfolio extends PortfolioModule {
                 .regDate(regDate)
                 .thumbnail(thumbnail)
                 .delDate(LocalDateTime.now())
-                .delUserUid(delUserUid)
                 .build();
     }
 }

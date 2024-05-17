@@ -40,6 +40,4 @@ public class RecruitmentHistory extends RecruitmentModule {
     private Long exPayment;
     @Column(nullable = false)
     private LocalDateTime modDate;
-    @Column(length = 64,nullable = false)
-    private String modUserUid;
 }

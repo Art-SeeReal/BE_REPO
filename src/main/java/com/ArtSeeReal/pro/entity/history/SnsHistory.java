@@ -26,6 +26,4 @@ public class SnsHistory extends SnsModule {
     private String exUrl;
     @Column(nullable = false)
     private LocalDateTime modDate;
-    @Column(length = 64,nullable = false)
-    private String modUserUid;
 }

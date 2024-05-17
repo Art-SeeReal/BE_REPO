@@ -24,6 +24,4 @@ public class IntroduceDelete extends IntroduceModule {
     private String introduceUid;
     @Column(nullable = false)
     private LocalDateTime delDate;
-    @Column(length = 64,nullable = false)
-    private String delUserUid;
 }

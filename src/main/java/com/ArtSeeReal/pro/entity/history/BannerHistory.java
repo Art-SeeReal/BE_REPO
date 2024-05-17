@@ -28,7 +28,5 @@ public class BannerHistory extends BannerModule {
     private String exLinkUrl;
     @Column(nullable = false)
     private LocalDateTime modDate;
-    @Column(length = 64,nullable = false)
-    private String modUserUid;
 
 }

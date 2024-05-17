@@ -24,6 +24,4 @@ public class RequestDelete extends RequestModule {
     private String requestUid;
     @Column(nullable = false)
     private LocalDateTime delDate;
-    @Column(length = 64,nullable = false)
-    private String delUserUid;
 }

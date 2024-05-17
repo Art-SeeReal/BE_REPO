@@ -24,6 +24,4 @@ public class ComplaintDelete extends ComplaintModule {
     private String complaintUid;
     @Column(nullable = false)
     private LocalDateTime delDate;
-    @Column(length = 64,nullable = false)
-    private String delUserUid;
 }

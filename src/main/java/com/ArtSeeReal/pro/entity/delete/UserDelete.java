@@ -24,6 +24,4 @@ public class UserDelete extends UserModule {
     private String userUid;
     @Column(nullable = false)
     private LocalDateTime delDate;
-    @Column(length = 64,nullable = false)
-    private String delUserUid;
 }

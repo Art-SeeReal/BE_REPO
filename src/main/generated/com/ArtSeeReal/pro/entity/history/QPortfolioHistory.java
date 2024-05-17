@@ -39,8 +39,6 @@ public class QPortfolioHistory extends EntityPathBase<PortfolioHistory> {
 
     public final DateTimePath<java.time.LocalDateTime> modDate = createDateTime("modDate", java.time.LocalDateTime.class);
 
-    public final StringPath modUserUid = createString("modUserUid");
-
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 

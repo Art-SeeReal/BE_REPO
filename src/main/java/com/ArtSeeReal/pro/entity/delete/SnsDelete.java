@@ -24,6 +24,4 @@ public class SnsDelete extends SnsModule {
     private String snsUid;
     @Column(nullable = false)
     private LocalDateTime delDate;
-    @Column(length = 64,nullable = false)
-    private String delUserUid;
 }

@@ -7,7 +7,7 @@ public interface PortfolioService {
     PortfolioCreateResponseDTO createPortfolio(PortfolioCreateRequestDTO dto);
     PortfolioReadResponseDTO readPortfolio(String boardUid);
     PortfolioReadResponseDTO updatePortfolio(PortfolioUpdateRequestDTO dto);
-    String deletePortfolio(String boardUid);
+    String deletePortfolio(String boardUid,String userUid);
     Page<PortfolioReadResponseDTO> pageReadPortfolio(PortfolioReadRequestDTO dto);
     void favoritePortfolioCreate(String userUid, String portfolioUid);
     void favoritePortfolioDelete(String userUid, String portfolioUid);

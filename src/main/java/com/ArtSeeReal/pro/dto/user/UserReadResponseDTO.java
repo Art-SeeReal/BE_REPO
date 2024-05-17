@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Builder
 @ToString
 public class UserReadResponseDTO {
-    private String uid;
     private String userId;
     private String name;
     private String nickname;
@@ -21,5 +20,4 @@ public class UserReadResponseDTO {
     private boolean phoneSecret;
     private UserType userType;
     private LocalDateTime regDate;
-
 }

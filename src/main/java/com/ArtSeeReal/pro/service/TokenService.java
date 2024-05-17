@@ -11,4 +11,5 @@ public interface TokenService {
     String getCategory(String token);
     boolean checkTokenCategory(String token,String category);
     String createToken(String category, String userId, String role,Long time);
+    String getUserUid(String token);
 }

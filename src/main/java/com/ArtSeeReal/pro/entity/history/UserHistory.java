@@ -38,10 +38,6 @@ public class UserHistory extends UserModule {
     @Column(nullable = false)
     private boolean exPhoneSecret;
     @Column(nullable = false)
-    private UserType exUserType;
-    @Column(nullable = false)
     private LocalDateTime modDate;
-    @Column(length = 64,nullable = false)
-    private String modUserUid;
 
 }

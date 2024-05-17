@@ -24,6 +24,4 @@ public class PerformanceCommentDelete extends PerformanceCommentModule {
     private String commentUid;
     @Column(nullable = false)
     private LocalDateTime delDate;
-    @Column(length = 64,nullable = false)
-    private String delUserUid;
 }

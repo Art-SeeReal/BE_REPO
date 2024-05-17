@@ -97,7 +97,7 @@ public class SecurityConfig {
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration),refreshService),
                         UsernamePasswordAuthenticationFilter.class);
         http
-                .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshService, tokenService), LogoutFilter.class);
+                .addFilterBefore(new CustomLogoutFilter(refreshService, tokenService), LogoutFilter.class);
         //세션 설정
         http
                 .sessionManagement((session) -> session
