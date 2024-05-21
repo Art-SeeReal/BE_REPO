@@ -1,11 +1,6 @@
 package com.ArtSeeReal.pro.dto.user;
 
-import com.ArtSeeReal.pro.entity.main.User;
-import com.ArtSeeReal.pro.enums.UserType;
 import lombok.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor

@@ -13,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
-
 @SpringBootTest
 @Transactional
 public class FillerTest {

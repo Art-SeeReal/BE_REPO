@@ -1,10 +1,8 @@
 package com.ArtSeeReal.pro.mailTests;
 
 import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.user.UserUpdateRequestDTO;
 import com.ArtSeeReal.pro.service.MailService;
 import com.ArtSeeReal.pro.service.UserService;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

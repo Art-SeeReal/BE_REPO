@@ -1,48 +1,38 @@
 package com.ArtSeeReal.pro.etcTests;
 
-import com.ArtSeeReal.pro.controller.EtcController;
-import com.ArtSeeReal.pro.enums.CategoryType;
-import com.ArtSeeReal.pro.enums.RegionType;
-import com.ArtSeeReal.pro.enums.UserType;
-import com.ArtSeeReal.pro.service.EtcService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Arrays;
-
-import static org.mockito.Mockito.when;
-
-@WebMvcTest(EtcController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class TypesTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private EtcService etcService;
-
     @Test
     void testReadRegions() throws Exception {
-        when(etcService.regionCodeRead()).thenReturn(Arrays.asList(RegionType.values()));
         mockMvc.perform(MockMvcRequestBuilders.get("/regions"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print()) // 응답 본문 출력
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].code").value("I000"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].label").value("서울"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].code").value("H000"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].label").value("부산"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[2].code").value("F000"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[2].label").value("대구"));
-        // Add more assertions as needed
+
+        // 필요에 따라 더 많은 검증 추가
     }
 
     @Test
     void testReadCategories() throws Exception {
-        when(etcService.categoryCodeRead()).thenReturn(Arrays.asList(CategoryType.values()));
         mockMvc.perform(MockMvcRequestBuilders.get("/fields"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].code").value("A000"))
@@ -56,18 +46,14 @@ public class TypesTest {
 
     @Test
     void testReadUserTypes() throws Exception {
-        when(etcService.userCodeRead()).thenReturn(Arrays.asList(UserType.values()));
         mockMvc.perform(MockMvcRequestBuilders.get("/user/types"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("admin"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].korean").value("운영자"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].number").value(0))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("author"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].korean").value("작가"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].number").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[2].name").value("planner"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[2].korean").value("기획자"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[2].number").value(2));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].code").value("ADMIN"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].label").value("운영자"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].code").value("AUTHOR"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].label").value("작가"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].code").value("PLANNER"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].label").value("기획자"));
         // Add more assertions as needed
     }
 }

@@ -3,7 +3,6 @@ package com.ArtSeeReal.pro.controller;
 import com.ArtSeeReal.pro.dto.user.UserReadResponseDTO;
 import com.ArtSeeReal.pro.dto.with.UserIntroduceDTO;
 import com.ArtSeeReal.pro.service.IntroduceService;
-import com.ArtSeeReal.pro.service.MailService;
 import com.ArtSeeReal.pro.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

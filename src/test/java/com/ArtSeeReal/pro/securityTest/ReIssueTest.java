@@ -1,8 +1,6 @@
 package com.ArtSeeReal.pro.securityTest;
 
-import com.ArtSeeReal.pro.controller.ReissueController;
 import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
-import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.enums.UserType;
 import com.ArtSeeReal.pro.service.RefreshService;
 import com.ArtSeeReal.pro.service.TokenService;

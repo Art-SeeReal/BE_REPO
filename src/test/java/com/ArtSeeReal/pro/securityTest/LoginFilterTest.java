@@ -1,7 +1,6 @@
 package com.ArtSeeReal.pro.securityTest;
 
 import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
-import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.enums.UserType;
 import com.ArtSeeReal.pro.service.UserService;
 import org.junit.jupiter.api.BeforeEach;

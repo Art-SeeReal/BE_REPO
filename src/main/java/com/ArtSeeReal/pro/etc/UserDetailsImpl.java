@@ -16,7 +16,7 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() { // role 값 반환
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(() -> "ROLE_" + user.getUserType().getName().toUpperCase());
+        authorities.add(() -> "ROLE_" + user.getUserType().getCode().toUpperCase());
         return authorities;
     }
 

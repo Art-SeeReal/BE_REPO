@@ -1,8 +1,8 @@
 package com.ArtSeeReal.pro.controller;
 
-import com.ArtSeeReal.pro.enums.CategoryType;
-import com.ArtSeeReal.pro.enums.RegionType;
-import com.ArtSeeReal.pro.enums.UserType;
+import com.ArtSeeReal.pro.enums.enuminfo.CategoryInfo;
+import com.ArtSeeReal.pro.enums.enuminfo.RegionInfo;
+import com.ArtSeeReal.pro.enums.enuminfo.UserInfo;
 import com.ArtSeeReal.pro.service.EtcService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,17 +18,17 @@ public class EtcController {
     private final EtcService etcService;
 
     @GetMapping("/regions")
-    public ResponseEntity<List<RegionType>> readRegions(){
+    public ResponseEntity<List<RegionInfo>> readRegions(){
         return new ResponseEntity<>(etcService.regionCodeRead(), HttpStatus.OK);
     }
 
     @GetMapping("/fields")
-    public ResponseEntity<List<CategoryType>> readCategories(){
+    public ResponseEntity<List<CategoryInfo>> readCategories(){
         return new ResponseEntity<>(etcService.categoryCodeRead(), HttpStatus.OK);
     }
 
     @GetMapping("/user/types")
-    public ResponseEntity<List<UserType>> readUserTypes(){
+    public ResponseEntity<List<UserInfo>> readUserTypes(){
         return new ResponseEntity<>(etcService.userCodeRead(), HttpStatus.OK);
     }
 }

@@ -1,5 +1,7 @@
 package com.ArtSeeReal.pro.enums;
 
+import com.ArtSeeReal.pro.enums.enuminfo.CategoryInfo;
+
 public enum CategoryType {
 
     ART("A000","미술"),
@@ -17,4 +19,9 @@ public enum CategoryType {
         this.code = code;
         this.label = label;
     }
+
+    public CategoryInfo toCategoryInfo() {
+        return new CategoryInfo(this.code, this.label);
+    }
+
 }

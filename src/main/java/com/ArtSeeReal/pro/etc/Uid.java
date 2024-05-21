@@ -2,7 +2,6 @@ package com.ArtSeeReal.pro.etc;
 
 
 import com.ArtSeeReal.pro.repository.jpa.module.ModuleRepository;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;
 
