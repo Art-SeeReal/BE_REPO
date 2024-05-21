@@ -141,12 +141,6 @@ public class UserController {
             @PathVariable String userId)  {
         return new ResponseEntity<>(userService.readIntro(userId),HttpStatus.OK);
     }
-    @GetMapping("/types")
-    @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<UserCreateResponseDTO> readUserTypes() throws NotImplementedException {
-        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
-    }
-
     @GetMapping("/scrap/portfolios")
     @Operation(summary = "미구현 상태 입니다.")
     public ResponseEntity<Void> myScrapPortfolios() throws NotImplementedException {

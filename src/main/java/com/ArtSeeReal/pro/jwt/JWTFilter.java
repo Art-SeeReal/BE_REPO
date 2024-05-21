@@ -25,7 +25,6 @@ import java.io.PrintWriter;
 @Component
 public class JWTFilter extends OncePerRequestFilter {
 
-    private final JWTUtil jwtUtil;
     private final TokenService tokenService;
 
     @Override

@@ -6,8 +6,6 @@ import com.ArtSeeReal.pro.entity.delete.UserDelete;
 import com.ArtSeeReal.pro.entity.history.UserHistory;
 import com.ArtSeeReal.pro.entity.main.User;
 import com.ArtSeeReal.pro.entity.main.UserLikes;
-import com.ArtSeeReal.pro.enums.UserType;
-import com.ArtSeeReal.pro.enums.error.ErrorCode;
 import com.ArtSeeReal.pro.repository.jpa.delete.UserDeleteRepository;
 import com.ArtSeeReal.pro.repository.jpa.history.UserHistoryRepository;
 import com.ArtSeeReal.pro.repository.jpa.main.UserLikesRepository;

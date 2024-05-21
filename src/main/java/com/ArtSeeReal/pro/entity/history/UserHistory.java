@@ -1,7 +1,6 @@
 package com.ArtSeeReal.pro.entity.history;
 
 import com.ArtSeeReal.pro.entity.module.UserModule;
-import com.ArtSeeReal.pro.enums.UserType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

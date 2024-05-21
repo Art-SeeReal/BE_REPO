@@ -4,7 +4,6 @@ package com.ArtSeeReal.pro.config;
 
 import com.ArtSeeReal.pro.jwt.CustomLogoutFilter;
 import com.ArtSeeReal.pro.jwt.JWTFilter;
-import com.ArtSeeReal.pro.jwt.JWTUtil;
 import com.ArtSeeReal.pro.jwt.LoginFilter;
 import com.ArtSeeReal.pro.service.RefreshService;
 import com.ArtSeeReal.pro.service.TokenService;
@@ -34,7 +33,6 @@ import java.util.Collections;
 public class SecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
-    private final JWTUtil jwtUtil;
     private final RefreshService refreshService;
     private final TokenService tokenService;
 
@@ -86,13 +84,13 @@ public class SecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/reissue").permitAll() // refresh 토큰으로 access 토큰 재발급하는 경로
-                        .requestMatchers("/users","/login","/").permitAll() // api-docs 는 스웨거가 API 문서를 생성하기 위해 접근하는 경로
-                        .requestMatchers("/swagger-ui/**","/api-docs/**").permitAll() // api-docs 는 스웨거가 API 문서를 생성하기 위해 접근하는 경로
-                        .requestMatchers("/admin").hasRole("ADMIN")
-                        .anyRequest().authenticated());
+//                        .requestMatchers("/reissue").permitAll() // refresh 토큰으로 access 토큰 재발급하는 경로
+//                        .requestMatchers("/users","/login","/").permitAll() // api-docs 는 스웨거가 API 문서를 생성하기 위해 접근하는 경로
+//                        .requestMatchers("/swagger-ui/**","/api-docs/**").permitAll() // api-docs 는 스웨거가 API 문서를 생성하기 위해 접근하는 경로
+//                        .requestMatchers("/admin").hasRole("ADMIN")
+                        .anyRequest().permitAll());
         http
-                .addFilterBefore(new JWTFilter(jwtUtil,tokenService), LoginFilter.class);
+                .addFilterBefore(new JWTFilter(tokenService), LoginFilter.class);
         http
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration),refreshService),
                         UsernamePasswordAuthenticationFilter.class);

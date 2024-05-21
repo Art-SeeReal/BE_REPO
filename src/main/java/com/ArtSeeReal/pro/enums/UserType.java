@@ -1,21 +1,24 @@
 package com.ArtSeeReal.pro.enums;
 
+import com.ArtSeeReal.pro.enums.enuminfo.UserInfo;
 import lombok.Getter;
 
 @Getter
 public enum UserType {
 
-    ADMIN("admin","운영자",0),
-    AUTHOR("author","작가",1),
-    PLANNER("planner","기획자",2);
+    ADMIN("ADMIN","운영자"),
+    AUTHOR("AUTHOR","작가"),
+    PLANNER("PLANNER","기획자");
 
-    private final String name;
-    private final String korean;
-    private final int number;
+    private final String code;
+    private final String label;
 
-    UserType(String name,String korean, int number){
-        this.name = name;
-        this.korean = korean;
-        this.number = number;
+    UserType(String code,String label){
+        this.code = code;
+        this.label = label;
+    }
+
+    public UserInfo toUserInfo(){
+        return new UserInfo(this.code,this.label);
     }
 }
