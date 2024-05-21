@@ -49,7 +49,7 @@ public class PortfolioFavoriteCreateTest {
         userUid = userService.createUser(userCreateRequestDTO).getUid();
 
         PortfolioCreateRequestDTO dto = PortfolioCreateRequestDTO.builder()
-                .userUid("testUid")
+                .userUid(userUid)
                 .title("testTitle")
                 .content("testContent")
                 .category(CategoryType.CRAFT)

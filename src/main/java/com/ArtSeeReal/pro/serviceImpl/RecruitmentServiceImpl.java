@@ -16,6 +16,7 @@ import com.ArtSeeReal.pro.repository.jpa.main.FavoriteRecruitmentsRepository;
 import com.ArtSeeReal.pro.repository.jpa.main.RecruitmentRepository;
 import com.ArtSeeReal.pro.repository.querydsl.main.RecruitmentQueryDslRepository;
 import com.ArtSeeReal.pro.service.RecruitmentService;
+import com.ArtSeeReal.pro.service.ValidateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -47,43 +48,40 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     private final RecruitmentDeleteRepository recruitmentDeleteRepository;
     private final ApplyRecruitmentsRepository applyRecruitmentsRepository;
     private final FavoriteRecruitmentsRepository favoriteRecruitmentsRepository;
+    private final ValidateService validateService;
     @Override
     public RecruitmentCreateResponseDTO createRecruitment(RecruitmentCreateRequestDTO dto){
         Recruitment changedEntityData = dto.form(uidCreator(recruitmentRepository));
         Recruitment savedData = recruitmentRepository.save(changedEntityData);
-        RecruitmentCreateResponseDTO result = savedData.toCreateResponseDTO();
-        return result;
+        return savedData.toCreateResponseDTO();
     }
     @Override
     public RecruitmentReadResponseDTO readRecruitment(String boardUid){
         RecruitmentWithUserDTO dto = recruitmentQueryDslRepository.findUserAndRecruitmentByUid(boardUid);
         if (dto == null)
-            new IllegalArgumentException(NO_BOARD_DATA_ERROR.getMessage());
-        RecruitmentReadResponseDTO result = dto.toReadResponseDTO();
-        return result;
+            throw new IllegalArgumentException(NO_BOARD_DATA_ERROR.getMessage());
+        return dto.toReadResponseDTO();
     }
     @Override
     public RecruitmentReadResponseDTO updateRecruitment(RecruitmentUpdateRequestDTO dto){
         Recruitment recruitment = recruitmentRepository.findById(dto.getUid())
                 .orElseThrow(() -> new IllegalArgumentException(NO_BOARD_DATA_ERROR.getMessage()));
+        validateService.roleCheck(dto.getUserUid(),recruitment.getUserUid());
         RecruitmentHistory recruitmentHistory = dto.createHistoryRecord(
                 uidCreator(recruitmentHistoryRepository),
-                recruitment,
-                "temp");
+                recruitment);
         recruitment.updateFromDTO(dto);
-        // TODO : 수정유저 데이터는 아마 스프링 시큐리티 끝나면 받아올 수 있을 듯
         recruitmentHistoryRepository.save(recruitmentHistory);
         Recruitment changedRecruitment = recruitmentRepository.save(recruitment);
-        RecruitmentReadResponseDTO result = changedRecruitment.toReadResponseDTO();
-        return result;
+        return changedRecruitment.toReadResponseDTO();
     }
 
     @Override
-    public String deleteRecruitment(String boardUid){
+    public String deleteRecruitment(String userUid, String boardUid){
         Recruitment recruitment = recruitmentRepository.findById(boardUid)
                 .orElseThrow(() -> new IllegalArgumentException(NO_BOARD_DATA_ERROR.getMessage()));
-        // TODO : 삭제유저 데이터는 아마 스프링 시큐리티 끝나면 받아올 수 있을 듯
-        RecruitmentDelete deletedBoard = recruitment.toBoardDelete(boardUid,"temp");
+        validateService.roleCheck(userUid,recruitment.getUserUid());
+        RecruitmentDelete deletedBoard = recruitment.toBoardDelete(boardUid);
         recruitmentDeleteRepository.save(deletedBoard);
         recruitmentRepository.deleteById(boardUid);
         return boardUid;
@@ -100,7 +98,7 @@ public class RecruitmentServiceImpl implements RecruitmentService {
 
         List<RecruitmentReadResponseDTO> recruitmentReadResponseDTOList = recruitmentWithUser
                 .stream()
-                .map(rwuDTO -> rwuDTO.toReadResponseDTO())
+                .map(RecruitmentWithUserDTO::toReadResponseDTO)
                 .collect(Collectors.toList());
 
         Pageable pageable = PageRequest.of(dto.getPageNum(),dto.getLimit());
@@ -109,8 +107,6 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     }
     @Override
     public void applyRecruitmentCreate(String userUid, String recruitmentUid){
-        // TODO : 검증로직을 만들 필요가 있지 않을까? EX) 유저 pk, 포트폴리오 pk의 유효성을 검사하는
-        // TODO : 이거하다가 생각났는데 검증로직을 하나의 별도 서비스로 분리할 필요가 있지 않을까?
         ApplyRecruitmentKey likes = new ApplyRecruitmentKey(userUid,recruitmentUid);
         if(applyRecruitmentsRepository.existsById(likes))
             throw new IllegalArgumentException(NO_DATA_ERROR.getMessage());
@@ -126,8 +122,6 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     }
     @Override
     public void favoriteRecruitmentCreate(String userUid, String recruitmentUid){
-        // TODO : 검증로직을 만들 필요가 있지 않을까? EX) 유저 pk, 포트폴리오 pk의 유효성을 검사하는
-        // TODO : 이거하다가 생각났는데 검증로직을 하나의 별도 서비스로 분리할 필요가 있지 않을까?
         FavoriteRecruitmentKey likes = new FavoriteRecruitmentKey(userUid,recruitmentUid);
         if(favoriteRecruitmentsRepository.existsById(likes))
             throw new IllegalArgumentException(NO_DATA_ERROR.getMessage());
@@ -147,8 +141,12 @@ public class RecruitmentServiceImpl implements RecruitmentService {
         LocalDateTime today = LocalDateTime.now()
                 .minusWeeks(1);
         List<String> dataToDelete = recruitmentRepository.findUidByDueDateAfter(today);
-        for (String uid : dataToDelete)
-            // TODO : 삭제유저 데이터는 아마 스프링 시큐리티 끝나면 받아올 수 있을 듯
-            deleteRecruitment(uid);
+        for (String uid : dataToDelete){
+            Recruitment recruitment = recruitmentRepository.findById(uid)
+                    .orElseThrow(() -> new IllegalArgumentException(NO_BOARD_DATA_ERROR.getMessage()));
+            RecruitmentDelete deletedBoard = recruitment.toBoardDelete(uid);
+            recruitmentDeleteRepository.save(deletedBoard);
+            recruitmentRepository.deleteById(uid);
+        }
     }
 }

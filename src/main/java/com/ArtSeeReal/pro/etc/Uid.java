@@ -2,14 +2,14 @@ package com.ArtSeeReal.pro.etc;
 
 
 import com.ArtSeeReal.pro.repository.jpa.module.ModuleRepository;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;
 
 
 public class Uid {
     private static String uidCreator(){
-            return UUID
-                    .randomUUID()
+            return UUID.randomUUID()
                     .toString()
                     .replaceAll("-","");
     }
@@ -18,13 +18,11 @@ public class Uid {
         boolean duplicate = true;
         String uid = uidCreator();
 
-        while (duplicate) {
+        while (duplicate)
             if(repository.existsByUid(uid))
                 uid = uidCreator();
             else
                 duplicate = false;
-        }
-
         return uid;
     }
 }

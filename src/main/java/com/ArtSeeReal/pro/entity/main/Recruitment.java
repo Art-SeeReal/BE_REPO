@@ -61,7 +61,7 @@ public class Recruitment extends RecruitmentModule {
         dueDate = dto.getDueDate();
         payment = dto.getPayment();
     }
-    public RecruitmentDelete toBoardDelete(String uid, String delUserUid){
+    public RecruitmentDelete toBoardDelete(String uid){
         return RecruitmentDelete.builder()
                 .uid(uid)
                 .boardUid(this.uid)

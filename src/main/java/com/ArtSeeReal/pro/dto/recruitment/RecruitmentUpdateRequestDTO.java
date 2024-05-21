@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 public class RecruitmentUpdateRequestDTO {
 
     private String uid;
+    private String userUid;
     private String title;
     private String content;
     private RegionType region;
@@ -24,7 +25,7 @@ public class RecruitmentUpdateRequestDTO {
     private LocalDateTime dueDate;
     private Long payment;
 
-    public RecruitmentHistory createHistoryRecord(String uid, Recruitment recruitment, String modUserUid){
+    public RecruitmentHistory createHistoryRecord(String uid, Recruitment recruitment){
         return RecruitmentHistory.builder()
                 .uid(uid)
                 .boardUid(recruitment.getUid())

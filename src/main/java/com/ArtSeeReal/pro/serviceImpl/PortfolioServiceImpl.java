@@ -41,7 +41,7 @@ public class PortfolioServiceImpl implements PortfolioService {
     private final ValidateService validateService;
     @Override
     public PortfolioCreateResponseDTO createPortfolio(PortfolioCreateRequestDTO dto){
-
+        validateService.existsUser(dto.getUserUid());
         Portfolio changedEntityData = dto.form(uidCreator(portfolioRepository));
         Portfolio savedData = portfolioRepository.save(changedEntityData);
         return savedData.toCreateResponseDTO();
@@ -72,7 +72,6 @@ public class PortfolioServiceImpl implements PortfolioService {
     public String deletePortfolio(String boardUid,String userUid){
         Portfolio portfolio = portfolioRepository.findById(boardUid)
                 .orElseThrow(() -> new IllegalArgumentException(NO_BOARD_DATA_ERROR.getMessage()));
-        // TODO : 삭제유저 데이터는 아마 스프링 시큐리티 끝나면 받아올 수 있을 듯
         validateService.roleCheck(userUid,portfolio.getUserUid());
         PortfolioDelete deletedBoard = portfolio.toBoardDelete(boardUid);
         portfolioDeleteRepository.save(deletedBoard);
@@ -99,8 +98,6 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
     @Override
     public void favoritePortfolioCreate(String userUid, String portfolioUid){
-        // TODO : 검증로직을 만들 필요가 있지 않을까? EX) 유저 pk, 포트폴리오 pk의 유효성을 검사하는
-        // TODO : 이거하다가 생각났는데 검증로직을 하나의 별도 서비스로 분리할 필요가 있지 않을까?
         FavoritePortfolioKey likes = new FavoritePortfolioKey(userUid,portfolioUid);
         if(favoritePortfoliosRepository.existsById(likes))
             throw new IllegalArgumentException(NO_DATA_ERROR.getMessage());

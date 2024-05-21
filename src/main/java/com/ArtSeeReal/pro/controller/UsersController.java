@@ -1,6 +1,8 @@
 package com.ArtSeeReal.pro.controller;
 
 import com.ArtSeeReal.pro.dto.user.UserReadResponseDTO;
+import com.ArtSeeReal.pro.dto.with.UserIntroduceDTO;
+import com.ArtSeeReal.pro.service.IntroduceService;
 import com.ArtSeeReal.pro.service.MailService;
 import com.ArtSeeReal.pro.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,6 +20,7 @@ import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION
 @RequestMapping("/users")
 public class UsersController {
     private final UserService userService;
+    private final IntroduceService introduceService;
 
     @PostMapping("/logout")
     @Operation(summary = "미구현 상태 입니다.")
@@ -27,6 +30,11 @@ public class UsersController {
     @GetMapping("/find-user")
     public ResponseEntity<UserReadResponseDTO> findUser(@RequestParam String uid){
         return new ResponseEntity<>(userService.readUser(uid), HttpStatus.OK);
+    }
+
+    @GetMapping("{userId}/profile")
+    public ResponseEntity<UserIntroduceDTO> readUserIntro(@PathVariable("userId")String userId){
+        return new ResponseEntity<>(introduceService.readUserIntroduce(userId),HttpStatus.OK);
     }
 
 }

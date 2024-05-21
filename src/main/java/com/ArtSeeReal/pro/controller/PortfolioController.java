@@ -54,17 +54,17 @@ public class PortfolioController {
 
     @PostMapping("/scrap")
     public ResponseEntity<Void> portfolioScrapCreate(
-            @RequestBody String recruitUid,
+            @RequestBody String portfolioUid,
             @RequestHeader("Authorization") String header){
-        portfolioService.favoritePortfolioCreate(tokenService.getUserUid(header),recruitUid);
+        portfolioService.favoritePortfolioCreate(tokenService.getUserUid(header),portfolioUid);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/scrap")
+    @DeleteMapping("/{recruitUid}/scrap")
     public ResponseEntity<Void> portfolioScrapDelete(
-            @RequestBody String recruitUid,
+            @PathVariable("recruitUid") String portfolioUid,
             @RequestHeader("Authorization") String header){
-        portfolioService.favoritePortfolioDelete(tokenService.getUserUid(header),recruitUid);
+        portfolioService.favoritePortfolioDelete(tokenService.getUserUid(header),portfolioUid);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
