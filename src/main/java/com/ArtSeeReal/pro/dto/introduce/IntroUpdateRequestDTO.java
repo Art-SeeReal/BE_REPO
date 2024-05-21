@@ -11,7 +11,7 @@ import lombok.ToString;
 @Builder
 @ToString
 public class IntroUpdateRequestDTO {
-    private final String uid;
+    private String uid;
     private final String content;
 
     public Introduce updateDTOToEntity(){

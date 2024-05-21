@@ -1,24 +1,14 @@
 package com.ArtSeeReal.pro.controller;
 
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadRequestDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.portfolio.*;
 import com.ArtSeeReal.pro.service.PortfolioService;
+import com.ArtSeeReal.pro.service.TokenService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 @Tag(name = "Portfolios API")
 @RestController
 @RequiredArgsConstructor
@@ -26,10 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class PortfolioController {
 
     private final PortfolioService portfolioService;
+    private final TokenService tokenService;
 
     @PostMapping
     public ResponseEntity<PortfolioCreateResponseDTO> createPortfolio(
+            @RequestHeader("Authorization") String header,
             @RequestBody PortfolioCreateRequestDTO dto){
+        dto.setUserUid(tokenService.getUserUid(header));
         return new ResponseEntity<>(portfolioService.createPortfolio(dto), HttpStatus.CREATED);
     }
 
@@ -41,14 +34,17 @@ public class PortfolioController {
 
     @PutMapping
     public ResponseEntity<PortfolioReadResponseDTO> updatePortfolio(
+            @RequestHeader("Authorization") String header,
             @RequestBody PortfolioUpdateRequestDTO dto){
+        dto.setUserUid(tokenService.getUserUid(header));
         return new ResponseEntity<>(portfolioService.updatePortfolio(dto), HttpStatus.OK);
     }
 
     @DeleteMapping
     public ResponseEntity<String> deletePortfolio(
+            @RequestHeader("Authorization") String header,
             @RequestParam(name = "portfolioUid") String portfolioUid){
-        return new ResponseEntity<>(portfolioService.deletePortfolio(portfolioUid), HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(portfolioService.deletePortfolio(portfolioUid,tokenService.getUserUid(header)), HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/page")
@@ -57,16 +53,18 @@ public class PortfolioController {
     }
 
     @PostMapping("/scrap")
-    public ResponseEntity<Void> portfolioScrapCreate(String recruitUid){
-        // TODO : userUid 가져 온 다음 수정
-        portfolioService.favoritePortfolioCreate("userUid",recruitUid);
+    public ResponseEntity<Void> portfolioScrapCreate(
+            @RequestBody String portfolioUid,
+            @RequestHeader("Authorization") String header){
+        portfolioService.favoritePortfolioCreate(tokenService.getUserUid(header),portfolioUid);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/scrap")
-    public ResponseEntity<Void> portfolioScrapDelete(String recruitUid){
-        // TODO : userUid 가져 온 다음 수정
-        portfolioService.favoritePortfolioDelete("userUid",recruitUid);
+    @DeleteMapping("/{recruitUid}/scrap")
+    public ResponseEntity<Void> portfolioScrapDelete(
+            @PathVariable("recruitUid") String portfolioUid,
+            @RequestHeader("Authorization") String header){
+        portfolioService.favoritePortfolioDelete(tokenService.getUserUid(header),portfolioUid);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

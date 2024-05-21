@@ -48,8 +48,6 @@ public class QRecruitmentHistory extends EntityPathBase<RecruitmentHistory> {
 
     public final DateTimePath<java.time.LocalDateTime> modDate = createDateTime("modDate", java.time.LocalDateTime.class);
 
-    public final StringPath modUserUid = createString("modUserUid");
-
     //inherited
     public final NumberPath<Long> payment = _super.payment;
 

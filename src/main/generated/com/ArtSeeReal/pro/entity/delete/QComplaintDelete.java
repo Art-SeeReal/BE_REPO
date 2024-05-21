@@ -25,8 +25,6 @@ public class QComplaintDelete extends EntityPathBase<ComplaintDelete> {
 
     public final DateTimePath<java.time.LocalDateTime> delDate = createDateTime("delDate", java.time.LocalDateTime.class);
 
-    public final StringPath delUserUid = createString("delUserUid");
-
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 

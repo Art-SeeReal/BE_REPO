@@ -1,18 +1,19 @@
 package com.ArtSeeReal.pro.portfolioTests;
 
-import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
-
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.service.PortfolioService;
 import com.ArtSeeReal.pro.service.UserService;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+
+import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
 
 @SpringBootTest
 @Transactional
@@ -48,7 +49,7 @@ public class PortfolioFavoriteCreateTest {
         userUid = userService.createUser(userCreateRequestDTO).getUid();
 
         PortfolioCreateRequestDTO dto = PortfolioCreateRequestDTO.builder()
-                .userUid("testUid")
+                .userUid(userUid)
                 .title("testTitle")
                 .content("testContent")
                 .category(CategoryType.CRAFT)

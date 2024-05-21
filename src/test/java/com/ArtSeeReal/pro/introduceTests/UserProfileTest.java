@@ -2,7 +2,6 @@ package com.ArtSeeReal.pro.introduceTests;
 
 import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.user.UserProfileReadResponseDTO;
-import com.ArtSeeReal.pro.service.IntroduceService;
 import com.ArtSeeReal.pro.service.UserService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;

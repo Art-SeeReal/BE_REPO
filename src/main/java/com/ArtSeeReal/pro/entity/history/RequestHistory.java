@@ -4,11 +4,12 @@ import com.ArtSeeReal.pro.entity.module.RequestModule;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDateTime;
 
 @Entity(name = "REQUEST_HISTORY_TB")
 @Getter
@@ -31,6 +32,4 @@ public class RequestHistory extends RequestModule {
     private String exContent;
     @Column(nullable = false)
     private LocalDateTime modDate;
-    @Column(length = 64,nullable = false)
-    private String modUserUid;
 }

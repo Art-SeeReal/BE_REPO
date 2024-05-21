@@ -1,7 +1,8 @@
 package com.ArtSeeReal.pro.enums.system;
 
-import java.security.SecureRandom;
 import lombok.Getter;
+
+import java.security.SecureRandom;
 
 @Getter
 public enum SystemStringEnum {

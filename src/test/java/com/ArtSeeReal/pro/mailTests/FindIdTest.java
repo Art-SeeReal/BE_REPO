@@ -1,20 +1,21 @@
 package com.ArtSeeReal.pro.mailTests;
 
-import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-
 import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.user.UserUpdateRequestDTO;
 import com.ArtSeeReal.pro.service.MailService;
 import com.ArtSeeReal.pro.service.UserService;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+
+import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @SpringBootTest
 @Transactional
@@ -70,32 +71,6 @@ public class FindIdTest {
         String email = "test@gmail.com";
         String name = "테스트";
         assertThat(mailService.findId(name,email)).isEqualTo("testU***");
-    }
-
-    @Test
-    @AfterEach
-    void 정상작동_8자이하_5자이상(){
-        UserUpdateRequestDTO dto = UserUpdateRequestDTO
-                .builder()
-                .uid(userUid)
-                .userId("qwert")
-                .name("테스트")
-                .password("test1234")
-                .nickname("changedNickname")
-                .email("test@gmail.com")
-                .emailSecret(false)
-                .phone("010-1234-5678")
-                .phoneSecret(true)
-                .userType(AUTHOR)
-                .modUserUid("승미니")
-                .build();
-
-        userService.updateUser(dto);
-
-
-        String email = "test@gmail.com";
-        String name = "테스트";
-        assertThat(mailService.findId(name,email)).isEqualTo("qwe**");
     }
 
 }

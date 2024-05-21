@@ -2,12 +2,13 @@ package com.ArtSeeReal.pro.bannerTests;
 
 import com.ArtSeeReal.pro.dto.banner.BannerCreateRequestDTO;
 import com.ArtSeeReal.pro.service.BannerService;
-import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
 
 @SpringBootTest
 @Transactional

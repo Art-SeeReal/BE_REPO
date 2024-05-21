@@ -1,45 +1,61 @@
 package com.ArtSeeReal.pro.controller;
 
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
-
 import com.ArtSeeReal.pro.dto.introduce.IntroReadResponseDTO;
 import com.ArtSeeReal.pro.dto.introduce.IntroUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.user.*;
 import com.ArtSeeReal.pro.enums.UserType;
 import com.ArtSeeReal.pro.service.IntroduceService;
 import com.ArtSeeReal.pro.service.MailService;
+import com.ArtSeeReal.pro.service.TokenService;
 import com.ArtSeeReal.pro.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
-import java.io.IOException;
 import jdk.jshell.spi.ExecutionControl.NotImplementedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
+
 @Tag(name = "User API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
     private final MailService mailService;
+    private final TokenService tokenService;
     private final IntroduceService introduceService;
+
+    @GetMapping
+    public ResponseEntity<UserReadResponseDTO> userRead(
+            @RequestHeader("Authorization") String header){
+        String userUid = tokenService.getUserUid(header);
+        return new ResponseEntity<>(userService.readUser(userUid), HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity<UserCreateResponseDTO> signUp(@RequestBody UserCreateRequestDTO dto){
         return new ResponseEntity<>(userService.createUser(dto), HttpStatus.OK);
     }
+
     @DeleteMapping
-    public ResponseEntity<String> deleteUser(@RequestParam String uid){
-        // TODO : tempUser는 스프링 시큐리티 문제가 해결되면 될라나?
-        return new ResponseEntity<>(userService.deleteUser(uid,"tempUser"), HttpStatus.OK);
+    public ResponseEntity<String> deleteUser(
+            @RequestHeader("Authorization") String header,
+            @RequestParam String userId){
+        String delUserUid = tokenService.getUserUid(header);
+        return new ResponseEntity<>(userService.deleteUser(userId,delUserUid), HttpStatus.OK);
     }
     @PutMapping
-    public ResponseEntity<UserReadResponseDTO> updateUser(@RequestBody UserUpdateRequestDTO dto){
+    public ResponseEntity<UserReadResponseDTO> updateUser(
+            @RequestBody UserUpdateRequestDTO dto,
+            @RequestHeader("Authorization") String header){
+        dto.setUid(tokenService.getUserUid(header));
         return new ResponseEntity<>(userService.updateUser(dto), HttpStatus.OK);
     }
     @GetMapping("/info")
@@ -48,7 +64,10 @@ public class UserController {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
     @PutMapping("/intro")
-    public ResponseEntity<IntroReadResponseDTO> intro(IntroUpdateRequestDTO dto) {
+    public ResponseEntity<IntroReadResponseDTO> intro(
+            @RequestBody IntroUpdateRequestDTO dto,
+            @RequestHeader("Authorization") String header) {
+        dto.setUid(tokenService.getUserUid(header));
         return new ResponseEntity<>(introduceService.updateIntro(dto),HttpStatus.OK);
     }
     @GetMapping("/like/portfolios")
@@ -62,14 +81,23 @@ public class UserController {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
     @PostMapping("/like")
-    public ResponseEntity<Void> userLike(String yourUserUid) {
-        userService.userLikesCreate("tempUid",yourUserUid);
+    public ResponseEntity<Void> userLike(
+            @RequestBody String yourUserUid,
+            @RequestHeader("Authorization") String header) {
+        userService.userLikesCreate(tokenService.getUserUid(header),yourUserUid);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     @DeleteMapping("/like")
-    public ResponseEntity<Void> userLikeDelete(String yourUserUid) {
-        userService.userLikesDelete("tempUid",yourUserUid);
+    public ResponseEntity<Void> userLikeDelete(
+            @RequestParam("yourUserUid") String yourUserUid,
+            @RequestHeader("Authorization") String header) {
+        userService.userLikesDelete(tokenService.getUserUid(header),yourUserUid);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @GetMapping("/like/users")
+    @Operation(summary = "미구현 상태 입니다.")
+    public ResponseEntity<Void> myLikeUsers() throws NotImplementedException {
+        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
     @GetMapping("/exist/nickname")
     public ResponseEntity<Boolean> checkNickname(@RequestParam(name = "nickname") String nickname) {
@@ -119,4 +147,15 @@ public class UserController {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
 
+    @GetMapping("/scrap/portfolios")
+    @Operation(summary = "미구현 상태 입니다.")
+    public ResponseEntity<Void> myScrapPortfolios() throws NotImplementedException {
+        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    }
+
+    @GetMapping("/scrap/recruits")
+    @Operation(summary = "미구현 상태 입니다.")
+    public ResponseEntity<Void> myScrapRecruits() throws NotImplementedException {
+        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    }
 }
