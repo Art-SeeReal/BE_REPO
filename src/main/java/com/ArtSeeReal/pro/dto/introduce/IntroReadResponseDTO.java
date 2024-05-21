@@ -10,6 +10,5 @@ import lombok.ToString;
 @Builder
 @ToString
 public class IntroReadResponseDTO {
-    private final String uid;
     private final String content;
 }

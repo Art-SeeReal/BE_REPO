@@ -26,8 +26,6 @@ public class QIntroduceDelete extends EntityPathBase<IntroduceDelete> {
 
     public final DateTimePath<java.time.LocalDateTime> delDate = createDateTime("delDate", java.time.LocalDateTime.class);
 
-    public final StringPath delUserUid = createString("delUserUid");
-
     public final StringPath introduceUid = createString("introduceUid");
 
     public final StringPath uid = createString("uid");

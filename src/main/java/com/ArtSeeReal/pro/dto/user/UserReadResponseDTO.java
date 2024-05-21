@@ -1,12 +1,9 @@
 package com.ArtSeeReal.pro.dto.user;
 
 import com.ArtSeeReal.pro.enums.UserType;
+import lombok.*;
+
 import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -14,7 +11,6 @@ import lombok.ToString;
 @Builder
 @ToString
 public class UserReadResponseDTO {
-    private String uid;
     private String userId;
     private String name;
     private String nickname;
@@ -24,5 +20,4 @@ public class UserReadResponseDTO {
     private boolean phoneSecret;
     private UserType userType;
     private LocalDateTime regDate;
-
 }

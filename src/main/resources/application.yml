@@ -15,7 +15,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
   mvc:
     path match:
       matching-strategy: ant_path_matcher
@@ -25,6 +24,10 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
 
+  jwt:
+    secret: artseerealqwertyuioplkjhgfdsazxcvbnm
+
+
 Email:
 
 idFindPath:
@@ -32,6 +35,8 @@ idFindPath:
 passwordPath:
   template: /templates/passwordForm.html
 
+front-end:
+  server-url: http://localhost:3000
 
 #logging:
 #  level:

@@ -3,11 +3,12 @@ package com.ArtSeeReal.pro.entity.module;
 import com.ArtSeeReal.pro.enums.UserType;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDateTime;
 
 @Getter
 @ToString
@@ -19,7 +20,7 @@ public abstract class UserModule {
     protected String userId;
     @Column(length = 16, nullable = false)
     protected String name;
-    @Column(length = 32, nullable = false)
+    @Column(length = 64, nullable = false)
     protected String password;
     @Column(length = 16, nullable = false) // unique = true
     protected String nickname;

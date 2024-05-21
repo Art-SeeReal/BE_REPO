@@ -5,16 +5,13 @@ import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
 import com.ArtSeeReal.pro.entity.delete.PortfolioDelete;
 import com.ArtSeeReal.pro.entity.module.PortfolioModule;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDateTime;
 
 @Entity(name = "PORTFOLIO_TB")
 @Getter
@@ -53,7 +50,7 @@ public class Portfolio extends PortfolioModule {
         content = dto.getContent();
         category = dto.getCategory();
     }
-    public PortfolioDelete toBoardDelete(String uid, String delUserUid){
+    public PortfolioDelete toBoardDelete(String uid){
         return PortfolioDelete.builder()
                 .uid(uid)
                 .boardUid(this.uid)
@@ -65,7 +62,6 @@ public class Portfolio extends PortfolioModule {
                 .regDate(regDate)
                 .thumbnail(thumbnail)
                 .delDate(LocalDateTime.now())
-                .delUserUid(delUserUid)
                 .build();
     }
 }

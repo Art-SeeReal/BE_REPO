@@ -31,8 +31,6 @@ public class QRecruitmentDelete extends EntityPathBase<RecruitmentDelete> {
 
     public final DateTimePath<java.time.LocalDateTime> delDate = createDateTime("delDate", java.time.LocalDateTime.class);
 
-    public final StringPath delUserUid = createString("delUserUid");
-
     //inherited
     public final DateTimePath<java.time.LocalDateTime> dueDate = _super.dueDate;
 

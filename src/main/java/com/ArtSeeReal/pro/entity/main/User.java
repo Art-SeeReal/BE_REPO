@@ -6,17 +6,15 @@ import com.ArtSeeReal.pro.dto.user.UserUpdateRequestDTO;
 import com.ArtSeeReal.pro.entity.delete.UserDelete;
 import com.ArtSeeReal.pro.entity.history.UserHistory;
 import com.ArtSeeReal.pro.entity.module.UserModule;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.time.LocalDateTime;
 
 @Entity(name = "DEF_USER_TB")
 @Getter
@@ -52,7 +50,6 @@ public class User extends UserModule {
     public UserReadResponseDTO entityToReadDTO(){
         return UserReadResponseDTO.
                 builder()
-                .uid(uid)
                 .userId(userId)
                 .name(name)
                 .nickname(nickname)
@@ -65,7 +62,7 @@ public class User extends UserModule {
                 .build();
     }
 
-    public UserDelete userOfDeleteEntity(String uid, String delUserUid){
+    public UserDelete userOfDeleteEntity(String uid){
         return UserDelete.builder()
                 .uid(uid)
                 .userUid(this.uid)
@@ -80,7 +77,6 @@ public class User extends UserModule {
                 .userType(userType)
                 .regDate(regDate)
                 .delDate(LocalDateTime.now())
-                .delUserUid(delUserUid)
                 .build();
     }
 
@@ -104,10 +100,8 @@ public class User extends UserModule {
                 .exEmailSecret(emailSecret)
                 .exPhone(phone)
                 .exPhoneSecret(phoneSecret)
-                .exUserType(userType)
                 .regDate(regDate)
                 .modDate(LocalDateTime.now())
-                .modUserUid(this.uid)
                 .build();
     }
 
@@ -123,7 +117,6 @@ public class User extends UserModule {
                 .emailSecret(dto.isEmailSecret())
                 .phone(dto.getPhone())
                 .phoneSecret(dto.isPhoneSecret())
-                .userType(dto.getUserType())
                 .exName(name)
                 .exPassword(password)
                 .exNickname(nickname)
@@ -131,14 +124,23 @@ public class User extends UserModule {
                 .exEmailSecret(emailSecret)
                 .exPhone(phone)
                 .exPhoneSecret(phoneSecret)
-                .exUserType(userType)
                 .regDate(regDate)
+                .userType(userType)
                 .modDate(LocalDateTime.now())
-                .modUserUid(dto.getModUserUid())
                 .build();
     }
 
     public void passwordChange(String newPassword){
         this.password = newPassword;
+    }
+
+    public void change(UserUpdateRequestDTO dto, BCryptPasswordEncoder bCryptPasswordEncoder){
+        name = dto.getName();
+        password = bCryptPasswordEncoder.encode(dto.getPassword());
+        nickname = dto.getNickname();
+        email = dto.getEmail();
+        emailSecret = dto.isEmailSecret();
+        phone = dto.getPhone();
+        phoneSecret = dto.isPhoneSecret();
     }
 }

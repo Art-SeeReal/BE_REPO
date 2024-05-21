@@ -2,12 +2,10 @@ package com.ArtSeeReal.pro.dto.user;
 
 import com.ArtSeeReal.pro.entity.main.User;
 import com.ArtSeeReal.pro.enums.UserType;
+import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +14,6 @@ import lombok.ToString;
 @ToString
 public class UserUpdateRequestDTO {
     private String uid;
-    private String userId;
     private String name;
     private String password;
     private String nickname;
@@ -24,23 +21,4 @@ public class UserUpdateRequestDTO {
     private boolean emailSecret;
     private String phone;
     private boolean phoneSecret;
-    private UserType userType;
-    private String modUserUid;
-
-    public User updateDTOTOEntity(){
-        return User.
-                builder()
-                .uid(uid)
-                .userId(userId)
-                .name(name)
-                .password(password)
-                .nickname(nickname)
-                .email(email)
-                .emailSecret(emailSecret)
-                .phone(phone)
-                .phoneSecret(phoneSecret)
-                .userType(userType)
-                .regDate(LocalDateTime.now())
-                .build();
-    }
 }

@@ -1,17 +1,13 @@
 package com.ArtSeeReal.pro.service;
 
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadRequestDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.recruitment.*;
 import org.springframework.data.domain.Page;
 
 public interface RecruitmentService {
     RecruitmentCreateResponseDTO createRecruitment(RecruitmentCreateRequestDTO dto);
     RecruitmentReadResponseDTO readRecruitment(String boardUid);
     RecruitmentReadResponseDTO updateRecruitment(RecruitmentUpdateRequestDTO dto);
-    String deleteRecruitment(String boardUid);
+    String deleteRecruitment(String userUid, String boardUid);
     Page<RecruitmentReadResponseDTO> pageReadRecruitment(RecruitmentReadRequestDTO dto);
     void applyRecruitmentCreate(String userUid, String recruitmentUid);
     void applyRecruitmentDelete(String userUid, String recruitmentUid);

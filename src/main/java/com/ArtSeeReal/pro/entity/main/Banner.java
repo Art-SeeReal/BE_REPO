@@ -9,12 +9,13 @@ import com.ArtSeeReal.pro.entity.module.BannerModule;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import java.io.IOException;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Entity(name = "BANNER_TB")
 @Getter
@@ -58,7 +59,6 @@ public class Banner extends BannerModule {
                 .exLinkUrl(linkUrl)
                 .regDate(regDate)
                 .modDate(LocalDateTime.now())
-                .modUserUid(modUser)
                 .build();
     }
 
@@ -70,7 +70,6 @@ public class Banner extends BannerModule {
                 .linkUrl(linkUrl)
                 .regDate(regDate)
                 .delDate(LocalDateTime.now())
-                .delUserUid(delUser)
                 .build();
     }
 

@@ -13,4 +13,5 @@ public interface UserService {
     void userLikesCreate(String myUserUid, String yourUserUid);
     void userLikesDelete(String myUserUid, String yourUserUid);
     UserProfileReadResponseDTO readIntro(String userId);
+    String getUserUid(String userId);
 }

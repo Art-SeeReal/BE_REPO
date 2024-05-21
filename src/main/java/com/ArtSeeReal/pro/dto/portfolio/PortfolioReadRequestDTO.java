@@ -1,9 +1,10 @@
 package com.ArtSeeReal.pro.dto.portfolio;
 
 import com.ArtSeeReal.pro.enums.CategoryType;
-import java.util.List;
 import lombok.Builder;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Builder

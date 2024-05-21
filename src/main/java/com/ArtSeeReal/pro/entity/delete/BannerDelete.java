@@ -4,11 +4,12 @@ import com.ArtSeeReal.pro.entity.module.BannerModule;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDateTime;
 
 @Entity(name = "BANNER_DELETE_TB")
 @Getter
@@ -23,6 +24,4 @@ public class BannerDelete extends BannerModule {
     private String bannerUid;
     @Column(nullable = false)
     private LocalDateTime delDate;
-    @Column(length = 64,nullable = false)
-    private String delUserUid;
 }

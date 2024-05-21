@@ -41,11 +41,7 @@ public class QUserHistory extends EntityPathBase<UserHistory> {
 
     public final BooleanPath exPhoneSecret = createBoolean("exPhoneSecret");
 
-    public final EnumPath<com.ArtSeeReal.pro.enums.UserType> exUserType = createEnum("exUserType", com.ArtSeeReal.pro.enums.UserType.class);
-
     public final DateTimePath<java.time.LocalDateTime> modDate = createDateTime("modDate", java.time.LocalDateTime.class);
-
-    public final StringPath modUserUid = createString("modUserUid");
 
     //inherited
     public final StringPath name = _super.name;

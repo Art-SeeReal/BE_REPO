@@ -5,11 +5,12 @@ import com.ArtSeeReal.pro.enums.UserType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDateTime;
 
 @Entity(name = "DEF_USER_HISTORY_TB")
 @Getter
@@ -24,7 +25,7 @@ public class UserHistory extends UserModule {
     private String userUid;
     @Column(length = 16, nullable = false)
     private String exName;
-    @Column(length = 32, nullable = false)
+    @Column(length = 64, nullable = false)
     private String exPassword;
     @Column(length = 16, nullable = false) // unique = true
     private String exNickname;
@@ -37,10 +38,6 @@ public class UserHistory extends UserModule {
     @Column(nullable = false)
     private boolean exPhoneSecret;
     @Column(nullable = false)
-    private UserType exUserType;
-    @Column(nullable = false)
     private LocalDateTime modDate;
-    @Column(length = 64,nullable = false)
-    private String modUserUid;
 
 }
