@@ -2,13 +2,10 @@ package com.ArtSeeReal.pro.dto.portfolio;
 
 import com.ArtSeeReal.pro.entity.history.PortfolioHistory;
 import com.ArtSeeReal.pro.entity.main.Portfolio;
-import com.ArtSeeReal.pro.enums.RegionType;
+import com.ArtSeeReal.pro.enums.CategoryType;
+import lombok.*;
+
 import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -18,30 +15,28 @@ import lombok.ToString;
 public class PortfolioUpdateRequestDTO {
 
     private String uid;
+    private String userUid;
     private String title;
     private String content;
-    private RegionType regionType;
-    private Long category;
+    private CategoryType category;
     private String thumbnail;
 
-    public PortfolioHistory createHistoryRecord(String uid, Portfolio portfolio, String modUserUid){
+    public PortfolioHistory createHistoryRecord(String uid, Portfolio portfolio){
         return PortfolioHistory.builder()
                 .uid(uid)
                 .boardUid(portfolio.getUid())
                 .userUid(portfolio.getUserUid())
                 .viewCnt(portfolio.getViewCnt())
-                .oldTitle(portfolio.getTitle())
-                .newTitle(title)
-                .oldContent(portfolio.getContent())
-                .newContent(content)
-                .oldRegionType(portfolio.getRegionType())
-                .newRegionType(regionType)
-                .oldCategory(portfolio.getCategory())
-                .newCategory(category)
-                .oldThumbnail(portfolio.getThumbnail())
-                .newThumbnail(thumbnail)
+                .title(title)
+                .content(content)
+                .category(category)
+                .thumbnail(thumbnail)
+                .regDate(portfolio.getRegDate())
+                .exTitle(portfolio.getTitle())
+                .exContent(portfolio.getContent())
+                .exCategory(portfolio.getCategory())
+                .exThumbnail(portfolio.getThumbnail())
                 .modDate(LocalDateTime.now())
-                .modUserUid(modUserUid)
                 .build();
     }
 }

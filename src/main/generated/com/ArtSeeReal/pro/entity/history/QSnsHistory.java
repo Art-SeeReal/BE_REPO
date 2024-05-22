@@ -19,19 +19,21 @@ public class QSnsHistory extends EntityPathBase<SnsHistory> {
 
     public static final QSnsHistory snsHistory = new QSnsHistory("snsHistory");
 
+    public final com.ArtSeeReal.pro.entity.module.QSnsModule _super = new com.ArtSeeReal.pro.entity.module.QSnsModule(this);
+
+    public final StringPath exUrl = createString("exUrl");
+
     public final DateTimePath<java.time.LocalDateTime> modDate = createDateTime("modDate", java.time.LocalDateTime.class);
-
-    public final StringPath modUserUid = createString("modUserUid");
-
-    public final StringPath newUrl = createString("newUrl");
-
-    public final StringPath oldUrl = createString("oldUrl");
 
     public final StringPath snsUid = createString("snsUid");
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath url = _super.url;
+
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
     public QSnsHistory(String variable) {
         super(SnsHistory.class, forVariable(variable));

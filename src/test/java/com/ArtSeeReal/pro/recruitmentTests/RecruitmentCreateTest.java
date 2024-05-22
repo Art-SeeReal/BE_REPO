@@ -1,13 +1,15 @@
 package com.ArtSeeReal.pro.recruitmentTests;
 
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.service.RecruitmentService;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 @SpringBootTest
 @Transactional
@@ -25,10 +27,11 @@ public class RecruitmentCreateTest {
                 .userUid("testUid")
                 .title("testTitle")
                 .content("testContent")
-                .regionType(RegionType.SEOUL)
-                .category(0L)
+                .region(RegionType.SEOUL)
+                .category(CategoryType.ART)
                 .thumbnail("testThumbnail")
                 .dueDate(LocalDateTime.now())
+                .payment(1000000L)
                 .build();
         recruitService.createRecruitment(dto);
     }

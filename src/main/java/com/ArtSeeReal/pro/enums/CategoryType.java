@@ -1,16 +1,27 @@
 package com.ArtSeeReal.pro.enums;
 
+import com.ArtSeeReal.pro.enums.enuminfo.CategoryInfo;
+
 public enum CategoryType {
 
-    // TODO: 카테고리 유형 만들기
+    ART("A000","미술"),
+    CRAFT("B000","공예"),
+    DESIGN("C000","디자인"),
+    PHOTO_VIDEO("D000","사진영상"),
+    MUSIC("E000","음악"),
+    LITERATURE_DANCE("F000","문학무용"),
+    PLANNING("G000","기획");
 
-    temp("temp",0);
+    private final String code;
+    private final String label;
 
-    private final String name;
-    private final int number;
-
-    CategoryType(String name, int number){
-        this.name = name;
-        this.number = number;
+    CategoryType(String code, String label){
+        this.code = code;
+        this.label = label;
     }
+
+    public CategoryInfo toCategoryInfo() {
+        return new CategoryInfo(this.code, this.label);
+    }
+
 }

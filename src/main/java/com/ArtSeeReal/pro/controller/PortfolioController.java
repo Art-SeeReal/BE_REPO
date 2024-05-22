@@ -1,52 +1,71 @@
 package com.ArtSeeReal.pro.controller;
 
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.portfolio.*;
 import com.ArtSeeReal.pro.service.PortfolioService;
+import com.ArtSeeReal.pro.service.TokenService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
+@Tag(name = "Portfolios API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/portfolio")
+@RequestMapping("/portfolios")
 public class PortfolioController {
 
     private final PortfolioService portfolioService;
+    private final TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity<PortfolioCreateResponseDTO> createPortfolio(PortfolioCreateRequestDTO dto){
+    public ResponseEntity<PortfolioCreateResponseDTO> createPortfolio(
+            @RequestHeader("Authorization") String header,
+            @RequestBody PortfolioCreateRequestDTO dto){
+        dto.setUserUid(tokenService.getUserUid(header));
         return new ResponseEntity<>(portfolioService.createPortfolio(dto), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<PortfolioReadResponseDTO> readPortfolio(String portfolioUid){
+    public ResponseEntity<PortfolioReadResponseDTO> readPortfolio(
+            @RequestParam(name = "portfolioUid") String portfolioUid){
         return new ResponseEntity<>(portfolioService.readPortfolio(portfolioUid), HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<PortfolioReadResponseDTO> updatePortfolio(PortfolioUpdateRequestDTO dto){
+    public ResponseEntity<PortfolioReadResponseDTO> updatePortfolio(
+            @RequestHeader("Authorization") String header,
+            @RequestBody PortfolioUpdateRequestDTO dto){
+        dto.setUserUid(tokenService.getUserUid(header));
         return new ResponseEntity<>(portfolioService.updatePortfolio(dto), HttpStatus.OK);
     }
 
     @DeleteMapping
-    public ResponseEntity<String> deletePortfolio(String portfolioUid){
-        return new ResponseEntity<>(portfolioService.deletePortfolio(portfolioUid), HttpStatus.NO_CONTENT);
+    public ResponseEntity<String> deletePortfolio(
+            @RequestHeader("Authorization") String header,
+            @RequestParam(name = "portfolioUid") String portfolioUid){
+        return new ResponseEntity<>(portfolioService.deletePortfolio(portfolioUid,tokenService.getUserUid(header)), HttpStatus.NO_CONTENT);
     }
 
-    // TODO : 1차적으로는 페이징 처리만 했지만 검색과 합쳐야 할듯
     @GetMapping("/page")
-    public ResponseEntity<Page<PortfolioReadResponseDTO>> pagePortfolio(Integer pageNum){
-        return new ResponseEntity<>(portfolioService.pageReadPortfolio(pageNum), HttpStatus.OK);
+    public ResponseEntity<Page<PortfolioReadResponseDTO>> pagePortfolio(PortfolioReadRequestDTO dto){
+        return new ResponseEntity<>(portfolioService.pageReadPortfolio(dto), HttpStatus.OK);
+    }
+
+    @PostMapping("/scrap")
+    public ResponseEntity<Void> portfolioScrapCreate(
+            @RequestBody String portfolioUid,
+            @RequestHeader("Authorization") String header){
+        portfolioService.favoritePortfolioCreate(tokenService.getUserUid(header),portfolioUid);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{recruitUid}/scrap")
+    public ResponseEntity<Void> portfolioScrapDelete(
+            @PathVariable("recruitUid") String portfolioUid,
+            @RequestHeader("Authorization") String header){
+        portfolioService.favoritePortfolioDelete(tokenService.getUserUid(header),portfolioUid);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

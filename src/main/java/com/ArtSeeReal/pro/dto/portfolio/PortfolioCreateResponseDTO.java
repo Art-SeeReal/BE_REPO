@@ -1,12 +1,9 @@
 package com.ArtSeeReal.pro.dto.portfolio;
 
-import com.ArtSeeReal.pro.enums.RegionType;
+import com.ArtSeeReal.pro.enums.CategoryType;
+import lombok.*;
+
 import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -20,8 +17,7 @@ public class PortfolioCreateResponseDTO {
     private Long viewCnt;
     private String title;
     private String content;
-    private RegionType regionType;
-    private Long category;
+    private CategoryType category;
     private LocalDateTime regDate;
     private String thumbnail;
 

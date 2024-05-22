@@ -19,31 +19,39 @@ public class QRequestHistory extends EntityPathBase<RequestHistory> {
 
     public static final QRequestHistory requestHistory = new QRequestHistory("requestHistory");
 
+    public final com.ArtSeeReal.pro.entity.module.QRequestModule _super = new com.ArtSeeReal.pro.entity.module.QRequestModule(this);
+
+    //inherited
+    public final StringPath content = _super.content;
+
+    public final StringPath exContent = createString("exContent");
+
+    public final BooleanPath exSecret = createBoolean("exSecret");
+
+    public final StringPath exTitle = createString("exTitle");
+
+    public final NumberPath<Long> exType = createNumber("exType", Long.class);
+
     public final DateTimePath<java.time.LocalDateTime> modDate = createDateTime("modDate", java.time.LocalDateTime.class);
 
-    public final StringPath modUserUid = createString("modUserUid");
-
-    public final StringPath newContent = createString("newContent");
-
-    public final BooleanPath newSecret = createBoolean("newSecret");
-
-    public final StringPath newTitle = createString("newTitle");
-
-    public final NumberPath<Long> newType = createNumber("newType", Long.class);
-
-    public final StringPath oldContent = createString("oldContent");
-
-    public final BooleanPath oldSecret = createBoolean("oldSecret");
-
-    public final StringPath oldTitle = createString("oldTitle");
-
-    public final NumberPath<Long> oldType = createNumber("oldType", Long.class);
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     public final StringPath requestUid = createString("requestUid");
 
+    //inherited
+    public final BooleanPath secret = _super.secret;
+
+    //inherited
+    public final StringPath title = _super.title;
+
+    //inherited
+    public final NumberPath<Long> type = _super.type;
+
     public final StringPath uid = createString("uid");
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
     public QRequestHistory(String variable) {
         super(RequestHistory.class, forVariable(variable));

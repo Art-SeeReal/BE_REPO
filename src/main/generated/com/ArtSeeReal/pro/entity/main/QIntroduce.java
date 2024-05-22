@@ -19,11 +19,12 @@ public class QIntroduce extends EntityPathBase<Introduce> {
 
     public static final QIntroduce introduce = new QIntroduce("introduce");
 
-    public final StringPath content = createString("content");
+    public final com.ArtSeeReal.pro.entity.module.QIntroduceModule _super = new com.ArtSeeReal.pro.entity.module.QIntroduceModule(this);
+
+    //inherited
+    public final StringPath content = _super.content;
 
     public final StringPath uid = createString("uid");
-
-    public final StringPath userUid = createString("userUid");
 
     public QIntroduce(String variable) {
         super(Introduce.class, forVariable(variable));

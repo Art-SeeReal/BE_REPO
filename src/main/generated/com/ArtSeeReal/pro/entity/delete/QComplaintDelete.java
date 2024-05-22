@@ -19,21 +19,25 @@ public class QComplaintDelete extends EntityPathBase<ComplaintDelete> {
 
     public static final QComplaintDelete complaintDelete = new QComplaintDelete("complaintDelete");
 
+    public final com.ArtSeeReal.pro.entity.module.QComplaintModule _super = new com.ArtSeeReal.pro.entity.module.QComplaintModule(this);
+
     public final StringPath complaintUid = createString("complaintUid");
 
     public final DateTimePath<java.time.LocalDateTime> delDate = createDateTime("delDate", java.time.LocalDateTime.class);
 
-    public final StringPath delUserUid = createString("delUserUid");
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
-    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
+    //inherited
+    public final StringPath targetUid = _super.targetUid;
 
-    public final StringPath targetUid = createString("targetUid");
-
-    public final EnumPath<com.ArtSeeReal.pro.enums.ComplaintType> type = createEnum("type", com.ArtSeeReal.pro.enums.ComplaintType.class);
+    //inherited
+    public final EnumPath<com.ArtSeeReal.pro.enums.ComplaintType> type = _super.type;
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
     public QComplaintDelete(String variable) {
         super(ComplaintDelete.class, forVariable(variable));

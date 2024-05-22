@@ -19,49 +19,55 @@ public class QUserHistory extends EntityPathBase<UserHistory> {
 
     public static final QUserHistory userHistory = new QUserHistory("userHistory");
 
+    public final com.ArtSeeReal.pro.entity.module.QUserModule _super = new com.ArtSeeReal.pro.entity.module.QUserModule(this);
+
+    //inherited
+    public final StringPath email = _super.email;
+
+    //inherited
+    public final BooleanPath emailSecret = _super.emailSecret;
+
+    public final StringPath exEmail = createString("exEmail");
+
+    public final BooleanPath exEmailSecret = createBoolean("exEmailSecret");
+
+    public final StringPath exName = createString("exName");
+
+    public final StringPath exNickname = createString("exNickname");
+
+    public final StringPath exPassword = createString("exPassword");
+
+    public final StringPath exPhone = createString("exPhone");
+
+    public final BooleanPath exPhoneSecret = createBoolean("exPhoneSecret");
+
     public final DateTimePath<java.time.LocalDateTime> modDate = createDateTime("modDate", java.time.LocalDateTime.class);
 
-    public final StringPath modUserUid = createString("modUserUid");
+    //inherited
+    public final StringPath name = _super.name;
 
-    public final StringPath newEmail = createString("newEmail");
+    //inherited
+    public final StringPath nickname = _super.nickname;
 
-    public final BooleanPath newEmailSecret = createBoolean("newEmailSecret");
+    //inherited
+    public final StringPath password = _super.password;
 
-    public final StringPath newName = createString("newName");
+    //inherited
+    public final StringPath phone = _super.phone;
 
-    public final StringPath newNickname = createString("newNickname");
+    //inherited
+    public final BooleanPath phoneSecret = _super.phoneSecret;
 
-    public final StringPath newPassword = createString("newPassword");
-
-    public final StringPath newPhone = createString("newPhone");
-
-    public final BooleanPath newPhoneSecret = createBoolean("newPhoneSecret");
-
-    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> newRegionType = createEnum("newRegionType", com.ArtSeeReal.pro.enums.RegionType.class);
-
-    public final EnumPath<com.ArtSeeReal.pro.enums.UserType> newUserType = createEnum("newUserType", com.ArtSeeReal.pro.enums.UserType.class);
-
-    public final StringPath oldEmail = createString("oldEmail");
-
-    public final BooleanPath oldEmailSecret = createBoolean("oldEmailSecret");
-
-    public final StringPath oldName = createString("oldName");
-
-    public final StringPath oldNickname = createString("oldNickname");
-
-    public final StringPath oldPassword = createString("oldPassword");
-
-    public final StringPath oldPhone = createString("oldPhone");
-
-    public final BooleanPath oldPhoneSecret = createBoolean("oldPhoneSecret");
-
-    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> oldRegionType = createEnum("oldRegionType", com.ArtSeeReal.pro.enums.RegionType.class);
-
-    public final EnumPath<com.ArtSeeReal.pro.enums.UserType> oldUserType = createEnum("oldUserType", com.ArtSeeReal.pro.enums.UserType.class);
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath userId = createString("userId");
+    //inherited
+    public final StringPath userId = _super.userId;
+
+    //inherited
+    public final EnumPath<com.ArtSeeReal.pro.enums.UserType> userType = _super.userType;
 
     public final StringPath userUid = createString("userUid");
 

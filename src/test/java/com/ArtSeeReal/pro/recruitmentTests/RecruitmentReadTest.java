@@ -1,21 +1,22 @@
 package com.ArtSeeReal.pro.recruitmentTests;
 
-import static com.ArtSeeReal.pro.enums.RegionType.SEOUL;
-import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
-import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
+import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
+import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.service.RecruitmentService;
 import com.ArtSeeReal.pro.service.UserService;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+
+import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
 @Transactional
@@ -33,7 +34,7 @@ public class RecruitmentReadTest {
     @BeforeEach
     public void 더미데이터_생성(){
 
-        UserRequestDTO userRequestDTO = UserRequestDTO
+        UserCreateRequestDTO userCreateRequestDTO = UserCreateRequestDTO
                 .builder()
                 .userId("test")
                 .name("테스트")
@@ -43,21 +44,21 @@ public class RecruitmentReadTest {
                 .emailSecret(true)
                 .phone("010-1234-5678")
                 .phoneSecret(true)
-                .regionType(SEOUL)
                 .userType(AUTHOR)
                 .regDate(LocalDateTime.now())
                 .build();
 
-        userUid = userService.createUser(userRequestDTO).getUid();
+        userUid = userService.createUser(userCreateRequestDTO).getUid();
 
         RecruitmentCreateRequestDTO dto = RecruitmentCreateRequestDTO.builder()
                 .userUid(userUid)
                 .title("testTitle")
                 .content("testContent")
-                .regionType(RegionType.SEOUL)
-                .category(0L)
+                .region(RegionType.SEOUL)
+                .category(CategoryType.ART)
                 .thumbnail("testThumbnail")
                 .dueDate(LocalDateTime.now())
+                .payment(1000000L)
                 .build();
         uid = recruitService.createRecruitment(dto).getUid();
     }

@@ -19,17 +19,19 @@ public class QSnsDelete extends EntityPathBase<SnsDelete> {
 
     public static final QSnsDelete snsDelete = new QSnsDelete("snsDelete");
 
-    public final DateTimePath<java.time.LocalDateTime> delDate = createDateTime("delDate", java.time.LocalDateTime.class);
+    public final com.ArtSeeReal.pro.entity.module.QSnsModule _super = new com.ArtSeeReal.pro.entity.module.QSnsModule(this);
 
-    public final StringPath delUserUid = createString("delUserUid");
+    public final DateTimePath<java.time.LocalDateTime> delDate = createDateTime("delDate", java.time.LocalDateTime.class);
 
     public final StringPath snsUid = createString("snsUid");
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath url = createString("url");
+    //inherited
+    public final StringPath url = _super.url;
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
     public QSnsDelete(String variable) {
         super(SnsDelete.class, forVariable(variable));

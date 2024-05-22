@@ -19,29 +19,34 @@ public class QPortfolioDelete extends EntityPathBase<PortfolioDelete> {
 
     public static final QPortfolioDelete portfolioDelete = new QPortfolioDelete("portfolioDelete");
 
+    public final com.ArtSeeReal.pro.entity.module.QPortfolioModule _super = new com.ArtSeeReal.pro.entity.module.QPortfolioModule(this);
+
     public final StringPath boardUid = createString("boardUid");
 
-    public final NumberPath<Long> category = createNumber("category", Long.class);
+    //inherited
+    public final EnumPath<com.ArtSeeReal.pro.enums.CategoryType> category = _super.category;
 
-    public final StringPath content = createString("content");
+    //inherited
+    public final StringPath content = _super.content;
 
     public final DateTimePath<java.time.LocalDateTime> delDate = createDateTime("delDate", java.time.LocalDateTime.class);
 
-    public final StringPath delUserUid = createString("delUserUid");
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
-    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
+    //inherited
+    public final StringPath thumbnail = _super.thumbnail;
 
-    public final EnumPath<com.ArtSeeReal.pro.enums.RegionType> regionType = createEnum("regionType", com.ArtSeeReal.pro.enums.RegionType.class);
-
-    public final StringPath thumbnail = createString("thumbnail");
-
-    public final StringPath title = createString("title");
+    //inherited
+    public final StringPath title = _super.title;
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
-    public final NumberPath<Long> viewCnt = createNumber("viewCnt", Long.class);
+    //inherited
+    public final NumberPath<Long> viewCnt = _super.viewCnt;
 
     public QPortfolioDelete(String variable) {
         super(PortfolioDelete.class, forVariable(variable));

@@ -19,11 +19,15 @@ public class QSns extends EntityPathBase<Sns> {
 
     public static final QSns sns = new QSns("sns");
 
+    public final com.ArtSeeReal.pro.entity.module.QSnsModule _super = new com.ArtSeeReal.pro.entity.module.QSnsModule(this);
+
     public final StringPath uid = createString("uid");
 
-    public final StringPath url = createString("url");
+    //inherited
+    public final StringPath url = _super.url;
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
     public QSns(String variable) {
         super(Sns.class, forVariable(variable));

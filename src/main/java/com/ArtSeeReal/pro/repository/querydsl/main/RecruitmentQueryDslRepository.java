@@ -1,12 +1,13 @@
 package com.ArtSeeReal.pro.repository.querydsl.main;
 
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadRequestDTO;
 import com.ArtSeeReal.pro.dto.with.RecruitmentWithUserDTO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface RecruitmentQueryDslRepository {
 
-    Page<RecruitmentWithUserDTO> findByUserAndRecruitmentOrderByRegDateDesc(Pageable pageable);
+    List<RecruitmentWithUserDTO> findByUserAndRecruitmentOrderByRegDateDesc(RecruitmentReadRequestDTO dto);
     RecruitmentWithUserDTO findUserAndRecruitmentByUid(String uid);
 
 }

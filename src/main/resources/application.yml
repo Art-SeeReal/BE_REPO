@@ -19,6 +19,15 @@ spring:
     path match:
       matching-strategy: ant_path_matcher
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  jwt:
+    secret: artseerealqwertyuioplkjhgfdsazxcvbnm
+
+
 Email:
 
 idFindPath:
@@ -26,6 +35,8 @@ idFindPath:
 passwordPath:
   template: /templates/passwordForm.html
 
+front-end:
+  server-url: http://localhost:3000
 
 #logging:
 #  level:
@@ -42,3 +53,14 @@ spring-doc:
     path: /api-docs
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
+
+  # s3
+cloud:
+  aws:
+    s3:
+      bucket: [ bucket name ]
+    stack.auto: false
+    region.static: ap-northeast-2
+    credentials:
+      accessKey: [ access key ]
+      secretKey: [ secret key ]

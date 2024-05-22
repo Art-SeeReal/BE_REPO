@@ -19,19 +19,22 @@ public class QBannerDelete extends EntityPathBase<BannerDelete> {
 
     public static final QBannerDelete bannerDelete = new QBannerDelete("bannerDelete");
 
+    public final com.ArtSeeReal.pro.entity.module.QBannerModule _super = new com.ArtSeeReal.pro.entity.module.QBannerModule(this);
+
     public final StringPath bannerUid = createString("bannerUid");
 
     public final DateTimePath<java.time.LocalDateTime> delDate = createDateTime("delDate", java.time.LocalDateTime.class);
 
-    public final StringPath delUserUid = createString("delUserUid");
+    //inherited
+    public final StringPath imageUrl = _super.imageUrl;
 
-    public final StringPath linkUrl = createString("linkUrl");
+    //inherited
+    public final StringPath linkUrl = _super.linkUrl;
 
-    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     public final StringPath uid = createString("uid");
-
-    public final StringPath url = createString("url");
 
     public QBannerDelete(String variable) {
         super(BannerDelete.class, forVariable(variable));

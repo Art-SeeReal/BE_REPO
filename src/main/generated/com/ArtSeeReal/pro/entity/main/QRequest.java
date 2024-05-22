@@ -19,19 +19,27 @@ public class QRequest extends EntityPathBase<Request> {
 
     public static final QRequest request = new QRequest("request");
 
-    public final StringPath content = createString("content");
+    public final com.ArtSeeReal.pro.entity.module.QRequestModule _super = new com.ArtSeeReal.pro.entity.module.QRequestModule(this);
 
-    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
+    //inherited
+    public final StringPath content = _super.content;
 
-    public final BooleanPath secret = createBoolean("secret");
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
-    public final StringPath title = createString("title");
+    //inherited
+    public final BooleanPath secret = _super.secret;
 
-    public final NumberPath<Long> type = createNumber("type", Long.class);
+    //inherited
+    public final StringPath title = _super.title;
+
+    //inherited
+    public final NumberPath<Long> type = _super.type;
 
     public final StringPath uid = createString("uid");
 
-    public final StringPath userUid = createString("userUid");
+    //inherited
+    public final StringPath userUid = _super.userUid;
 
     public QRequest(String variable) {
         super(Request.class, forVariable(variable));
