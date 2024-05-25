@@ -24,6 +24,8 @@ public class QUserLikes extends EntityPathBase<UserLikes> {
 
     public final com.ArtSeeReal.pro.entity.composite.QUserLikeKey pk;
 
+    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
+
     public QUserLikes(String variable) {
         this(UserLikes.class, forVariable(variable), INITS);
     }

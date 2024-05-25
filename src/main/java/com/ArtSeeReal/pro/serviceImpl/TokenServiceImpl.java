@@ -126,7 +126,7 @@ public class TokenServiceImpl implements TokenService {
     public String getUserUid(String token) {
         String accessToken = token.startsWith(BEARER_PREFIX) ? token.substring(BEARER_PREFIX.length()) : token;
         return userRepository.findByUserId(getUserId(accessToken))
-                .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_USER_DATA_ERROR.getCode()))
+                .orElseThrow(() -> new IllegalArgumentException(ErrorCode.NO_USER_DATA_ERROR.getMessage()))
                 .getUid();
     }
 }

@@ -24,6 +24,8 @@ public class QFavoritePortfolios extends EntityPathBase<FavoritePortfolios> {
 
     public final com.ArtSeeReal.pro.entity.composite.QFavoritePortfolioKey pk;
 
+    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
+
     public QFavoritePortfolios(String variable) {
         this(FavoritePortfolios.class, forVariable(variable), INITS);
     }

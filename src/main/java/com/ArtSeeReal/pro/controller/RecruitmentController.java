@@ -1,6 +1,11 @@
 package com.ArtSeeReal.pro.controller;
 
-import com.ArtSeeReal.pro.dto.recruitment.*;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
+import com.ArtSeeReal.pro.dto.response.recuitment.RecruitmentListResponseDTO;
 import com.ArtSeeReal.pro.service.RecruitmentService;
 import com.ArtSeeReal.pro.service.TokenService;
 import com.ArtSeeReal.pro.service.ValidateService;
@@ -8,6 +13,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jdk.jshell.spi.ExecutionControl.NotImplementedException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +24,7 @@ import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/recruits")
+@Log4j2
 public class RecruitmentController {
 
     private final RecruitmentService recruitService;
@@ -33,9 +40,20 @@ public class RecruitmentController {
         return new ResponseEntity<>(recruitService.createRecruitment(dto), HttpStatus.CREATED);
     }
 
+//    @GetMapping
+//    public ResponseEntity<RecruitmentReadResponseDTO> readRecruitment(@RequestParam String recruitmentUid){
+//        return new ResponseEntity<>(recruitService.readRecruitment(recruitmentUid), HttpStatus.OK);
+//    }
+
     @GetMapping
-    public ResponseEntity<RecruitmentReadResponseDTO> readRecruitment(@RequestParam String recruitmentUid){
-        return new ResponseEntity<>(recruitService.readRecruitment(recruitmentUid), HttpStatus.OK);
+    public ResponseEntity<RecruitmentListResponseDTO> pagePortfolio(
+            RecruitmentListRequestDTO dto,
+            @RequestHeader(name = "Authorization", required = false, defaultValue = "") String header){
+        log.info("헤더 : {}", header);
+        if(header.isEmpty())
+            return new ResponseEntity<>(recruitService.readRecruitment(dto,null), HttpStatus.OK);
+        else
+            return new ResponseEntity<>(recruitService.readRecruitment(dto,tokenService.getUserUid(header)), HttpStatus.OK);
     }
 
     @PutMapping
@@ -50,11 +68,6 @@ public class RecruitmentController {
     public ResponseEntity<String> deleteRecruitment(@RequestParam String recruitmentUid,
                                                     @RequestHeader("Authorization") String header){
         return new ResponseEntity<>(recruitService.deleteRecruitment(tokenService.getUserUid(header), recruitmentUid), HttpStatus.NO_CONTENT);
-    }
-
-    @GetMapping("/page")
-    public ResponseEntity<Page<RecruitmentReadResponseDTO>> pageRecruitment(RecruitmentReadRequestDTO dto){
-        return new ResponseEntity<>(recruitService.pageReadRecruitment(dto), HttpStatus.OK);
     }
 
     @GetMapping("/latest")

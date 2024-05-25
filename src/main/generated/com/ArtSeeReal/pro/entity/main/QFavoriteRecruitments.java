@@ -24,6 +24,8 @@ public class QFavoriteRecruitments extends EntityPathBase<FavoriteRecruitments> 
 
     public final com.ArtSeeReal.pro.entity.composite.QFavoriteRecruitmentKey pk;
 
+    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
+
     public QFavoriteRecruitments(String variable) {
         this(FavoriteRecruitments.class, forVariable(variable), INITS);
     }
