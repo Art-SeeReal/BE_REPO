@@ -24,6 +24,8 @@ public class QApplyRecruitments extends EntityPathBase<ApplyRecruitments> {
 
     public final com.ArtSeeReal.pro.entity.composite.QApplyRecruitmentKey pk;
 
+    public final DateTimePath<java.time.LocalDateTime> regDate = createDateTime("regDate", java.time.LocalDateTime.class);
+
     public QApplyRecruitments(String variable) {
         this(ApplyRecruitments.class, forVariable(variable), INITS);
     }

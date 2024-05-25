@@ -109,8 +109,6 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public void userLikesCreate(String myUserUid, String yourUserUid){
-        // TODO : 검증로직을 만들 필요가 있지 않을까? EX) 유저 pk, 포트폴리오 pk의 유효성을 검사하는
-        // TODO : 이거하다가 생각났는데 검증로직을 하나의 별도 서비스로 분리할 필요가 있지 않을까?
         UserLikeKey likes = new UserLikeKey(myUserUid,yourUserUid);
         if(userLikesRepository.existsById(likes))
             throw new IllegalArgumentException(NO_DATA_ERROR.getMessage());

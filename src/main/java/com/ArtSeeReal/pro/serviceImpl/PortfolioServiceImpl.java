@@ -1,6 +1,11 @@
 package com.ArtSeeReal.pro.serviceImpl;
 
-import com.ArtSeeReal.pro.dto.portfolio.*;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioListRequestDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioListResponseDTO;
 import com.ArtSeeReal.pro.dto.with.PortfolioWithUserDTO;
 import com.ArtSeeReal.pro.entity.composite.FavoritePortfolioKey;
 import com.ArtSeeReal.pro.entity.delete.PortfolioDelete;
@@ -15,17 +20,11 @@ import com.ArtSeeReal.pro.repository.querydsl.main.PortfolioQueryDslRepository;
 import com.ArtSeeReal.pro.service.PortfolioService;
 import com.ArtSeeReal.pro.service.ValidateService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.*;
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_BOARD_DATA_ERROR;
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_DATA_ERROR;
 import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
 @Service
@@ -39,6 +38,7 @@ public class PortfolioServiceImpl implements PortfolioService {
     private final PortfolioDeleteRepository portfolioDeleteRepository;
     private final FavoritePortfoliosRepository favoritePortfoliosRepository;
     private final ValidateService validateService;
+
     @Override
     public PortfolioCreateResponseDTO createPortfolio(PortfolioCreateRequestDTO dto){
         validateService.existsUser(dto.getUserUid());
@@ -79,24 +79,6 @@ public class PortfolioServiceImpl implements PortfolioService {
         return boardUid;
     }
     @Override
-    // TODO : 페이징 군을 나눌 때 지역, 분야, 제목, 작성자
-    public Page<PortfolioReadResponseDTO> pageReadPortfolio(PortfolioReadRequestDTO dto){
-        if (dto.getPageNum() == null || dto.getPageNum() < 0)
-            throw new IllegalArgumentException(NO_PAGE_ERROR.getMessage());
-
-        List<PortfolioWithUserDTO> portfolioWithUser = portfolioQueryDslRepository
-                .findByUserAndPortfolioOrderByRegDateDesc(dto);
-
-        List<PortfolioReadResponseDTO> portfolioReadResponseDTOList = portfolioWithUser
-                .stream()
-                .map(PortfolioWithUserDTO::toReadResponseDTO)
-                .collect(Collectors.toList());
-
-        Pageable pageable = PageRequest.of(dto.getPageNum(),dto.getLimit());
-
-        return new PageImpl<>(portfolioReadResponseDTOList, pageable, portfolioRepository.count());
-    }
-    @Override
     public void favoritePortfolioCreate(String userUid, String portfolioUid){
         FavoritePortfolioKey likes = new FavoritePortfolioKey(userUid,portfolioUid);
         if(favoritePortfoliosRepository.existsById(likes))
@@ -110,6 +92,11 @@ public class PortfolioServiceImpl implements PortfolioService {
             favoritePortfoliosRepository.deleteById(likes);
         else
             throw new IllegalArgumentException(NO_DATA_ERROR.getMessage());
+    }
+
+    @Override
+    public PortfolioListResponseDTO readPortfolio(PortfolioListRequestDTO dto, String userUid) {
+        return portfolioQueryDslRepository.findListByPortfolioDTO(dto,userUid);
     }
 
 }

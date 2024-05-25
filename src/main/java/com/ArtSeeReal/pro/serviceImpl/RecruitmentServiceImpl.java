@@ -1,6 +1,11 @@
 package com.ArtSeeReal.pro.serviceImpl;
 
-import com.ArtSeeReal.pro.dto.recruitment.*;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
+import com.ArtSeeReal.pro.dto.response.recuitment.RecruitmentListResponseDTO;
 import com.ArtSeeReal.pro.dto.with.RecruitmentWithUserDTO;
 import com.ArtSeeReal.pro.entity.composite.ApplyRecruitmentKey;
 import com.ArtSeeReal.pro.entity.composite.FavoriteRecruitmentKey;
@@ -19,10 +24,6 @@ import com.ArtSeeReal.pro.service.RecruitmentService;
 import com.ArtSeeReal.pro.service.ValidateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -30,9 +31,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.*;
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_BOARD_DATA_ERROR;
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.NO_DATA_ERROR;
 import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
 @Service
@@ -86,25 +87,6 @@ public class RecruitmentServiceImpl implements RecruitmentService {
         recruitmentRepository.deleteById(boardUid);
         return boardUid;
     }
-
-    @Override
-    public Page<RecruitmentReadResponseDTO> pageReadRecruitment(RecruitmentReadRequestDTO dto){
-        if (dto.getPageNum() == null || dto.getPageNum() < 0)
-            throw new IllegalArgumentException(NO_PAGE_ERROR.getMessage());
-
-
-        List<RecruitmentWithUserDTO> recruitmentWithUser = recruitmentQueryDslRepository
-                .findByUserAndRecruitmentOrderByRegDateDesc(dto);
-
-        List<RecruitmentReadResponseDTO> recruitmentReadResponseDTOList = recruitmentWithUser
-                .stream()
-                .map(RecruitmentWithUserDTO::toReadResponseDTO)
-                .collect(Collectors.toList());
-
-        Pageable pageable = PageRequest.of(dto.getPageNum(),dto.getLimit());
-
-        return new PageImpl<>(recruitmentReadResponseDTOList, pageable, recruitmentRepository.count());
-    }
     @Override
     public void applyRecruitmentCreate(String userUid, String recruitmentUid){
         ApplyRecruitmentKey likes = new ApplyRecruitmentKey(userUid,recruitmentUid);
@@ -148,5 +130,10 @@ public class RecruitmentServiceImpl implements RecruitmentService {
             recruitmentDeleteRepository.save(deletedBoard);
             recruitmentRepository.deleteById(uid);
         }
+    }
+
+    @Override
+    public RecruitmentListResponseDTO readRecruitment(RecruitmentListRequestDTO dto, String userUid) {
+        return recruitmentQueryDslRepository.findListByRecruitmentDTO(dto,userUid);
     }
 }
