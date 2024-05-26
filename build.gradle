@@ -55,6 +55,13 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
     implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+
+    // 소셜 로그인
+    implementation 'org.springframework.security.oauth:spring-security-oauth2'
+    implementation 'org.springframework.boot:spring-boot-starter-json'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.17.0'
 }
 
 tasks.withType(Test) {

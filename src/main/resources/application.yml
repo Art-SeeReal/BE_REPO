@@ -64,3 +64,13 @@ cloud:
     credentials:
       accessKey: [ access key ]
       secretKey: [ secret key ]
+
+  # 로그인 관련
+kakao:
+  client_id:
+  redirect_uri: http://localhost:3000/oauth/kakao
+
+naver:
+  client_id:
+  client_secret:
+  redirect_uri: http://localhost:3000/oauth/naver
