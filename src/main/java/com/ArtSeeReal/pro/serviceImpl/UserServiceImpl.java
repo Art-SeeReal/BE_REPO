@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.serviceImpl;
 
+import com.ArtSeeReal.pro.dto.response.user.ApplicantResponseDTO;
 import com.ArtSeeReal.pro.dto.user.*;
 import com.ArtSeeReal.pro.entity.composite.UserLikeKey;
 import com.ArtSeeReal.pro.entity.delete.UserDelete;
@@ -135,6 +136,18 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalArgumentException(NO_DATA_ERROR.getMessage()))
                 .getUid();
+    }
+
+    @Override
+    public ApplicantResponseDTO ApplicantList(String recruitmentUid) {
+        return userQueryDslRepository.findApplicantUsersByRecruitmentUid(recruitmentUid);
+    }
+
+    @Override
+    public Boolean checkPassword(String userUid ,String password) {
+        User user = userRepository.findById(userUid)
+                .orElseThrow(() -> new IllegalArgumentException(NO_DATA_ERROR.getMessage()));
+        return bCryptPasswordEncoder.matches(password, user.getPassword());
     }
 
 }

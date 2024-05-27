@@ -1,13 +1,17 @@
 package com.ArtSeeReal.pro.repository.querydslimpl.main;
 
+import com.ArtSeeReal.pro.dto.response.user.ApplicantResponseDTO;
+import com.ArtSeeReal.pro.dto.user.ApplicantDTO;
 import com.ArtSeeReal.pro.dto.user.UserAuthorDTO;
 import com.ArtSeeReal.pro.dto.user.UserPlannerDTO;
 import com.ArtSeeReal.pro.dto.with.UserIntroduceDTO;
 import com.ArtSeeReal.pro.dto.with.UserWithIntroduceDTO;
+import com.ArtSeeReal.pro.entity.main.QApplyRecruitments;
 import com.ArtSeeReal.pro.entity.main.QIntroduce;
 import com.ArtSeeReal.pro.entity.main.QUser;
 import com.ArtSeeReal.pro.entity.main.QUserLikes;
 import com.ArtSeeReal.pro.enums.UserType;
+import com.ArtSeeReal.pro.repository.jpa.main.ApplyRecruitmentsRepository;
 import com.ArtSeeReal.pro.repository.querydsl.main.UserQueryDslRepository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -22,6 +26,7 @@ import java.util.List;
 @Log4j2
 public class UserQueryDslRepositoryImpl implements UserQueryDslRepository {
     private final JPAQueryFactory jpaQueryFactory;
+    private final ApplyRecruitmentsRepository applyRecruitmentsRepository;
     @Override
     public UserWithIntroduceDTO findUserProfileByUserUid(String userUid) {
         QIntroduce introduce = QIntroduce.introduce;
@@ -86,5 +91,32 @@ public class UserQueryDslRepositoryImpl implements UserQueryDslRepository {
                 .where(user.userType.eq(UserType.PLANNER))
                 .orderBy(userLikes.regDate.desc())
                 .fetch();
+    }
+
+    @Override
+    public ApplicantResponseDTO findApplicantUsersByRecruitmentUid(String recruitmentUid) {
+        QUser user = QUser.user;
+        QApplyRecruitments applyRecruitments = QApplyRecruitments.applyRecruitments;
+
+        List<ApplicantDTO> applicantDTOs = jpaQueryFactory.select(
+                        Projections.constructor(ApplicantDTO.class,
+                                user.name,
+                                user.nickname,
+                                user.phone,
+                                user.email,
+                                user.userId))
+                .from(applyRecruitments)
+                .join(user).on(applyRecruitments.pk.userUid.eq(user.uid))
+                .where(applyRecruitments.pk.recruitmentUid.eq(recruitmentUid))
+                .orderBy(applyRecruitments.regDate.desc())
+                .fetch();
+
+        Long totalcount = jpaQueryFactory
+                .select(applyRecruitments.count())
+                .from(applyRecruitments)
+                .where(applyRecruitments.pk.recruitmentUid.eq(recruitmentUid))
+                .fetchOne();
+
+        return new ApplicantResponseDTO(applicantDTOs, Math.toIntExact(totalcount));
     }
 }
