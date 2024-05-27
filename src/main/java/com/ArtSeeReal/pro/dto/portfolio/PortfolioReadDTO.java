@@ -1,22 +1,26 @@
 package com.ArtSeeReal.pro.dto.portfolio;
 
-import com.ArtSeeReal.pro.enums.enuminfo.CategoryInfo;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.ArtSeeReal.pro.enums.CategoryType;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
-@Builder
+@NoArgsConstructor
 @AllArgsConstructor
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class PortfolioReadDTO {
-    private String uid;
+    private String id;
     private String imageUrl;
     private String title;
     private String nickname;
-    private CategoryInfo field;
+    private CategoryType field; // 별건 아닌데 단수로 바꿔야 하는거 아닌가? 하난데
     private boolean isScrap;
     private boolean isLike;
+    private String writerUid;
     private String userId;
+    private Long view;
+    private LocalDateTime regDate;
+    private String content;
 }

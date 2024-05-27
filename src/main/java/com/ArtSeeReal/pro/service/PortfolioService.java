@@ -9,7 +9,7 @@ import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioListResponseDTO;
 
 public interface PortfolioService {
     PortfolioCreateResponseDTO createPortfolio(PortfolioCreateRequestDTO dto);
-    PortfolioReadResponseDTO readPortfolio(String boardUid);
+    com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioReadResponseDTO readPortfolio(String boardUid, String userUid);
     PortfolioReadResponseDTO updatePortfolio(PortfolioUpdateRequestDTO dto);
     String deletePortfolio(String boardUid,String userUid);
     void favoritePortfolioCreate(String userUid, String portfolioUid);

@@ -24,8 +24,8 @@ public class PortfolioInfoDTO {
     private String userUid;
     private String userId;
 
-    public PortfolioReadDTO isSetting(Set<String> favoritePortfolioSet, Set<String> userLikeSet){
-        return PortfolioReadDTO.builder()
+    public PortfolioListDTO isSetting(Set<String> favoritePortfolioSet, Set<String> userLikeSet){
+        return PortfolioListDTO.builder()
                 .uid(uid)
                 .imageUrl(imageUrl)
                 .title(title)
@@ -37,8 +37,8 @@ public class PortfolioInfoDTO {
                 .build();
     }
 
-    public PortfolioReadDTO infoToReadDTO(){
-        return PortfolioReadDTO.builder()
+    public PortfolioListDTO infoToReadDTO(){
+        return PortfolioListDTO.builder()
                 .uid(uid)
                 .imageUrl(imageUrl)
                 .title(title)

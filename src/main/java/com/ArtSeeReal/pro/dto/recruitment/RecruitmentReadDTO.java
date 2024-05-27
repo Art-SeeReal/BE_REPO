@@ -1,24 +1,30 @@
 package com.ArtSeeReal.pro.dto.recruitment;
 
-import com.ArtSeeReal.pro.enums.enuminfo.CategoryInfo;
-import com.ArtSeeReal.pro.enums.enuminfo.RegionInfo;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.ArtSeeReal.pro.enums.CategoryType;
+import com.ArtSeeReal.pro.enums.RegionType;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
-@Builder
+@NoArgsConstructor
 @AllArgsConstructor
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class RecruitmentReadDTO {
-    private String uid;
+    private String id;
     private String imageUrl;
     private String title;
     private String nickname;
-    private CategoryInfo field;
-    private RegionInfo region;
+    private RegionType region;
+    private CategoryType field;
     private boolean isScrap;
     private boolean isLike;
+    private String writerUid;
     private String userId;
+    private Long view;
+    private LocalDateTime regDate;
+    private LocalDateTime dueDate;
+    private Long payment;
+    private String content;
 }

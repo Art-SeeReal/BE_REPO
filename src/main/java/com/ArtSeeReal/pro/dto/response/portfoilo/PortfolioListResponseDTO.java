@@ -1,6 +1,6 @@
 package com.ArtSeeReal.pro.dto.response.portfoilo;
 
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioListDTO;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class PortfolioListResponseDTO {
-    private List<PortfolioReadDTO> result;
+    private List<PortfolioListDTO> result;
     private Integer count;
 }

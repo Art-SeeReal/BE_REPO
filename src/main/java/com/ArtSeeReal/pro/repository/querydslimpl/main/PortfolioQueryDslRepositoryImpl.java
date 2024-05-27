@@ -1,10 +1,14 @@
 package com.ArtSeeReal.pro.repository.querydslimpl.main;
 
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioInfoDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioListDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadDTO;
 import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioListRequestDTO;
 import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioListResponseDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.with.PortfolioWithUserDTO;
+import com.ArtSeeReal.pro.entity.composite.FavoritePortfolioKey;
+import com.ArtSeeReal.pro.entity.composite.UserLikeKey;
 import com.ArtSeeReal.pro.entity.main.QPortfolio;
 import com.ArtSeeReal.pro.entity.main.QUser;
 import com.ArtSeeReal.pro.enums.CategoryType;
@@ -21,6 +25,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Repository
@@ -110,7 +115,7 @@ public class PortfolioQueryDslRepositoryImpl implements PortfolioQueryDslReposit
                 .limit(dto.getPostCount())
                 .fetch();
         if(userUid == null){
-            List<PortfolioReadDTO> result = portfolioInfoDTOList.stream()
+            List<PortfolioListDTO> result = portfolioInfoDTOList.stream()
                     .map(PortfolioInfoDTO::infoToReadDTO)
                     .toList();
             return new PortfolioListResponseDTO(result, Math.toIntExact(totalCount));
@@ -118,11 +123,45 @@ public class PortfolioQueryDslRepositoryImpl implements PortfolioQueryDslReposit
             Set<String> favoritePortfolioSet = new HashSet<>(favoritePortfoliosRepository.findPortfolioUidByUserUid(userUid));
             Set<String> userLikeSet = new HashSet<>(userLikesRepository.findYourUserUidByMyUserUid(userUid));
 
-            List<PortfolioReadDTO> result = portfolioInfoDTOList.stream()
+            List<PortfolioListDTO> result = portfolioInfoDTOList.stream()
                     .map(infos -> infos.isSetting(favoritePortfolioSet,userLikeSet))
                     .toList();
 
             return new PortfolioListResponseDTO(result, Math.toIntExact(totalCount));
+        }
+    }
+
+    @Override
+    public PortfolioReadResponseDTO findPortfolioReadByIdAndUserId(String portfolioUid, String userUid) {
+        QPortfolio portfolio = QPortfolio.portfolio;
+        QUser user = QUser.user;
+
+        PortfolioReadDTO portfolioReadDTO = jpaQueryFactory
+                .select(Projections.constructor(PortfolioReadDTO.class,
+                        portfolio.uid,
+                        portfolio.thumbnail,
+                        portfolio.title,
+                        user.nickname,
+                        portfolio.category,
+                        Expressions.FALSE,
+                        Expressions.FALSE,
+                        portfolio.userUid,
+                        user.userId,
+                        portfolio.viewCnt,
+                        portfolio.regDate,
+                        portfolio.content))
+                .from(portfolio)
+                .join(user).on(portfolio.userUid.eq(user.uid))
+                .where(portfolio.uid.eq(portfolioUid))
+                .fetchOne();
+        if(userUid == null)
+            return new PortfolioReadResponseDTO(Objects.requireNonNull(portfolioReadDTO));
+        else {
+            boolean isUserLike = userLikesRepository
+                    .existsById(new UserLikeKey(userUid, Objects.requireNonNull(portfolioReadDTO).getWriterUid()));
+            boolean isPortfolioScrap = favoritePortfoliosRepository
+                    .existsById(new FavoritePortfolioKey(userUid,portfolioUid));
+            return new PortfolioReadResponseDTO(portfolioReadDTO,isUserLike,isPortfolioScrap);
         }
     }
 

@@ -5,7 +5,6 @@ import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateResponseDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioListRequestDTO;
-import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioListResponseDTO;
 import com.ArtSeeReal.pro.service.PortfolioService;
 import com.ArtSeeReal.pro.service.TokenService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,12 +32,6 @@ public class PortfolioController {
         return new ResponseEntity<>(portfolioService.createPortfolio(dto), HttpStatus.CREATED);
     }
 
-//    @GetMapping
-//    public ResponseEntity<PortfolioReadResponseDTO> readPortfolio(
-//            @RequestParam(name = "portfolioUid") String portfolioUid){
-//        return new ResponseEntity<>(portfolioService.readPortfolio(portfolioUid), HttpStatus.OK);
-//    }
-
     @PutMapping
     public ResponseEntity<PortfolioReadResponseDTO> updatePortfolio(
             @RequestHeader("Authorization") String header,
@@ -54,14 +47,16 @@ public class PortfolioController {
         return new ResponseEntity<>(portfolioService.deletePortfolio(portfolioUid,tokenService.getUserUid(header)), HttpStatus.NO_CONTENT);
     }
     @GetMapping
-    public ResponseEntity<PortfolioListResponseDTO> pagePortfolio(
+    public ResponseEntity<?> readPortfolio(
             PortfolioListRequestDTO dto,
-            @RequestHeader(name = "Authorization", required = false, defaultValue = "") String header){
-        log.info("헤더 : {}", header);
-        if(header.isEmpty())
-            return new ResponseEntity<>(portfolioService.readPortfolio(dto,null), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(portfolioService.readPortfolio(dto,tokenService.getUserUid(header)), HttpStatus.OK);
+            @RequestHeader(name = "Authorization", required = false, defaultValue = "") String header,
+            @RequestParam(name = "portId", required = false, defaultValue = "") String postId){
+        String userUid = header.isEmpty() ? null : tokenService.getUserUid(header);
+        if (postId != null && !postId.isEmpty())
+            return new ResponseEntity<>(portfolioService.readPortfolio(postId, userUid), HttpStatus.OK);
+        if (dto != null)
+            return new ResponseEntity<>(portfolioService.readPortfolio(dto, userUid), HttpStatus.OK);
+        return new ResponseEntity<>("해당 없음", HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/scrap")
