@@ -1,7 +1,7 @@
 package com.ArtSeeReal.pro.portfolioTests;
 
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.service.PortfolioService;
@@ -61,7 +61,7 @@ public class PortfolioReadTest {
     }
     @Test
     public void 포트폴리오_읽기(){
-        PortfolioReadResponseDTO result = portfolioService.readPortfolio(portfolioUid);
+        PortfolioReadResponseDTO result = portfolioService.readPortfolio(portfolioUid,userUid);
         assertThat(result.getNickname()).isEqualTo("testNickname");
 
     }

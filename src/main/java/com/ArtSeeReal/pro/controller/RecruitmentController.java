@@ -5,7 +5,6 @@ import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateResponseDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
-import com.ArtSeeReal.pro.dto.response.recuitment.RecruitmentListResponseDTO;
 import com.ArtSeeReal.pro.service.RecruitmentService;
 import com.ArtSeeReal.pro.service.TokenService;
 import com.ArtSeeReal.pro.service.ValidateService;
@@ -40,20 +39,17 @@ public class RecruitmentController {
         return new ResponseEntity<>(recruitService.createRecruitment(dto), HttpStatus.CREATED);
     }
 
-//    @GetMapping
-//    public ResponseEntity<RecruitmentReadResponseDTO> readRecruitment(@RequestParam String recruitmentUid){
-//        return new ResponseEntity<>(recruitService.readRecruitment(recruitmentUid), HttpStatus.OK);
-//    }
-
     @GetMapping
-    public ResponseEntity<RecruitmentListResponseDTO> pagePortfolio(
+    public ResponseEntity<?> readRecruitment(
             RecruitmentListRequestDTO dto,
-            @RequestHeader(name = "Authorization", required = false, defaultValue = "") String header){
-        log.info("헤더 : {}", header);
-        if(header.isEmpty())
-            return new ResponseEntity<>(recruitService.readRecruitment(dto,null), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(recruitService.readRecruitment(dto,tokenService.getUserUid(header)), HttpStatus.OK);
+            @RequestHeader(name = "Authorization", required = false, defaultValue = "") String header,
+            @RequestParam(name = "portId", required = false, defaultValue = "") String postId) {
+        String userUid = header.isEmpty() ? null : tokenService.getUserUid(header);
+        if (postId != null && !postId.isEmpty())
+            return new ResponseEntity<>(recruitService.readRecruitment(postId, userUid), HttpStatus.OK);
+        if (dto != null)
+            return new ResponseEntity<>(recruitService.readRecruitment(dto, userUid), HttpStatus.OK);
+        return new ResponseEntity<>("해당 없음", HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping

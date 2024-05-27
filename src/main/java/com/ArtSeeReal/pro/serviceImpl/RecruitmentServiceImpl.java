@@ -2,11 +2,10 @@ package com.ArtSeeReal.pro.serviceImpl;
 
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
-import com.ArtSeeReal.pro.dto.response.recuitment.RecruitmentListResponseDTO;
-import com.ArtSeeReal.pro.dto.with.RecruitmentWithUserDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentListResponseDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.entity.composite.ApplyRecruitmentKey;
 import com.ArtSeeReal.pro.entity.composite.FavoriteRecruitmentKey;
 import com.ArtSeeReal.pro.entity.delete.RecruitmentDelete;
@@ -57,14 +56,11 @@ public class RecruitmentServiceImpl implements RecruitmentService {
         return savedData.toCreateResponseDTO();
     }
     @Override
-    public RecruitmentReadResponseDTO readRecruitment(String boardUid){
-        RecruitmentWithUserDTO dto = recruitmentQueryDslRepository.findUserAndRecruitmentByUid(boardUid);
-        if (dto == null)
-            throw new IllegalArgumentException(NO_BOARD_DATA_ERROR.getMessage());
-        return dto.toReadResponseDTO();
+    public RecruitmentReadResponseDTO readRecruitment(String boardUid, String userUid){
+        return recruitmentQueryDslRepository.findRecruitmentReadByIdAndUserId(boardUid,userUid);
     }
     @Override
-    public RecruitmentReadResponseDTO updateRecruitment(RecruitmentUpdateRequestDTO dto){
+    public com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO updateRecruitment(RecruitmentUpdateRequestDTO dto){
         Recruitment recruitment = recruitmentRepository.findById(dto.getUid())
                 .orElseThrow(() -> new IllegalArgumentException(NO_BOARD_DATA_ERROR.getMessage()));
         validateService.roleCheck(dto.getUserUid(),recruitment.getUserUid());

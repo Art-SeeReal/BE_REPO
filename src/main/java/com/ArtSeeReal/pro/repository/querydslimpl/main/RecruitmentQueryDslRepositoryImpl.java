@@ -1,10 +1,14 @@
 package com.ArtSeeReal.pro.repository.querydslimpl.main;
 
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentInfoDTO;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentListDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadDTO;
 import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
-import com.ArtSeeReal.pro.dto.response.recuitment.RecruitmentListResponseDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentListResponseDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.dto.with.RecruitmentWithUserDTO;
+import com.ArtSeeReal.pro.entity.composite.FavoriteRecruitmentKey;
+import com.ArtSeeReal.pro.entity.composite.UserLikeKey;
 import com.ArtSeeReal.pro.entity.main.QRecruitment;
 import com.ArtSeeReal.pro.entity.main.QUser;
 import com.ArtSeeReal.pro.enums.CategoryType;
@@ -22,6 +26,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Repository
@@ -129,7 +134,7 @@ public class RecruitmentQueryDslRepositoryImpl implements RecruitmentQueryDslRep
                 .fetch();
 
         if(userUid == null){
-            List<RecruitmentReadDTO> result = recruitmentDTOList.stream()
+            List<RecruitmentListDTO> result = recruitmentDTOList.stream()
                     .map(RecruitmentInfoDTO::infoToReadDTO)
                     .toList();
             return new RecruitmentListResponseDTO(result, Math.toIntExact(totalCount));
@@ -137,11 +142,48 @@ public class RecruitmentQueryDslRepositoryImpl implements RecruitmentQueryDslRep
             Set<String> favoriteRecruitmentSet = new HashSet<>(favoriteRecruitmentsRepository.findRecruitmentUidByUserUid(userUid));
             Set<String> userLikeSet = new HashSet<>(userLikesRepository.findYourUserUidByMyUserUid(userUid));
 
-            List<RecruitmentReadDTO> result = recruitmentDTOList.stream()
+            List<RecruitmentListDTO> result = recruitmentDTOList.stream()
                     .map(infos -> infos.isSetting(favoriteRecruitmentSet,userLikeSet))
                     .toList();
 
             return new RecruitmentListResponseDTO(result, Math.toIntExact(totalCount));
+        }
+    }
+
+    @Override
+    public RecruitmentReadResponseDTO findRecruitmentReadByIdAndUserId(String recruitmentUid, String userUid) {
+        QRecruitment recruitment = QRecruitment.recruitment;
+        QUser user = QUser.user;
+
+        RecruitmentReadDTO recruitmentReadDTO = jpaQueryFactory
+                .select(Projections.constructor(RecruitmentReadDTO.class,
+                        recruitment.uid,
+                        recruitment.thumbnail,
+                        recruitment.title,
+                        user.nickname,
+                        recruitment.region,
+                        recruitment.category,
+                        Expressions.FALSE,
+                        Expressions.FALSE,
+                        recruitment.userUid,
+                        user.userId,
+                        recruitment.viewCnt,
+                        recruitment.regDate,
+                        recruitment.dueDate,
+                        recruitment.payment,
+                        recruitment.content))
+                .from(recruitment)
+                .join(user).on(recruitment.userUid.eq(user.uid))
+                .where(recruitment.uid.eq(recruitmentUid))
+                .fetchOne();
+        if(userUid == null)
+            return new RecruitmentReadResponseDTO(Objects.requireNonNull(recruitmentReadDTO));
+        else {
+            boolean isUserLike = userLikesRepository
+                    .existsById(new UserLikeKey(userUid, Objects.requireNonNull(recruitmentReadDTO).getWriterUid()));
+            boolean isRecruitmentScrap = favoriteRecruitmentsRepository
+                    .existsById(new FavoriteRecruitmentKey(userUid,recruitmentUid));
+            return new RecruitmentReadResponseDTO(recruitmentReadDTO,isUserLike,isRecruitmentScrap);
         }
     }
 

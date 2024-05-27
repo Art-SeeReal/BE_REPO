@@ -64,7 +64,7 @@ public class RecruitmentReadTest {
     }
     @Test
     public void 공고_읽어오기(){
-        RecruitmentReadResponseDTO dto = recruitService.readRecruitment(uid);
+        RecruitmentReadResponseDTO dto = recruitService.readRecruitment(uid,userUid);
         assertThat(dto.getContent()).isEqualTo("testContent");
     }
 }

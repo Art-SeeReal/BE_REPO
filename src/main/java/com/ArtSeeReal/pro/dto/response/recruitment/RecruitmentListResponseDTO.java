@@ -1,6 +1,6 @@
-package com.ArtSeeReal.pro.dto.response.recuitment;
+package com.ArtSeeReal.pro.dto.response.recruitment;
 
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadDTO;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentListDTO;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class RecruitmentListResponseDTO {
-    private List<RecruitmentReadDTO> result;
+    private List<RecruitmentListDTO> result;
     private Integer count;
 }

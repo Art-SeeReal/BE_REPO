@@ -26,8 +26,8 @@ public class RecruitmentInfoDTO {
     private String userUid;
     private String userId;
 
-    public RecruitmentReadDTO isSetting(Set<String> favoriteRecuitmentSet, Set<String> userLikeSet){
-        return RecruitmentReadDTO.builder()
+    public RecruitmentListDTO isSetting(Set<String> favoriteRecuitmentSet, Set<String> userLikeSet){
+        return RecruitmentListDTO.builder()
                 .uid(uid)
                 .imageUrl(imageUrl)
                 .title(title)
@@ -40,8 +40,8 @@ public class RecruitmentInfoDTO {
                 .build();
     }
 
-    public RecruitmentReadDTO infoToReadDTO(){
-        return RecruitmentReadDTO.builder()
+    public RecruitmentListDTO infoToReadDTO(){
+        return RecruitmentListDTO.builder()
                 .uid(uid)
                 .imageUrl(imageUrl)
                 .title(title)
