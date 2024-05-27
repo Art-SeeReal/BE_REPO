@@ -2,6 +2,7 @@ package com.ArtSeeReal.pro.controller;
 
 import com.ArtSeeReal.pro.dto.introduce.IntroReadResponseDTO;
 import com.ArtSeeReal.pro.dto.introduce.IntroUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.response.user.ApplicantResponseDTO;
 import com.ArtSeeReal.pro.dto.user.*;
 import com.ArtSeeReal.pro.enums.UserType;
 import com.ArtSeeReal.pro.service.IntroduceService;
@@ -13,11 +14,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jdk.jshell.spi.ExecutionControl.NotImplementedException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
 
@@ -25,6 +28,7 @@ import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
+@Log4j2
 public class UserController {
 
     private final UserService userService;
@@ -151,5 +155,19 @@ public class UserController {
     @Operation(summary = "미구현 상태 입니다.")
     public ResponseEntity<Void> myScrapRecruits() throws NotImplementedException {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    }
+
+    @GetMapping("/apply/planner/{postId}")
+    public ResponseEntity<ApplicantResponseDTO> readApplicants(@PathVariable("postId") String postId){
+        return new ResponseEntity<>(userService.ApplicantList(postId),HttpStatus.OK);
+    }
+
+    @PostMapping("/auth")
+    public ResponseEntity<HashMap<String,Boolean>> checkPassword(@RequestBody String password,
+                                                 @RequestHeader("Authorization") String header){
+        String userUid = tokenService.getUserUid(header);
+        HashMap<String,Boolean> result = new HashMap<>();
+        result.put("result", userService.checkPassword(userUid,password));
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 }

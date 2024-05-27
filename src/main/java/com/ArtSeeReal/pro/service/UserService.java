@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.service;
 
+import com.ArtSeeReal.pro.dto.response.user.ApplicantResponseDTO;
 import com.ArtSeeReal.pro.dto.user.*;
 
 public interface UserService {
@@ -14,4 +15,6 @@ public interface UserService {
     void userLikesDelete(String myUserUid, String yourUserUid);
     UserProfileReadResponseDTO readIntro(String userId);
     String getUserUid(String userId);
+    ApplicantResponseDTO ApplicantList(String recruitmentUid);
+    Boolean checkPassword(String userUid, String password);
 }
