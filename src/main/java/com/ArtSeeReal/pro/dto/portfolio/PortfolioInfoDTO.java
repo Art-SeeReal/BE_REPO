@@ -37,6 +37,19 @@ public class PortfolioInfoDTO {
                 .build();
     }
 
+    public PortfolioListDTO userLikeSetting(Set<String> userLikeSet){
+        return PortfolioListDTO.builder()
+                .uid(uid)
+                .imageUrl(imageUrl)
+                .title(title)
+                .nickname(nickname)
+                .field(field.toCategoryInfo())
+                .isScrap(isScrap)
+                .isLike(userLikeSet.contains(writerUid))
+                .userId(userId)
+                .build();
+    }
+
     public PortfolioListDTO infoToReadDTO(){
         return PortfolioListDTO.builder()
                 .uid(uid)

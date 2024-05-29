@@ -2,13 +2,13 @@ package com.ArtSeeReal.pro.controller;
 
 import com.ArtSeeReal.pro.dto.introduce.IntroReadResponseDTO;
 import com.ArtSeeReal.pro.dto.introduce.IntroUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioListResponseDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioReadResponseDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentListResponseDTO;
 import com.ArtSeeReal.pro.dto.response.user.ApplicantResponseDTO;
 import com.ArtSeeReal.pro.dto.user.*;
 import com.ArtSeeReal.pro.enums.UserType;
-import com.ArtSeeReal.pro.service.IntroduceService;
-import com.ArtSeeReal.pro.service.MailService;
-import com.ArtSeeReal.pro.service.TokenService;
-import com.ArtSeeReal.pro.service.UserService;
+import com.ArtSeeReal.pro.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
@@ -35,6 +35,8 @@ public class UserController {
     private final MailService mailService;
     private final TokenService tokenService;
     private final IntroduceService introduceService;
+    private final PortfolioService portfolioService;
+    private final RecruitmentService recruitmentService;
 
     @GetMapping
     public ResponseEntity<UserReadResponseDTO> userRead(
@@ -145,16 +147,18 @@ public class UserController {
             @PathVariable String userId)  {
         return new ResponseEntity<>(userService.readIntro(userId),HttpStatus.OK);
     }
-    @GetMapping("/scrap/portfolios")
-    @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<Void> myScrapPortfolios() throws NotImplementedException {
-        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    @GetMapping("/scrap/portfolios/{post-count}")
+    public ResponseEntity<PortfolioListResponseDTO> scrapPortfolios(
+            @RequestHeader(name = "Authorization", required = false, defaultValue = "") String header,
+            @PathVariable(name = "post-count", required = false, value = "20") Long postCount) {
+        return new ResponseEntity<>(portfolioService.myFavoritePortFolios(tokenService.getUserUid(header),postCount),HttpStatus.OK);
     }
 
-    @GetMapping("/scrap/recruits")
-    @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<Void> myScrapRecruits() throws NotImplementedException {
-        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    @GetMapping("/scrap/recruits/{post-count}")
+    public ResponseEntity<RecruitmentListResponseDTO> scrapRecruits(
+            @RequestHeader(name = "Authorization", required = false, defaultValue = "") String header,
+            @PathVariable(name = "post-count", required = false, value = "20") Long postCount) {
+        return new ResponseEntity<>(recruitmentService.myFavoriteRecruitments(tokenService.getUserUid(header),postCount),HttpStatus.OK);
     }
 
     @GetMapping("/apply/planner/{postId}")

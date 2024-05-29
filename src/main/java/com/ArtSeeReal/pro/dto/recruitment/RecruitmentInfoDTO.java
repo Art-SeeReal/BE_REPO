@@ -40,6 +40,20 @@ public class RecruitmentInfoDTO {
                 .build();
     }
 
+    public RecruitmentListDTO userLikeSetting(Set<String> userLikeSet){
+        return RecruitmentListDTO.builder()
+                .uid(uid)
+                .imageUrl(imageUrl)
+                .title(title)
+                .nickname(nickname)
+                .field(field.toCategoryInfo())
+                .region(region.toRegionInfo())
+                .isScrap(isScrap)
+                .isLike(userLikeSet.contains(writerUid))
+                .userId(userId)
+                .build();
+    }
+
     public RecruitmentListDTO infoToReadDTO(){
         return RecruitmentListDTO.builder()
                 .uid(uid)

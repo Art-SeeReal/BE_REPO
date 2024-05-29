@@ -97,4 +97,9 @@ public class PortfolioServiceImpl implements PortfolioService {
         return portfolioQueryDslRepository.findListByPortfolioDTO(dto,userUid);
     }
 
+    @Override
+    public PortfolioListResponseDTO myFavoritePortFolios(String userUid, Long postCount) {
+        return portfolioQueryDslRepository.findMyScrapPortfolioByUserUid(userUid,postCount);
+    }
+
 }

@@ -132,4 +132,9 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     public RecruitmentListResponseDTO readRecruitment(RecruitmentListRequestDTO dto, String userUid) {
         return recruitmentQueryDslRepository.findListByRecruitmentDTO(dto,userUid);
     }
+
+    @Override
+    public RecruitmentListResponseDTO myFavoriteRecruitments(String userUid, Long postCount) {
+        return recruitmentQueryDslRepository.findMyScrapRecruitmentByUserUid(userUid,postCount);
+    }
 }
