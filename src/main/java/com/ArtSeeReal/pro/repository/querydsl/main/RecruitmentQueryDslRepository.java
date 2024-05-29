@@ -10,4 +10,5 @@ public interface RecruitmentQueryDslRepository {
     RecruitmentWithUserDTO findUserAndRecruitmentByUid(String uid);
     RecruitmentListResponseDTO findListByRecruitmentDTO(RecruitmentListRequestDTO dto, String userUid);
     RecruitmentReadResponseDTO findRecruitmentReadByIdAndUserId(String recruitmentUid, String userUid);
+    RecruitmentListResponseDTO findMyScrapRecruitmentByUserUid(String userUid,Long postCount);
 }

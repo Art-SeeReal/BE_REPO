@@ -18,4 +18,5 @@ public interface RecruitmentService {
     void favoriteRecruitmentDelete(String userUid, String recruitmentUid);
     void automaticDeletionOfNotices();
     RecruitmentListResponseDTO readRecruitment(RecruitmentListRequestDTO dto, String userUid);
+    RecruitmentListResponseDTO myFavoriteRecruitments(String userUid, Long postCount);
 }

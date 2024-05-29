@@ -1,16 +1,18 @@
 package com.ArtSeeReal.pro.repository.querydslimpl.main;
 
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioInfoDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioListDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentInfoDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentListDTO;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadDTO;
 import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioListResponseDTO;
 import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentListResponseDTO;
 import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.dto.with.RecruitmentWithUserDTO;
 import com.ArtSeeReal.pro.entity.composite.FavoriteRecruitmentKey;
 import com.ArtSeeReal.pro.entity.composite.UserLikeKey;
-import com.ArtSeeReal.pro.entity.main.QRecruitment;
-import com.ArtSeeReal.pro.entity.main.QUser;
+import com.ArtSeeReal.pro.entity.main.*;
 import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
 import com.ArtSeeReal.pro.repository.jpa.main.FavoriteRecruitmentsRepository;
@@ -185,6 +187,44 @@ public class RecruitmentQueryDslRepositoryImpl implements RecruitmentQueryDslRep
                     .existsById(new FavoriteRecruitmentKey(userUid,recruitmentUid));
             return new RecruitmentReadResponseDTO(recruitmentReadDTO,isUserLike,isRecruitmentScrap);
         }
+    }
+
+    @Override
+    public RecruitmentListResponseDTO findMyScrapRecruitmentByUserUid(String userUid, Long postCount) {
+        QRecruitment recruitment = QRecruitment.recruitment;
+        QFavoriteRecruitments favoriteRecruitments = QFavoriteRecruitments.favoriteRecruitments;
+        QUser user = QUser.user;
+
+        List<RecruitmentInfoDTO> portfolioInfoDTOList = jpaQueryFactory
+                .select(Projections.constructor(RecruitmentInfoDTO.class,
+                        recruitment.uid,
+                        recruitment.thumbnail,
+                        recruitment.title,
+                        user.nickname,
+                        recruitment.userUid,
+                        recruitment.region,
+                        recruitment.category,
+                        Expressions.TRUE,
+                        Expressions.FALSE,
+                        user.uid,
+                        user.userId))
+                .from(favoriteRecruitments)
+                .join(recruitment).on(favoriteRecruitments.pk.recruitmentUid.eq(recruitment.uid))
+                .join(user).on(recruitment.userUid.eq(user.uid))
+                .orderBy(recruitment.regDate.desc())
+                .limit(postCount)
+                .fetch();
+        Long count = jpaQueryFactory
+                .select(favoriteRecruitments.count())
+                .where(favoriteRecruitments.pk.userUid.eq(userUid))
+                .fetchOne();
+
+        Set<String> userLikeSet = new HashSet<>(userLikesRepository.findYourUserUidByMyUserUid(userUid));
+        List<RecruitmentListDTO> result = portfolioInfoDTOList.stream()
+                .map(infos -> infos.userLikeSetting(userLikeSet))
+                .toList();
+
+        return new RecruitmentListResponseDTO(result, Math.toIntExact(count));
     }
 
     private BooleanExpression buildWhereClause(RecruitmentListRequestDTO dto) {

@@ -9,6 +9,7 @@ import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.with.PortfolioWithUserDTO;
 import com.ArtSeeReal.pro.entity.composite.FavoritePortfolioKey;
 import com.ArtSeeReal.pro.entity.composite.UserLikeKey;
+import com.ArtSeeReal.pro.entity.main.QFavoritePortfolios;
 import com.ArtSeeReal.pro.entity.main.QPortfolio;
 import com.ArtSeeReal.pro.entity.main.QUser;
 import com.ArtSeeReal.pro.enums.CategoryType;
@@ -163,6 +164,44 @@ public class PortfolioQueryDslRepositoryImpl implements PortfolioQueryDslReposit
                     .existsById(new FavoritePortfolioKey(userUid,portfolioUid));
             return new PortfolioReadResponseDTO(portfolioReadDTO,isUserLike,isPortfolioScrap);
         }
+    }
+
+    @Override
+    public PortfolioListResponseDTO findMyScrapPortfolioByUserUid(String userUid, Long postCount) {
+        QPortfolio portfolio = QPortfolio.portfolio;
+        QFavoritePortfolios favoritePortfolios = QFavoritePortfolios.favoritePortfolios;
+        QUser user = QUser.user;
+
+        List<PortfolioInfoDTO> portfolioInfoDTOList = jpaQueryFactory
+                .select(Projections.constructor(PortfolioInfoDTO.class,
+                        portfolio.uid,
+                        portfolio.thumbnail,
+                        portfolio.title,
+                        user.nickname,
+                        portfolio.userUid,
+                        portfolio.category,
+                        Expressions.TRUE,
+                        Expressions.FALSE,
+                        user.uid,
+                        user.userId))
+                .from(favoritePortfolios)
+                .join(portfolio).on(favoritePortfolios.pk.portfolioUid.eq(portfolio.uid))
+                .join(user).on(portfolio.userUid.eq(user.uid))
+                .where(favoritePortfolios.pk.userUid.eq(userUid))
+                .orderBy(portfolio.regDate.desc())
+                .limit(postCount)
+                .fetch();
+        Long count = jpaQueryFactory
+                .select(favoritePortfolios.count())
+                .where(favoritePortfolios.pk.userUid.eq(userUid))
+                .fetchOne();
+
+        Set<String> userLikeSet = new HashSet<>(userLikesRepository.findYourUserUidByMyUserUid(userUid));
+        List<PortfolioListDTO> result = portfolioInfoDTOList.stream()
+                .map(infos -> infos.userLikeSetting(userLikeSet))
+                .toList();
+
+        return new PortfolioListResponseDTO(result, Math.toIntExact(count));
     }
 
     private BooleanExpression buildWhereClause(PortfolioListRequestDTO dto) {
