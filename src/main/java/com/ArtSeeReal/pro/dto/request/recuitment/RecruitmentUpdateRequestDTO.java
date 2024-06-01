@@ -1,4 +1,4 @@
-package com.ArtSeeReal.pro.dto.recruitment;
+package com.ArtSeeReal.pro.dto.request.recuitment;
 
 import com.ArtSeeReal.pro.entity.history.RecruitmentHistory;
 import com.ArtSeeReal.pro.entity.main.Recruitment;
@@ -31,13 +31,13 @@ public class RecruitmentUpdateRequestDTO {
                 .boardUid(recruitment.getUid())
                 .userUid(recruitment.getUserUid())
                 .viewCnt(recruitment.getViewCnt())
-                .title(title)
-                .content(content)
-                .region(region)
-                .category(category)
-                .thumbnail(thumbnail)
-                .dueDate(dueDate)
-                .payment(payment)
+                .title(title == null ? recruitment.getTitle() : title)
+                .content(content == null ? recruitment.getContent() : content)
+                .region(region == null ? recruitment.getRegion() : region)
+                .category(category == null ? recruitment.getCategory() : category)
+                .thumbnail(thumbnail == null ? recruitment.getThumbnail() : thumbnail)
+                .dueDate(dueDate == null ? recruitment.getDueDate() : dueDate)
+                .payment(payment == null ? recruitment.getPayment() : payment)
                 .regDate(recruitment.getRegDate())
                 .exTitle(recruitment.getTitle())
                 .exContent(recruitment.getContent())

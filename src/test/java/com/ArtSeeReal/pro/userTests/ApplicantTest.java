@@ -1,6 +1,6 @@
 package com.ArtSeeReal.pro.userTests;
 
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;

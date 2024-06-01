@@ -1,6 +1,6 @@
 package com.ArtSeeReal.pro.portfolioTests;
 
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.service.PortfolioService;

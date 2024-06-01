@@ -1,8 +1,8 @@
 package com.ArtSeeReal.pro.entity.main;
 
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioInfoResponseDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioUpdateRequestDTO;
 import com.ArtSeeReal.pro.entity.delete.PortfolioDelete;
 import com.ArtSeeReal.pro.entity.module.PortfolioModule;
 import jakarta.persistence.*;
@@ -34,8 +34,8 @@ public class Portfolio extends PortfolioModule {
                 .regDate(regDate)
                 .build();
     }
-    public PortfolioReadResponseDTO toReadResponseDTO() {
-        return PortfolioReadResponseDTO.builder()
+    public PortfolioInfoResponseDTO toReadResponseDTO() {
+        return PortfolioInfoResponseDTO.builder()
                 .uid(uid)
                 .userUid(userUid)
                 .viewCnt(viewCnt)
@@ -48,7 +48,7 @@ public class Portfolio extends PortfolioModule {
     public void updateFromDTO(PortfolioUpdateRequestDTO dto){
         title = dto.getTitle();
         content = dto.getContent();
-        category = dto.getCategory();
+        category = dto.getFields();
     }
     public PortfolioDelete toBoardDelete(String uid){
         return PortfolioDelete.builder()

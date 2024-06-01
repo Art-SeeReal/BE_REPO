@@ -1,8 +1,8 @@
 package com.ArtSeeReal.pro.entity.main;
 
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentInfoResponseDTO;
+import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentUpdateRequestDTO;
 import com.ArtSeeReal.pro.entity.delete.RecruitmentDelete;
 import com.ArtSeeReal.pro.entity.module.RecruitmentModule;
 import jakarta.persistence.*;
@@ -27,20 +27,19 @@ public class Recruitment extends RecruitmentModule {
     private String uid;
     public RecruitmentCreateResponseDTO toCreateResponseDTO() {
         return RecruitmentCreateResponseDTO.builder()
-                .uid(uid)
                 .userUid(userUid)
                 .viewCnt(viewCnt)
                 .title(title)
                 .content(content)
                 .region(region)
                 .category(category)
-                .regDate(regDate)
                 .dueDate(dueDate)
+                .regDate(regDate)
                 .payment(payment)
                 .build();
     }
-    public RecruitmentReadResponseDTO toReadResponseDTO() {
-        return RecruitmentReadResponseDTO.builder()
+    public RecruitmentInfoResponseDTO toReadResponseDTO() {
+        return RecruitmentInfoResponseDTO.builder()
                 .uid(uid)
                 .userUid(userUid)
                 .viewCnt(viewCnt)

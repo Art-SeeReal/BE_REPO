@@ -7,6 +7,7 @@ import com.ArtSeeReal.pro.entity.delete.UserDelete;
 import com.ArtSeeReal.pro.entity.history.UserHistory;
 import com.ArtSeeReal.pro.entity.main.User;
 import com.ArtSeeReal.pro.entity.main.UserLikes;
+import com.ArtSeeReal.pro.enums.UserType;
 import com.ArtSeeReal.pro.repository.jpa.delete.UserDeleteRepository;
 import com.ArtSeeReal.pro.repository.jpa.history.UserHistoryRepository;
 import com.ArtSeeReal.pro.repository.jpa.main.UserLikesRepository;
@@ -148,6 +149,13 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(userUid)
                 .orElseThrow(() -> new IllegalArgumentException(NO_DATA_ERROR.getMessage()));
         return bCryptPasswordEncoder.matches(password, user.getPassword());
+    }
+
+    @Override
+    public UserType getUserType(String userId) {
+        return userRepository.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException(NO_DATA_ERROR.getMessage()))
+                .getUserType();
     }
 
 }

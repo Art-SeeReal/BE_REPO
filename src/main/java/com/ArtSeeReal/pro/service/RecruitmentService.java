@@ -1,16 +1,17 @@
 package com.ArtSeeReal.pro.service;
 
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentInfoResponseDTO;
+import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
 import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentListResponseDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentReadResponseDTO;
 
 public interface RecruitmentService {
     RecruitmentCreateResponseDTO createRecruitment(RecruitmentCreateRequestDTO dto);
-    com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentReadResponseDTO readRecruitment(String boardUid, String userUid);
-    RecruitmentReadResponseDTO updateRecruitment(RecruitmentUpdateRequestDTO dto);
+    RecruitmentReadResponseDTO readRecruitment(String boardUid, String userUid);
+    RecruitmentInfoResponseDTO updateRecruitment(RecruitmentUpdateRequestDTO dto);
     String deleteRecruitment(String userUid, String boardUid);
     void applyRecruitmentCreate(String userUid, String recruitmentUid);
     void applyRecruitmentDelete(String userUid, String recruitmentUid);
