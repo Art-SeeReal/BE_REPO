@@ -1,8 +1,8 @@
 package com.ArtSeeReal.pro.portfolioTests;
 
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioInfoResponseDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.service.PortfolioService;
@@ -63,14 +63,14 @@ public class PortfolioUpdateTest {
     @Test
     public void 포트폴리오_업데이트(){
         PortfolioUpdateRequestDTO dto = PortfolioUpdateRequestDTO.builder()
-                .uid(uid)
+                .id(uid)
                 .userUid(userUid)
                 .title("UpdateTitle")
                 .content("UpdateContent")
-                .category(CategoryType.ART)
+                .fields(CategoryType.ART)
                 .thumbnail("UpdateThumbnail")
                 .build();
-        PortfolioReadResponseDTO result = portfolioService.updatePortfolio(dto);
+        PortfolioInfoResponseDTO result = portfolioService.updatePortfolio(dto);
         assertThat(result.getContent()).isEqualTo("UpdateContent");
 
     }

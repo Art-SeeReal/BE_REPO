@@ -2,6 +2,7 @@ package com.ArtSeeReal.pro.service;
 
 import com.ArtSeeReal.pro.dto.response.user.ApplicantResponseDTO;
 import com.ArtSeeReal.pro.dto.user.*;
+import com.ArtSeeReal.pro.enums.UserType;
 
 public interface UserService {
     UserCreateResponseDTO createUser(UserCreateRequestDTO dto);
@@ -17,4 +18,5 @@ public interface UserService {
     String getUserUid(String userId);
     ApplicantResponseDTO ApplicantList(String recruitmentUid);
     Boolean checkPassword(String userUid, String password);
+    UserType getUserType(String userId);
 }

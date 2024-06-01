@@ -1,8 +1,9 @@
 package com.ArtSeeReal.pro.serviceImpl;
 
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentInfoResponseDTO;
+import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
 import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentListResponseDTO;
 import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentReadResponseDTO;
@@ -60,7 +61,7 @@ public class RecruitmentServiceImpl implements RecruitmentService {
         return recruitmentQueryDslRepository.findRecruitmentReadByIdAndUserId(boardUid,userUid);
     }
     @Override
-    public com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO updateRecruitment(RecruitmentUpdateRequestDTO dto){
+    public RecruitmentInfoResponseDTO updateRecruitment(RecruitmentUpdateRequestDTO dto){
         Recruitment recruitment = recruitmentRepository.findById(dto.getUid())
                 .orElseThrow(() -> new IllegalArgumentException(NO_BOARD_DATA_ERROR.getMessage()));
         validateService.roleCheck(dto.getUserUid(),recruitment.getUserUid());

@@ -1,6 +1,7 @@
-package com.ArtSeeReal.pro.dto.portfolio;
+package com.ArtSeeReal.pro.dto.recruitment;
 
 import com.ArtSeeReal.pro.enums.CategoryType;
+import com.ArtSeeReal.pro.enums.RegionType;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @ToString
-public class PortfolioReadResponseDTO {
+public class RecruitmentInfoResponseDTO {
 
     private String uid;
     private String userUid;
@@ -18,8 +19,11 @@ public class PortfolioReadResponseDTO {
     private Long viewCnt;
     private String title;
     private String content;
+    private RegionType region;
     private CategoryType category;
     private LocalDateTime regDate;
     private String thumbnail;
+    private LocalDateTime dueDate;
+    private Long payment;
 
 }

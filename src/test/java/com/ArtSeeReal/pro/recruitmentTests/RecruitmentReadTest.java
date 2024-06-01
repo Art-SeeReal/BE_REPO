@@ -1,8 +1,6 @@
 package com.ArtSeeReal.pro.recruitmentTests;
 
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
-import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentReadResponseDTO;
+import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
@@ -22,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 
 import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;

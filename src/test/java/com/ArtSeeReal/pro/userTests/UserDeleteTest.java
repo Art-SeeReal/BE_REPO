@@ -51,7 +51,7 @@ public class UserDeleteTest {
     @Test
     public void 유저_삭제_테스트(){
         String token = tokenService.createToken("access",userId,"AUTHOR",600000L);
-        String delUserUid = tokenService.getUserUid("배뤼어 " + token);
+        String delUserUid = tokenService.getUserUid(token);
         userService.deleteUser(userId,delUserUid);
         assertThat(userRepository.existsByUid(userId)).isFalse();
     }

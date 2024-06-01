@@ -1,6 +1,6 @@
 package com.ArtSeeReal.pro.dto.with;
 
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentInfoResponseDTO;
 import com.ArtSeeReal.pro.entity.main.Recruitment;
 import com.ArtSeeReal.pro.entity.main.User;
 import lombok.*;
@@ -14,8 +14,8 @@ public class RecruitmentWithUserDTO {
     private Recruitment recruitment;
     private User user;
 
-    public RecruitmentReadResponseDTO toReadResponseDTO() {
-        return RecruitmentReadResponseDTO.builder()
+    public RecruitmentInfoResponseDTO toReadResponseDTO() {
+        return RecruitmentInfoResponseDTO.builder()
                 .uid(recruitment.getUid())
                 .userUid(user.getUid())
                 .nickname(user.getNickname())

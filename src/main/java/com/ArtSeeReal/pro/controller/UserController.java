@@ -2,11 +2,15 @@ package com.ArtSeeReal.pro.controller;
 
 import com.ArtSeeReal.pro.dto.introduce.IntroReadResponseDTO;
 import com.ArtSeeReal.pro.dto.introduce.IntroUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioListRequestDTO;
+import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
 import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioListResponseDTO;
 import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentListResponseDTO;
 import com.ArtSeeReal.pro.dto.response.user.ApplicantResponseDTO;
+import com.ArtSeeReal.pro.dto.response.user.MyInfoResponseDTO;
 import com.ArtSeeReal.pro.dto.user.*;
+import com.ArtSeeReal.pro.dto.with.UserIntroduceDTO;
 import com.ArtSeeReal.pro.enums.UserType;
 import com.ArtSeeReal.pro.service.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -150,14 +154,14 @@ public class UserController {
     @GetMapping("/scrap/portfolios/{post-count}")
     public ResponseEntity<PortfolioListResponseDTO> scrapPortfolios(
             @RequestHeader(name = "Authorization", required = false, defaultValue = "") String header,
-            @PathVariable(name = "post-count", required = false, value = "20") Long postCount) {
+            @PathVariable(name = "post-count", required = false) Long postCount) {
         return new ResponseEntity<>(portfolioService.myFavoritePortFolios(tokenService.getUserUid(header),postCount),HttpStatus.OK);
     }
 
     @GetMapping("/scrap/recruits/{post-count}")
     public ResponseEntity<RecruitmentListResponseDTO> scrapRecruits(
             @RequestHeader(name = "Authorization", required = false, defaultValue = "") String header,
-            @PathVariable(name = "post-count", required = false, value = "20") Long postCount) {
+            @PathVariable(name = "post-count", required = false) Long postCount) {
         return new ResponseEntity<>(recruitmentService.myFavoriteRecruitments(tokenService.getUserUid(header),postCount),HttpStatus.OK);
     }
 
@@ -174,4 +178,27 @@ public class UserController {
         result.put("result", userService.checkPassword(userUid,password));
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
+
+    @GetMapping("/profile")
+    public ResponseEntity<MyInfoResponseDTO> myInfoRead(@RequestHeader("Authorization") String header){
+        String userUid = tokenService.getUserUid(header);
+        return new ResponseEntity<>(introduceService.myInfoRead(userUid),HttpStatus.OK);
+    }
+
+    @GetMapping("/portfolios")
+    public ResponseEntity<PortfolioListResponseDTO> myPortfolios(
+            PortfolioListRequestDTO dto,
+            @RequestHeader("Authorization") String header){
+        String userUid = tokenService.getUserUid(header);
+        return new ResponseEntity<>(portfolioService.readPortfolio(dto,userUid),HttpStatus.OK);
+    }
+
+    @GetMapping("/recruits")
+    public ResponseEntity<RecruitmentListResponseDTO> myRecruits(
+            RecruitmentListRequestDTO dto,
+            @RequestHeader("Authorization") String header){
+        String userUid = tokenService.getUserUid(header);
+        return new ResponseEntity<>(recruitmentService.readRecruitment(dto,userUid),HttpStatus.OK);
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.ArtSeeReal.pro.dto.portfolio;
+package com.ArtSeeReal.pro.dto.request.portfolio;
 
 import com.ArtSeeReal.pro.entity.history.PortfolioHistory;
 import com.ArtSeeReal.pro.entity.main.Portfolio;
@@ -14,11 +14,11 @@ import java.time.LocalDateTime;
 @ToString
 public class PortfolioUpdateRequestDTO {
 
-    private String uid;
+    private String id;
     private String userUid;
     private String title;
     private String content;
-    private CategoryType category;
+    private CategoryType fields;
     private String thumbnail;
 
     public PortfolioHistory createHistoryRecord(String uid, Portfolio portfolio){
@@ -27,10 +27,10 @@ public class PortfolioUpdateRequestDTO {
                 .boardUid(portfolio.getUid())
                 .userUid(portfolio.getUserUid())
                 .viewCnt(portfolio.getViewCnt())
-                .title(title)
-                .content(content)
-                .category(category)
-                .thumbnail(thumbnail)
+                .title(title == null ? portfolio.getTitle() :  title)
+                .content(content == null ? portfolio.getContent() :  content)
+                .category(fields == null ? portfolio.getCategory() :  fields)
+                .thumbnail(thumbnail == null ? portfolio.getThumbnail() :  thumbnail)
                 .regDate(portfolio.getRegDate())
                 .exTitle(portfolio.getTitle())
                 .exContent(portfolio.getContent())

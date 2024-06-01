@@ -1,8 +1,11 @@
 package com.ArtSeeReal.pro.repository.querydslimpl.main;
 
 import com.ArtSeeReal.pro.dto.response.user.ApplicantResponseDTO;
+import com.ArtSeeReal.pro.dto.response.user.MyInfoResponseDTO;
+import com.ArtSeeReal.pro.dto.response.userlike.UserLikesResponseDTO;
 import com.ArtSeeReal.pro.dto.user.ApplicantDTO;
 import com.ArtSeeReal.pro.dto.user.UserAuthorDTO;
+import com.ArtSeeReal.pro.dto.user.UserLikesInfoDTO;
 import com.ArtSeeReal.pro.dto.user.UserPlannerDTO;
 import com.ArtSeeReal.pro.dto.with.UserIntroduceDTO;
 import com.ArtSeeReal.pro.dto.with.UserWithIntroduceDTO;
@@ -50,6 +53,24 @@ public class UserQueryDslRepositoryImpl implements UserQueryDslRepository {
                                 user.emailSecret.when(true).then(user.email).otherwise(""),
                                 user.phoneSecret.when(true).then(user.phone).otherwise(""),
                                 introduce.content))
+                .from(introduce)
+                .join(user)
+                .on(introduce.uid.eq(user.uid))
+                .where(user.uid.eq(userUid))
+                .fetchOne();
+    }
+
+    @Override
+    public MyInfoResponseDTO findMyInfoByUserUid(String userUid) {
+        QIntroduce introduce = QIntroduce.introduce;
+        QUser user = QUser.user;
+        return jpaQueryFactory.select(
+                        Projections.constructor(MyInfoResponseDTO.class,
+                                user.nickname,
+                                user.emailSecret.when(true).then(user.email).otherwise(""),
+                                user.phoneSecret.when(true).then(user.phone).otherwise(""),
+                                introduce.content,
+                                user.userType))
                 .from(introduce)
                 .join(user)
                 .on(introduce.uid.eq(user.uid))
@@ -118,5 +139,32 @@ public class UserQueryDslRepositoryImpl implements UserQueryDslRepository {
                 .fetchOne();
 
         return new ApplicantResponseDTO(applicantDTOs, Math.toIntExact(totalcount));
+    }
+
+    @Override
+    public UserLikesResponseDTO findUserLikesByUserUidAndUserType(String userUid, UserType userType) {
+
+        QUser user = QUser.user;
+        QUserLikes userLikes = QUserLikes.userLikes;
+        List<UserLikesInfoDTO> userLikesInfoDTOS = jpaQueryFactory.select(
+                        Projections.constructor(UserLikesInfoDTO.class,
+                                user.userId,
+                                user.nickname))
+                .from(userLikes)
+                .join(user)
+                .on(userLikes.pk.yourUserUid.eq(user.uid))
+                .where(userLikes.pk.myUserUid.eq(userUid))
+                .where(user.userType.eq(userType))
+                .orderBy(userLikes.regDate.desc())
+                .fetch();
+
+        Long count = jpaQueryFactory
+                .select(userLikes.count())
+                .from(userLikes)
+                .where(userLikes.pk.myUserUid.eq(userUid))
+                .where(user.userType.eq(userType))
+                .fetchOne();
+
+        return new UserLikesResponseDTO(userLikesInfoDTOS, Math.toIntExact(count));
     }
 }

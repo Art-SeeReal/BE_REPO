@@ -1,9 +1,9 @@
 package com.ArtSeeReal.pro.controller;
 
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentInfoResponseDTO;
+import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
 import com.ArtSeeReal.pro.service.RecruitmentService;
 import com.ArtSeeReal.pro.service.TokenService;
@@ -53,7 +53,7 @@ public class RecruitmentController {
     }
 
     @PutMapping
-    public ResponseEntity<RecruitmentReadResponseDTO> updateRecruitment(
+    public ResponseEntity<RecruitmentInfoResponseDTO> updateRecruitment(
             @RequestBody RecruitmentUpdateRequestDTO dto,
             @RequestHeader("Authorization") String header){
         dto.setUserUid(tokenService.getUserUid(header));
@@ -68,7 +68,7 @@ public class RecruitmentController {
 
     @GetMapping("/latest")
     @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<Page<RecruitmentReadResponseDTO>> latest() throws NotImplementedException {
+    public ResponseEntity<Page<RecruitmentInfoResponseDTO>> latest() throws NotImplementedException {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
 

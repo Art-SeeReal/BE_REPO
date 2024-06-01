@@ -1,8 +1,8 @@
 package com.ArtSeeReal.pro.recruitmentTests;
 
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadResponseDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.recruitment.RecruitmentInfoResponseDTO;
+import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.enums.CategoryType;
 import com.ArtSeeReal.pro.enums.RegionType;
@@ -75,7 +75,7 @@ public class RecruitmentUpdateTest {
                 .dueDate(LocalDateTime.now())
                 .payment(2000000L)
                 .build();
-        RecruitmentReadResponseDTO result = recruitService.updateRecruitment(dto);
+        RecruitmentInfoResponseDTO result = recruitService.updateRecruitment(dto);
         assertThat(result.getContent()).isEqualTo("UpdateContent");
     }
 }

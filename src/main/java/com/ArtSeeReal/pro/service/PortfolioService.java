@@ -1,16 +1,17 @@
 package com.ArtSeeReal.pro.service;
 
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioInfoResponseDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioListRequestDTO;
 import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioListResponseDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioReadResponseDTO;
 
 public interface PortfolioService {
     PortfolioCreateResponseDTO createPortfolio(PortfolioCreateRequestDTO dto);
-    com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioReadResponseDTO readPortfolio(String boardUid, String userUid);
-    PortfolioReadResponseDTO updatePortfolio(PortfolioUpdateRequestDTO dto);
+    PortfolioReadResponseDTO readPortfolio(String boardUid, String userUid);
+    PortfolioInfoResponseDTO updatePortfolio(PortfolioUpdateRequestDTO dto);
     String deletePortfolio(String boardUid,String userUid);
     void favoritePortfolioCreate(String userUid, String portfolioUid);
     void favoritePortfolioDelete(String userUid, String portfolioUid);

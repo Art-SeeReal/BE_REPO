@@ -2,6 +2,7 @@ package com.ArtSeeReal.pro.serviceImpl;
 
 import com.ArtSeeReal.pro.dto.introduce.IntroReadResponseDTO;
 import com.ArtSeeReal.pro.dto.introduce.IntroUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.response.user.MyInfoResponseDTO;
 import com.ArtSeeReal.pro.dto.with.UserIntroduceDTO;
 import com.ArtSeeReal.pro.entity.main.Introduce;
 import com.ArtSeeReal.pro.enums.error.ErrorCode;
@@ -48,5 +49,10 @@ public class IntroduceServiceImpl implements IntroduceService {
                 .orElseThrow(() -> new IllegalArgumentException(ErrorCode.ID_NOT_FOUND.getMessage()))
                 .getUid();
         return userQueryDslRepository.findUserIntroduceByUserUid(userUid);
+    }
+
+    @Override
+    public MyInfoResponseDTO myInfoRead(String userUid) {
+        return userQueryDslRepository.findMyInfoByUserUid(userUid);
     }
 }

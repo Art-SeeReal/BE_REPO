@@ -1,8 +1,9 @@
 package com.ArtSeeReal.pro.serviceImpl;
 
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioInfoResponseDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioListRequestDTO;
 import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioListResponseDTO;
 import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioReadResponseDTO;
@@ -50,8 +51,8 @@ public class PortfolioServiceImpl implements PortfolioService {
         return portfolioQueryDslRepository.findPortfolioReadByIdAndUserId(boardUid, userUid);
     }
     @Override
-    public com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO updatePortfolio(PortfolioUpdateRequestDTO dto){
-        Portfolio portfolio = portfolioRepository.findById(dto.getUid())
+    public PortfolioInfoResponseDTO updatePortfolio(PortfolioUpdateRequestDTO dto){
+        Portfolio portfolio = portfolioRepository.findById(dto.getId())
                 .orElseThrow(() -> new IllegalArgumentException(NO_BOARD_DATA_ERROR.getMessage()));
         validateService.roleCheck(dto.getUserUid(),portfolio.getUserUid());
         saveUpdateEntity(dto, portfolio);

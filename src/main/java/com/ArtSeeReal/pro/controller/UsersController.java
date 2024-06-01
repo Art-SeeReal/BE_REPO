@@ -2,6 +2,7 @@ package com.ArtSeeReal.pro.controller;
 
 import com.ArtSeeReal.pro.dto.user.UserReadResponseDTO;
 import com.ArtSeeReal.pro.dto.with.UserIntroduceDTO;
+import com.ArtSeeReal.pro.enums.UserType;
 import com.ArtSeeReal.pro.service.IntroduceService;
 import com.ArtSeeReal.pro.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 
 import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
 @Tag(name = "Users API")
@@ -34,6 +37,13 @@ public class UsersController {
     @GetMapping("{userId}/profile")
     public ResponseEntity<UserIntroduceDTO> readUserIntro(@PathVariable("userId")String userId){
         return new ResponseEntity<>(introduceService.readUserIntroduce(userId),HttpStatus.OK);
+    }
+
+    @GetMapping("/{user-id}/type")
+    public ResponseEntity<HashMap<String,String>> getUserType(@PathVariable("userId")String userId){
+        HashMap<String,String> result = new HashMap<>();
+        result.put("result", userService.getUserType(userId).getCode());
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
 }

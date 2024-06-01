@@ -1,9 +1,9 @@
 package com.ArtSeeReal.pro.controller;
 
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioInfoResponseDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioListRequestDTO;
 import com.ArtSeeReal.pro.service.PortfolioService;
 import com.ArtSeeReal.pro.service.TokenService;
@@ -33,7 +33,7 @@ public class PortfolioController {
     }
 
     @PutMapping
-    public ResponseEntity<PortfolioReadResponseDTO> updatePortfolio(
+    public ResponseEntity<PortfolioInfoResponseDTO> updatePortfolio(
             @RequestHeader("Authorization") String header,
             @RequestBody PortfolioUpdateRequestDTO dto){
         dto.setUserUid(tokenService.getUserUid(header));
