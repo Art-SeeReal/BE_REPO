@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.dto.user;
 
+import com.ArtSeeReal.pro.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -13,7 +14,6 @@ import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class KakaoUser {
-
     private long id;
 
     @JsonProperty("connected_at")
@@ -50,38 +50,29 @@ public class KakaoUser {
         @JsonProperty("is_email_verified")
         private boolean isEmailVerified;
 
-        private static String email;
-
-        private static String getEmail(){
-            return email;
-        }
+        private String email;
 
         @Data
         @JsonIgnoreProperties(ignoreUnknown = true)
         public static class Profile {
-            private static String nickname;
+            private String nickname;
 
             @JsonProperty("is_default_nickname")
             private boolean isDefaultNickname;
-
-            private static String getNickname(){
-                return nickname;
-            }
-
         }
     }
 
     public UserCreateRequestDTO kakaoToUserDTO(){
         return UserCreateRequestDTO.builder()
                 .userId(String.valueOf(id))
-                .name(KakaoAccount.Profile.getNickname())
-                .password(UUID.randomUUID().toString().substring(12))
-                .nickname(KakaoAccount.Profile.getNickname())
-                .email(KakaoAccount.getEmail())
+                .name(kakaoAccount.profile.getNickname())
+                .password(UUID.randomUUID().toString().substring(0, 12))
+                .nickname(kakaoAccount.profile.getNickname())
+                .email(kakaoAccount.getEmail())
                 .emailSecret(true)
-                .phone(UUID.randomUUID().toString().substring(12))
+                .phone(UUID.randomUUID().toString().substring(0, 12))
                 .phoneSecret(true)
-                .userType(AUTHOR)
+                .userType(UserType.AUTHOR)
                 .regDate(LocalDateTime.now())
                 .build();
     }

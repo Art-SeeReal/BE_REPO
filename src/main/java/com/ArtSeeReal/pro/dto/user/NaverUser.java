@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.dto.user;
 
+import com.ArtSeeReal.pro.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -28,22 +29,21 @@ public class NaverUser {
         @JsonProperty("mobile_e164")
         private String mobileE164;
         private String name;
+    }
 
-        public UserCreateRequestDTO kakaoToUserDTO(){
-            return UserCreateRequestDTO.builder()
-                    .userId(id)
-                    .name(name)
-                    .password(UUID.randomUUID().toString().substring(12))
-                    .nickname(nickname)
-                    .email(email)
-                    .emailSecret(true)
-                    .phone(mobile)
-                    .phoneSecret(true)
-                    .userType(AUTHOR)
-                    .regDate(LocalDateTime.now())
-                    .build();
-        }
-
+    public UserCreateRequestDTO naverToUserDTO() {
+        return UserCreateRequestDTO.builder()
+                .userId(response.getId())
+                .name(response.getName())
+                .password(UUID.randomUUID().toString().substring(0, 12))
+                .nickname(response.getNickname())
+                .email(response.getEmail())
+                .emailSecret(true)
+                .phone(response.getMobile())
+                .phoneSecret(true)
+                .userType(UserType.AUTHOR)
+                .regDate(LocalDateTime.now())
+                .build();
     }
 }
 

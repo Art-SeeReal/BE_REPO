@@ -64,6 +64,7 @@ public class OAuthServiceImpl implements OAuthService {
         return (String) response.getBody().get("access_token");
     }
 
+    @Override
     public KakaoUser fetchKakaoUserData(String accessToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(accessToken);
@@ -102,7 +103,7 @@ public class OAuthServiceImpl implements OAuthService {
     @Override
     public String naverLogin(NaverUser user) {
         if (userService.checkDuplicateUserId(String.valueOf(user.getResponse().getId()))) {
-            UserCreateResponseDTO dto = userService.createUser(user.getResponse().kakaoToUserDTO());
+            UserCreateResponseDTO dto = userService.createUser(user.naverToUserDTO());
             return tokenService.createToken("access", dto.getUserId(), dto.getUserType().getLabel(), 600000L);
         } else {
             String userUid = userService.getUserUid(String.valueOf(user.getResponse().getId()));
