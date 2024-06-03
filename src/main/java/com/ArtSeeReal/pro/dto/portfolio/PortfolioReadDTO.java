@@ -15,7 +15,7 @@ public class PortfolioReadDTO {
     private String imageUrl;
     private String title;
     private String nickname;
-    private CategoryType field; // 별건 아닌데 단수로 바꿔야 하는거 아닌가? 하난데
+    private CategoryType fields; // 별건 아닌데 단수로 바꿔야 하는거 아닌가? 하난데
     private boolean isScrap;
     private boolean isLike;
     private String writerUid;

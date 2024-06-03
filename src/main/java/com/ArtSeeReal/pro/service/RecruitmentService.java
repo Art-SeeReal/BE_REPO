@@ -1,12 +1,10 @@
 package com.ArtSeeReal.pro.service;
 
 import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.*;
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentInfoResponseDTO;
 import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
-import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentListResponseDTO;
-import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentReadResponseDTO;
 
 public interface RecruitmentService {
     RecruitmentCreateResponseDTO createRecruitment(RecruitmentCreateRequestDTO dto);
@@ -20,5 +18,7 @@ public interface RecruitmentService {
     void automaticDeletionOfNotices();
     RecruitmentListResponseDTO readRecruitment(RecruitmentListRequestDTO dto, String userUid);
     RecruitmentListResponseDTO myFavoriteRecruitments(String userUid, Long postCount);
+    ApplyRecruitsResponseDTO authorApplyRecruits(String userUid);
+    AppliedRecruitsResponseDTO plannerAppliedRecruits(String userUid);
     void viewCountPlus(String uid);
 }
