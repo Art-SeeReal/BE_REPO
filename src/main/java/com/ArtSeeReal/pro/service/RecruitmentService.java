@@ -20,7 +20,5 @@ public interface RecruitmentService {
     void automaticDeletionOfNotices();
     RecruitmentListResponseDTO readRecruitment(RecruitmentListRequestDTO dto, String userUid);
     RecruitmentListResponseDTO myFavoriteRecruitments(String userUid, Long postCount);
-}
-public void viewCountPlus(String uid){
-    recruitmentRepository.incrementViewCnt(uid);
+    void viewCountPlus(String uid);
 }

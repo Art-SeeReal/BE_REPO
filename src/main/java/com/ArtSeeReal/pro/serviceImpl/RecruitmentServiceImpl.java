@@ -138,4 +138,9 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     public RecruitmentListResponseDTO myFavoriteRecruitments(String userUid, Long postCount) {
         return recruitmentQueryDslRepository.findMyScrapRecruitmentByUserUid(userUid,postCount);
     }
+
+    @Override
+    public void viewCountPlus(String uid) {
+        recruitmentRepository.incrementViewCnt(uid);
+    }
 }

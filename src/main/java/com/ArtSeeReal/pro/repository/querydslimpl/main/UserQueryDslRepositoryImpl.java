@@ -36,10 +36,13 @@ public class UserQueryDslRepositoryImpl implements UserQueryDslRepository {
         QUser user = QUser.user;
 
         return jpaQueryFactory
-                .select(Projections.constructor(UserWithIntroduceDTO.class, introduce, user))
+                .select(
+                        Projections.constructor(UserWithIntroduceDTO.class,
+                                introduce,
+                                user))
                 .from(introduce)
-                .join(user)
-                .on(introduce.uid.eq(user.uid))
+                .join(user).on(introduce.uid.eq(user.uid))
+                .where(introduce.uid.eq(userUid))
                 .fetchOne();
     }
 

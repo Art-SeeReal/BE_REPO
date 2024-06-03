@@ -103,4 +103,9 @@ public class PortfolioServiceImpl implements PortfolioService {
         return portfolioQueryDslRepository.findMyScrapPortfolioByUserUid(userUid,postCount);
     }
 
+    @Override
+    public void viewCountPlus(String uid) {
+        portfolioRepository.incrementViewCnt(uid);
+    }
+
 }

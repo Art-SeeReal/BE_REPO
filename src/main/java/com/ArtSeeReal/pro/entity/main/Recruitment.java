@@ -27,6 +27,7 @@ public class Recruitment extends RecruitmentModule {
     private String uid;
     public RecruitmentCreateResponseDTO toCreateResponseDTO() {
         return RecruitmentCreateResponseDTO.builder()
+                .uid(uid)
                 .userUid(userUid)
                 .viewCnt(viewCnt)
                 .title(title)

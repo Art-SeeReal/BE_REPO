@@ -75,4 +75,10 @@ public class PortfolioController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PostMapping("/view-cnt")
+    public ResponseEntity<Void> viewCntPlus(@RequestBody String portfolioUid){
+        portfolioService.viewCountPlus(portfolioUid);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
