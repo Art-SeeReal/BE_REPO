@@ -2,11 +2,9 @@ package com.ArtSeeReal.pro.serviceImpl;
 
 import com.ArtSeeReal.pro.dto.recruitment.RecruitmentInfoResponseDTO;
 import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.*;
 import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentUpdateRequestDTO;
 import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
-import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentListResponseDTO;
-import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.entity.composite.ApplyRecruitmentKey;
 import com.ArtSeeReal.pro.entity.composite.FavoriteRecruitmentKey;
 import com.ArtSeeReal.pro.entity.delete.RecruitmentDelete;
@@ -137,5 +135,15 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     @Override
     public RecruitmentListResponseDTO myFavoriteRecruitments(String userUid, Long postCount) {
         return recruitmentQueryDslRepository.findMyScrapRecruitmentByUserUid(userUid,postCount);
+    }
+
+    @Override
+    public ApplyRecruitsResponseDTO authorApplyRecruits(String userUid) {
+        return recruitmentQueryDslRepository.findApplyRecruitmentsByUserUid(userUid);
+    }
+
+    @Override
+    public AppliedRecruitsResponseDTO plannerAppliedRecruits(String userUid) {
+        return recruitmentQueryDslRepository.findAppliedRecruitsByUserUid(userUid);
     }
 }

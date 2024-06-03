@@ -1,0 +1,16 @@
+package com.ArtSeeReal.pro.dto.response.recruitment;
+
+import com.ArtSeeReal.pro.dto.recruitment.ApplyRecruitDTO;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+@AllArgsConstructor
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+public class ApplyRecruitsResponseDTO {
+    private List<ApplyRecruitDTO> result;
+    private Long count;
+}

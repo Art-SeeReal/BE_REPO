@@ -11,5 +11,4 @@ public interface PortfolioQueryDslRepository {
     PortfolioListResponseDTO findListByPortfolioDTO(PortfolioListRequestDTO dto, String userUid);
     PortfolioReadResponseDTO findPortfolioReadByIdAndUserId(String portfolioUid, String userUid);
     PortfolioListResponseDTO findMyScrapPortfolioByUserUid(String userUid,Long postCount);
-
 }

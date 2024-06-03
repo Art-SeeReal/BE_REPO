@@ -6,6 +6,8 @@ import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioListRequestDTO;
 import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
 import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioListResponseDTO;
 import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioReadResponseDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.AppliedRecruitsResponseDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.ApplyRecruitsResponseDTO;
 import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentListResponseDTO;
 import com.ArtSeeReal.pro.dto.response.user.ApplicantResponseDTO;
 import com.ArtSeeReal.pro.dto.response.user.MyInfoResponseDTO;
@@ -199,6 +201,18 @@ public class UserController {
             @RequestHeader("Authorization") String header){
         String userUid = tokenService.getUserUid(header);
         return new ResponseEntity<>(recruitmentService.readRecruitment(dto,userUid),HttpStatus.OK);
+    }
+
+    @GetMapping("/apply/author")
+    public ResponseEntity<ApplyRecruitsResponseDTO> authorApplyRecruits(@RequestHeader("Authorization") String header){
+        String userUid = tokenService.getUserUid(header);
+        return new ResponseEntity<>(recruitmentService.authorApplyRecruits(userUid),HttpStatus.OK);
+    }
+
+    @GetMapping("/apply/planner")
+    public ResponseEntity<AppliedRecruitsResponseDTO> plannerAppliedRecruits(@RequestHeader("Authorization") String header){
+        String userUid = tokenService.getUserUid(header);
+        return new ResponseEntity<>(recruitmentService.plannerAppliedRecruits(userUid),HttpStatus.OK);
     }
 
 }

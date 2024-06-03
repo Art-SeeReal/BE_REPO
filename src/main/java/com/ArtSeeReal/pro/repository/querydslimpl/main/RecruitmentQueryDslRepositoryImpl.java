@@ -2,11 +2,11 @@ package com.ArtSeeReal.pro.repository.querydslimpl.main;
 
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioInfoDTO;
 import com.ArtSeeReal.pro.dto.portfolio.PortfolioListDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentInfoDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentListDTO;
-import com.ArtSeeReal.pro.dto.recruitment.RecruitmentReadDTO;
+import com.ArtSeeReal.pro.dto.recruitment.*;
 import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
 import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioListResponseDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.AppliedRecruitsResponseDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.ApplyRecruitsResponseDTO;
 import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentListResponseDTO;
 import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.dto.with.RecruitmentWithUserDTO;
@@ -30,6 +30,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -146,7 +147,7 @@ public class RecruitmentQueryDslRepositoryImpl implements RecruitmentQueryDslRep
 
             List<RecruitmentListDTO> result = recruitmentDTOList.stream()
                     .map(infos -> infos.isSetting(favoriteRecruitmentSet,userLikeSet))
-                    .toList();
+                    .collect(Collectors.toList());
 
             return new RecruitmentListResponseDTO(result, Math.toIntExact(totalCount));
         }
@@ -222,9 +223,86 @@ public class RecruitmentQueryDslRepositoryImpl implements RecruitmentQueryDslRep
         Set<String> userLikeSet = new HashSet<>(userLikesRepository.findYourUserUidByMyUserUid(userUid));
         List<RecruitmentListDTO> result = portfolioInfoDTOList.stream()
                 .map(infos -> infos.userLikeSetting(userLikeSet))
-                .toList();
+                .collect(Collectors.toList());
 
         return new RecruitmentListResponseDTO(result, Math.toIntExact(count));
+    }
+
+    @Override
+    public ApplyRecruitsResponseDTO findApplyRecruitmentsByUserUid(String userUid) {
+        QRecruitment recruitment = QRecruitment.recruitment;
+        QApplyRecruitments applyRecruitments = QApplyRecruitments.applyRecruitments;
+        QUser user = QUser.user;
+
+        List<ApplyRecruitInfoDTO> portfolioInfoDTOList = jpaQueryFactory
+                .select(Projections.constructor(ApplyRecruitInfoDTO.class,
+                        recruitment.uid,
+                        user.nickname,
+                        recruitment.title,
+                        recruitment.userUid,
+                        recruitment.region,
+                        recruitment.category,
+                        Expressions.FALSE,
+                        Expressions.FALSE,
+                        user.userId))
+                .from(applyRecruitments)
+                .join(recruitment).on(applyRecruitments.pk.recruitmentUid.eq(recruitment.uid))
+                .join(user).on(recruitment.userUid.eq(user.uid))
+                .where(applyRecruitments.pk.userUid.eq(userUid))
+                .orderBy(recruitment.regDate.desc())
+                .fetch();
+        Long count = jpaQueryFactory
+                .select(applyRecruitments.count())
+                .where(applyRecruitments.pk.userUid.eq(userUid))
+                .fetchOne();
+
+        Set<String> favoriteRecruitmentSet = new HashSet<>(favoriteRecruitmentsRepository.findRecruitmentUidByUserUid(userUid));
+        Set<String> userLikeSet = new HashSet<>(userLikesRepository.findYourUserUidByMyUserUid(userUid));
+
+        List<ApplyRecruitDTO> applyRecruitDTOList = portfolioInfoDTOList.stream()
+                .map(info -> info.isSetting(favoriteRecruitmentSet,userLikeSet))
+                .collect(Collectors.toList());
+
+        return new ApplyRecruitsResponseDTO(applyRecruitDTOList,count);
+    }
+
+    @Override
+    public AppliedRecruitsResponseDTO findAppliedRecruitsByUserUid(String userUid) {
+        QRecruitment recruitment = QRecruitment.recruitment;
+        QApplyRecruitments applyRecruitments = QApplyRecruitments.applyRecruitments;
+        QUser user = QUser.user;
+
+        List<AppliedRecruitInfoDTO> portfolioInfoDTOList = jpaQueryFactory
+                .select(Projections.constructor(AppliedRecruitInfoDTO.class,
+                        recruitment.uid,
+                        user.nickname,
+                        recruitment.title,
+                        recruitment.userUid,
+                        recruitment.region,
+                        recruitment.category,
+                        Expressions.FALSE,
+                        Expressions.FALSE,
+                        user.userId,
+                        applyRecruitments.pk.recruitmentUid.eq(recruitment.uid).count()))
+                .from(applyRecruitments)
+                .join(recruitment).on(applyRecruitments.pk.recruitmentUid.eq(recruitment.uid))
+                .join(user).on(recruitment.userUid.eq(user.uid))
+                .where(applyRecruitments.pk.userUid.eq(userUid))
+                .orderBy(recruitment.regDate.desc())
+                .fetch();
+        Long count = jpaQueryFactory
+                .select(applyRecruitments.count())
+                .where(applyRecruitments.pk.userUid.eq(userUid))
+                .fetchOne();
+
+        Set<String> favoriteRecruitmentSet = new HashSet<>(favoriteRecruitmentsRepository.findRecruitmentUidByUserUid(userUid));
+        Set<String> userLikeSet = new HashSet<>(userLikesRepository.findYourUserUidByMyUserUid(userUid));
+
+        List<AppliedRecruitDTO> applyRecruitDTOList = portfolioInfoDTOList.stream()
+                .map(info -> info.isSetting(favoriteRecruitmentSet,userLikeSet))
+                .collect(Collectors.toList());
+
+        return new AppliedRecruitsResponseDTO(applyRecruitDTOList,count);
     }
 
     private BooleanExpression buildWhereClause(RecruitmentListRequestDTO dto) {
