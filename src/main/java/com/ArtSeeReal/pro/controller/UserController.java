@@ -1,49 +1,71 @@
 package com.ArtSeeReal.pro.controller;
 
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
-
-import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
-import com.ArtSeeReal.pro.dto.user.UserResponseDTO;
-import com.ArtSeeReal.pro.dto.user.UserUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.introduce.IntroReadResponseDTO;
+import com.ArtSeeReal.pro.dto.introduce.IntroUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioListRequestDTO;
+import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioListResponseDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioReadResponseDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentListResponseDTO;
+import com.ArtSeeReal.pro.dto.response.user.ApplicantResponseDTO;
+import com.ArtSeeReal.pro.dto.response.user.MyInfoResponseDTO;
+import com.ArtSeeReal.pro.dto.user.*;
+import com.ArtSeeReal.pro.dto.with.UserIntroduceDTO;
 import com.ArtSeeReal.pro.enums.UserType;
-import com.ArtSeeReal.pro.service.MailService;
-import com.ArtSeeReal.pro.service.UserService;
+import com.ArtSeeReal.pro.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
-import java.io.IOException;
 import jdk.jshell.spi.ExecutionControl.NotImplementedException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.HashMap;
+
+import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
+
 @Tag(name = "User API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/user")
+@Log4j2
 public class UserController {
 
     private final UserService userService;
     private final MailService mailService;
+    private final TokenService tokenService;
+    private final IntroduceService introduceService;
+    private final PortfolioService portfolioService;
+    private final RecruitmentService recruitmentService;
+
+    @GetMapping
+    public ResponseEntity<UserReadResponseDTO> userRead(
+            @RequestHeader("Authorization") String header){
+        String userUid = tokenService.getUserUid(header);
+        return new ResponseEntity<>(userService.readUser(userUid), HttpStatus.OK);
+    }
 
     @PostMapping
-    public ResponseEntity<UserResponseDTO> signUp(@RequestBody UserRequestDTO dto){
+    public ResponseEntity<UserCreateResponseDTO> signUp(@RequestBody UserCreateRequestDTO dto){
         return new ResponseEntity<>(userService.createUser(dto), HttpStatus.OK);
     }
+
     @DeleteMapping
-    public ResponseEntity<String> deleteUser(@RequestParam String uid){
-        // TODO : tempUser는 스프링 시큐리티 문제가 해결되면 될라나?
-        return new ResponseEntity<>(userService.deleteUser(uid,"tempUser"), HttpStatus.OK);
+    public ResponseEntity<String> deleteUser(
+            @RequestHeader("Authorization") String header,
+            @RequestParam String userId){
+        String delUserUid = tokenService.getUserUid(header);
+        return new ResponseEntity<>(userService.deleteUser(userId,delUserUid), HttpStatus.OK);
     }
     @PutMapping
-    public ResponseEntity<UserResponseDTO> updateUser(@RequestBody UserUpdateRequestDTO dto){
+    public ResponseEntity<UserReadResponseDTO> updateUser(
+            @RequestBody UserUpdateRequestDTO dto,
+            @RequestHeader("Authorization") String header){
+        dto.setUid(tokenService.getUserUid(header));
         return new ResponseEntity<>(userService.updateUser(dto), HttpStatus.OK);
     }
     @GetMapping("/info")
@@ -51,10 +73,12 @@ public class UserController {
     public ResponseEntity<UserType> info() throws NotImplementedException {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
-    @GetMapping("/intro")
-    @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<UserType> intro(@RequestParam String intro) throws NotImplementedException {
-        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    @PutMapping("/intro")
+    public ResponseEntity<IntroReadResponseDTO> intro(
+            @RequestBody IntroUpdateRequestDTO dto,
+            @RequestHeader("Authorization") String header) {
+        dto.setUid(tokenService.getUserUid(header));
+        return new ResponseEntity<>(introduceService.updateIntro(dto),HttpStatus.OK);
     }
     @GetMapping("/like/portfolios")
     @Operation(summary = "미구현 상태 입니다.")
@@ -66,14 +90,23 @@ public class UserController {
     public ResponseEntity<UserType> recruits() throws NotImplementedException {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
-    @PostMapping("/like/:userId")
-    @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<UserType> userLike() throws NotImplementedException {
-        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    @PostMapping("/like")
+    public ResponseEntity<Void> userLike(
+            @RequestBody String yourUserUid,
+            @RequestHeader("Authorization") String header) {
+        userService.userLikesCreate(tokenService.getUserUid(header),yourUserUid);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    @DeleteMapping("/like/:userId")
+    @DeleteMapping("/like")
+    public ResponseEntity<Void> userLikeDelete(
+            @RequestParam("yourUserUid") String yourUserUid,
+            @RequestHeader("Authorization") String header) {
+        userService.userLikesDelete(tokenService.getUserUid(header),yourUserUid);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @GetMapping("/like/users")
     @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<UserType> userLikeDelete() throws NotImplementedException {
+    public ResponseEntity<Void> myLikeUsers() throws NotImplementedException {
         throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
     }
     @GetMapping("/exist/nickname")
@@ -114,15 +147,58 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     @GetMapping("/{userId}/profile")
-    @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<UserResponseDTO> readUser(
-            @RequestParam String userId) throws NotImplementedException {
-        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    public ResponseEntity<UserProfileReadResponseDTO> readUser(
+            @PathVariable String userId)  {
+        return new ResponseEntity<>(userService.readIntro(userId),HttpStatus.OK);
     }
-    @GetMapping("/types")
-    @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<UserResponseDTO> readUserTypes() throws NotImplementedException {
-        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    @GetMapping("/scrap/portfolios/{post-count}")
+    public ResponseEntity<PortfolioListResponseDTO> scrapPortfolios(
+            @RequestHeader(name = "Authorization", required = false, defaultValue = "") String header,
+            @PathVariable(name = "post-count", required = false) Long postCount) {
+        return new ResponseEntity<>(portfolioService.myFavoritePortFolios(tokenService.getUserUid(header),postCount),HttpStatus.OK);
+    }
+
+    @GetMapping("/scrap/recruits/{post-count}")
+    public ResponseEntity<RecruitmentListResponseDTO> scrapRecruits(
+            @RequestHeader(name = "Authorization", required = false, defaultValue = "") String header,
+            @PathVariable(name = "post-count", required = false) Long postCount) {
+        return new ResponseEntity<>(recruitmentService.myFavoriteRecruitments(tokenService.getUserUid(header),postCount),HttpStatus.OK);
+    }
+
+    @GetMapping("/apply/planner/{postId}")
+    public ResponseEntity<ApplicantResponseDTO> readApplicants(@PathVariable("postId") String postId){
+        return new ResponseEntity<>(userService.ApplicantList(postId),HttpStatus.OK);
+    }
+
+    @PostMapping("/auth")
+    public ResponseEntity<HashMap<String,Boolean>> checkPassword(@RequestBody String password,
+                                                 @RequestHeader("Authorization") String header){
+        String userUid = tokenService.getUserUid(header);
+        HashMap<String,Boolean> result = new HashMap<>();
+        result.put("result", userService.checkPassword(userUid,password));
+        return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<MyInfoResponseDTO> myInfoRead(@RequestHeader("Authorization") String header){
+        String userUid = tokenService.getUserUid(header);
+        return new ResponseEntity<>(introduceService.myInfoRead(userUid),HttpStatus.OK);
+    }
+
+    @GetMapping("/portfolios")
+    public ResponseEntity<PortfolioListResponseDTO> myPortfolios(
+            PortfolioListRequestDTO dto,
+            @RequestHeader("Authorization") String header){
+        String userUid = tokenService.getUserUid(header);
+        return new ResponseEntity<>(portfolioService.readPortfolio(dto,userUid),HttpStatus.OK);
+    }
+
+    @GetMapping("/recruits")
+    public ResponseEntity<RecruitmentListResponseDTO> myRecruits(
+            RecruitmentListRequestDTO dto,
+            @RequestHeader("Authorization") String header){
+        String userUid = tokenService.getUserUid(header);
+        return new ResponseEntity<>(recruitmentService.readRecruitment(dto,userUid),HttpStatus.OK);
     }
 
 }

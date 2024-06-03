@@ -1,30 +1,28 @@
 package com.ArtSeeReal.pro.entity.main;
 
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioInfoResponseDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioUpdateRequestDTO;
 import com.ArtSeeReal.pro.entity.delete.PortfolioDelete;
 import com.ArtSeeReal.pro.entity.module.PortfolioModule;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDateTime;
 
 @Entity(name = "PORTFOLIO_TB")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@Table(indexes = {@Index(name = "idx_portfolio_title", columnList = "title")})
 public class Portfolio extends PortfolioModule {
-
     @Id
     @Column(length = 64,nullable = false)
     private String uid;
-
     public PortfolioCreateResponseDTO toCreateResponseDTO() {
         return PortfolioCreateResponseDTO.builder()
                 .uid(uid)
@@ -32,33 +30,27 @@ public class Portfolio extends PortfolioModule {
                 .viewCnt(viewCnt)
                 .title(title)
                 .content(content)
-                .regionType(regionType)
                 .category(category)
                 .regDate(regDate)
                 .build();
     }
-
-    public PortfolioReadResponseDTO toReadResponseDTO() {
-        return PortfolioReadResponseDTO.builder()
+    public PortfolioInfoResponseDTO toReadResponseDTO() {
+        return PortfolioInfoResponseDTO.builder()
                 .uid(uid)
                 .userUid(userUid)
                 .viewCnt(viewCnt)
                 .title(title)
                 .content(content)
-                .regionType(regionType)
                 .category(category)
                 .regDate(regDate)
                 .build();
     }
-
     public void updateFromDTO(PortfolioUpdateRequestDTO dto){
         title = dto.getTitle();
         content = dto.getContent();
-        regionType = dto.getRegionType();
-        category = dto.getCategory();
+        category = dto.getFields();
     }
-
-    public PortfolioDelete toBoardDelete(String uid, String delUserUid){
+    public PortfolioDelete toBoardDelete(String uid){
         return PortfolioDelete.builder()
                 .uid(uid)
                 .boardUid(this.uid)
@@ -66,12 +58,10 @@ public class Portfolio extends PortfolioModule {
                 .viewCnt(viewCnt)
                 .title(title)
                 .content(content)
-                .regionType(regionType)
                 .category(category)
                 .regDate(regDate)
                 .thumbnail(thumbnail)
                 .delDate(LocalDateTime.now())
-                .delUserUid(delUserUid)
                 .build();
     }
 }

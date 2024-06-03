@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 public interface PortfolioRepository extends JpaRepository<Portfolio, String> , ModuleRepository {
+    Page<Portfolio> findAllByOrderByRegDateDesc(Pageable pageable);
+    Page<Portfolio> findByTitleContainingOrderByRegDateDesc(String title, Pageable pageable);
     @Transactional
     @Modifying
     @Query("UPDATE PORTFOLIO_TB p SET p.viewCnt = p.viewCnt + 1 WHERE p.uid = :uid")

@@ -1,12 +1,14 @@
 package com.ArtSeeReal.pro.repository.querydsl.main;
 
+import com.ArtSeeReal.pro.dto.request.recuitment.RecruitmentListRequestDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentListResponseDTO;
+import com.ArtSeeReal.pro.dto.response.recruitment.RecruitmentReadResponseDTO;
 import com.ArtSeeReal.pro.dto.with.RecruitmentWithUserDTO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 public interface RecruitmentQueryDslRepository {
 
-    Page<RecruitmentWithUserDTO> findByUserAndRecruitmentOrderByRegDateDesc(Pageable pageable);
     RecruitmentWithUserDTO findUserAndRecruitmentByUid(String uid);
-
+    RecruitmentListResponseDTO findListByRecruitmentDTO(RecruitmentListRequestDTO dto, String userUid);
+    RecruitmentReadResponseDTO findRecruitmentReadByIdAndUserId(String recruitmentUid, String userUid);
+    RecruitmentListResponseDTO findMyScrapRecruitmentByUserUid(String userUid,Long postCount);
 }

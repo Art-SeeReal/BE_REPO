@@ -1,5 +1,6 @@
 package com.ArtSeeReal.pro.enums;
 
+import com.ArtSeeReal.pro.enums.enuminfo.RegionInfo;
 import lombok.Getter;
 
 @Getter
@@ -29,6 +30,10 @@ public enum RegionType {
     RegionType(String code,String label){
         this.code = code;
         this.label = label;
+    }
+
+    public RegionInfo toRegionInfo(){
+        return new RegionInfo(this.code,this.label);
     }
 }
 

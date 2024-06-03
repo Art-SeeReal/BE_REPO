@@ -1,7 +1,5 @@
 package com.ArtSeeReal.pro.serviceImpl;
 
-import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
-
 import com.ArtSeeReal.pro.dto.banner.BannerCreateRequestDTO;
 import com.ArtSeeReal.pro.dto.banner.BannerCreateResponseDTO;
 import com.ArtSeeReal.pro.dto.banner.BannerReadResponseDTO;
@@ -14,10 +12,13 @@ import com.ArtSeeReal.pro.repository.jpa.delete.BannerDeleteRepository;
 import com.ArtSeeReal.pro.repository.jpa.history.BannerHistoryRepository;
 import com.ArtSeeReal.pro.repository.jpa.main.BannerRepository;
 import com.ArtSeeReal.pro.service.BannerService;
-import java.io.IOException;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.util.List;
+
+import static com.ArtSeeReal.pro.etc.Uid.uidCreator;
 
 @Service
 @RequiredArgsConstructor

@@ -26,8 +26,6 @@ public class QRequestCommentDelete extends EntityPathBase<RequestCommentDelete> 
 
     public final DateTimePath<java.time.LocalDateTime> delDate = createDateTime("delDate", java.time.LocalDateTime.class);
 
-    public final StringPath delUserUid = createString("delUserUid");
-
     //inherited
     public final StringPath postUid = _super.postUid;
 

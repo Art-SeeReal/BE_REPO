@@ -1,12 +1,15 @@
 package com.ArtSeeReal.pro.repository.querydsl.main;
 
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioListRequestDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioListResponseDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioReadResponseDTO;
 import com.ArtSeeReal.pro.dto.with.PortfolioWithUserDTO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 public interface PortfolioQueryDslRepository {
 
-    Page<PortfolioWithUserDTO> findByUserAndPortfolioOrderByRegDateDesc(Pageable pageable);
     PortfolioWithUserDTO findUserAndPortfolioByUid(String uid);
+    PortfolioListResponseDTO findListByPortfolioDTO(PortfolioListRequestDTO dto, String userUid);
+    PortfolioReadResponseDTO findPortfolioReadByIdAndUserId(String portfolioUid, String userUid);
+    PortfolioListResponseDTO findMyScrapPortfolioByUserUid(String userUid,Long postCount);
 
 }

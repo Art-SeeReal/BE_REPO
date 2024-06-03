@@ -2,11 +2,12 @@ package com.ArtSeeReal.pro.entity.module;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDateTime;
 
 @Getter
 @ToString
@@ -14,12 +15,10 @@ import lombok.experimental.SuperBuilder;
 @MappedSuperclass
 @SuperBuilder
 public abstract class BannerModule {
-    @Column(columnDefinition = "TEXT", nullable = false)
-    protected byte[] imageData;
-
+    @Column(length = 256, nullable = false)
+    protected String imageUrl;
     @Column(length = 512, nullable = false)
     protected String linkUrl;
-
     @Column(nullable = false)
     protected LocalDateTime regDate;
 }

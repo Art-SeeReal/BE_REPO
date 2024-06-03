@@ -1,70 +1,78 @@
 package com.ArtSeeReal.pro.controller;
 
-import static com.ArtSeeReal.pro.enums.error.ErrorCode.NOT_IMPLEMENTED_EXCEPTION;
-
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateRequestDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioCreateResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioReadResponseDTO;
-import com.ArtSeeReal.pro.dto.portfolio.PortfolioUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioCreateRequestDTO;
+import com.ArtSeeReal.pro.dto.response.portfoilo.PortfolioCreateResponseDTO;
+import com.ArtSeeReal.pro.dto.portfolio.PortfolioInfoResponseDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioUpdateRequestDTO;
+import com.ArtSeeReal.pro.dto.request.portfolio.PortfolioListRequestDTO;
 import com.ArtSeeReal.pro.service.PortfolioService;
-import io.swagger.v3.oas.annotations.Operation;
+import com.ArtSeeReal.pro.service.TokenService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jdk.jshell.spi.ExecutionControl.NotImplementedException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 @Tag(name = "Portfolios API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/portfolios")
+@Log4j2
 public class PortfolioController {
 
     private final PortfolioService portfolioService;
+    private final TokenService tokenService;
 
     @PostMapping
     public ResponseEntity<PortfolioCreateResponseDTO> createPortfolio(
+            @RequestHeader("Authorization") String header,
             @RequestBody PortfolioCreateRequestDTO dto){
+        dto.setUserUid(tokenService.getUserUid(header));
         return new ResponseEntity<>(portfolioService.createPortfolio(dto), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<PortfolioReadResponseDTO> readPortfolio(
-            @RequestParam(name = "portfolioUid") String portfolioUid){
-        return new ResponseEntity<>(portfolioService.readPortfolio(portfolioUid), HttpStatus.OK);
-    }
-
     @PutMapping
-    public ResponseEntity<PortfolioReadResponseDTO> updatePortfolio(
+    public ResponseEntity<PortfolioInfoResponseDTO> updatePortfolio(
+            @RequestHeader("Authorization") String header,
             @RequestBody PortfolioUpdateRequestDTO dto){
+        dto.setUserUid(tokenService.getUserUid(header));
         return new ResponseEntity<>(portfolioService.updatePortfolio(dto), HttpStatus.OK);
     }
 
     @DeleteMapping
     public ResponseEntity<String> deletePortfolio(
+            @RequestHeader("Authorization") String header,
             @RequestParam(name = "portfolioUid") String portfolioUid){
-        return new ResponseEntity<>(portfolioService.deletePortfolio(portfolioUid), HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(portfolioService.deletePortfolio(portfolioUid,tokenService.getUserUid(header)), HttpStatus.NO_CONTENT);
+    }
+    @GetMapping
+    public ResponseEntity<?> readPortfolio(
+            PortfolioListRequestDTO dto,
+            @RequestHeader(name = "Authorization", required = false, defaultValue = "") String header,
+            @RequestParam(name = "portId", required = false, defaultValue = "") String postId){
+        String userUid = header.isEmpty() ? null : tokenService.getUserUid(header);
+        if (postId != null && !postId.isEmpty())
+            return new ResponseEntity<>(portfolioService.readPortfolio(postId, userUid), HttpStatus.OK);
+        if (dto != null)
+            return new ResponseEntity<>(portfolioService.readPortfolio(dto, userUid), HttpStatus.OK);
+        return new ResponseEntity<>("해당 없음", HttpStatus.BAD_REQUEST);
     }
 
-    // TODO : 1차적으로는 페이징 처리만 했지만 검색과 합쳐야 할듯
-    @GetMapping("/page")
-    @Operation(summary = "준구현 상태 입니다.",description = "모든 포트폴리오를 시간의 역순으로 정렬하여 10개 반환 합니다.")
-    public ResponseEntity<Page<PortfolioReadResponseDTO>> pagePortfolio(Integer pageNum){
-        return new ResponseEntity<>(portfolioService.pageReadPortfolio(pageNum), HttpStatus.OK);
+    @PostMapping("/scrap")
+    public ResponseEntity<Void> portfolioScrapCreate(
+            @RequestBody String portfolioUid,
+            @RequestHeader("Authorization") String header){
+        portfolioService.favoritePortfolioCreate(tokenService.getUserUid(header),portfolioUid);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/latest")
-    @Operation(summary = "미구현 상태 입니다.")
-    public ResponseEntity<Page<PortfolioReadResponseDTO>> latest() throws NotImplementedException {
-        throw new NotImplementedException(NOT_IMPLEMENTED_EXCEPTION.getMessage());
+    @DeleteMapping("/{recruitUid}/scrap")
+    public ResponseEntity<Void> portfolioScrapDelete(
+            @PathVariable("recruitUid") String portfolioUid,
+            @RequestHeader("Authorization") String header){
+        portfolioService.favoritePortfolioDelete(tokenService.getUserUid(header),portfolioUid);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

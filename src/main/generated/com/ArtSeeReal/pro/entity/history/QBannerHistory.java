@@ -23,19 +23,17 @@ public class QBannerHistory extends EntityPathBase<BannerHistory> {
 
     public final StringPath bannerUid = createString("bannerUid");
 
-    public final ArrayPath<byte[], Byte> exImageData = createArray("exImageData", byte[].class);
+    public final StringPath exImageUrl = createString("exImageUrl");
 
     public final StringPath exLinkUrl = createString("exLinkUrl");
 
     //inherited
-    public final ArrayPath<byte[], Byte> imageData = _super.imageData;
+    public final StringPath imageUrl = _super.imageUrl;
 
     //inherited
     public final StringPath linkUrl = _super.linkUrl;
 
     public final DateTimePath<java.time.LocalDateTime> modDate = createDateTime("modDate", java.time.LocalDateTime.class);
-
-    public final StringPath modUserUid = createString("modUserUid");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;

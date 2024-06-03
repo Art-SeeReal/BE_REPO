@@ -1,8 +1,8 @@
 package com.ArtSeeReal.pro.enums;
 
-public enum CategoryType {
+import com.ArtSeeReal.pro.enums.enuminfo.CategoryInfo;
 
-    // TODO: 카테고리 유형 만들기
+public enum CategoryType {
 
     ART("A000","미술"),
     CRAFT("B000","공예"),
@@ -19,4 +19,9 @@ public enum CategoryType {
         this.code = code;
         this.label = label;
     }
+
+    public CategoryInfo toCategoryInfo() {
+        return new CategoryInfo(this.code, this.label);
+    }
+
 }

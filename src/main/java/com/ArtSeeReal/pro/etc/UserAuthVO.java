@@ -1,8 +1,9 @@
 package com.ArtSeeReal.pro.etc;
 
 import com.ArtSeeReal.pro.enums.system.SystemConstantEnum;
-import java.time.LocalDateTime;
 import lombok.Getter;
+
+import java.time.LocalDateTime;
 
 @Getter
 public class UserAuthVO {

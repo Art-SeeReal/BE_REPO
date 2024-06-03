@@ -28,8 +28,6 @@ public class QRequestCommentHistory extends EntityPathBase<RequestCommentHistory
 
     public final DateTimePath<java.time.LocalDateTime> modDate = createDateTime("modDate", java.time.LocalDateTime.class);
 
-    public final StringPath modUserUid = createString("modUserUid");
-
     //inherited
     public final StringPath postUid = _super.postUid;
 

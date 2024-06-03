@@ -30,12 +30,7 @@ public class QIntroduceHistory extends EntityPathBase<IntroduceHistory> {
 
     public final DateTimePath<java.time.LocalDateTime> modDate = createDateTime("modDate", java.time.LocalDateTime.class);
 
-    public final StringPath modUserUid = createString("modUserUid");
-
     public final StringPath uid = createString("uid");
-
-    //inherited
-    public final StringPath userUid = _super.userUid;
 
     public QIntroduceHistory(String variable) {
         super(IntroduceHistory.class, forVariable(variable));

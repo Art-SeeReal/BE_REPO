@@ -9,12 +9,13 @@ import com.ArtSeeReal.pro.entity.module.BannerModule;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import java.io.IOException;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Entity(name = "BANNER_TB")
 @Getter
@@ -22,16 +23,13 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 public class Banner extends BannerModule {
-
     @Id
     @Column(length = 64,nullable = false)
     private String uid;
-
-
     public BannerCreateResponseDTO toCreateDTO(){
         return BannerCreateResponseDTO.builder()
                 .uid(uid)
-                .imageData(imageData)
+                .imageUrl(imageUrl)
                 .linkUrl(linkUrl)
                 .regDate(regDate)
                 .build();
@@ -40,14 +38,14 @@ public class Banner extends BannerModule {
     public BannerReadResponseDTO toReadDTO(){
         return BannerReadResponseDTO.builder()
                 .uid(uid)
-                .imageData(imageData)
+                .imageUrl(imageUrl)
                 .linkUrl(linkUrl)
                 .regDate(regDate)
                 .build();
     }
 
     public void change(BannerUpdateRequestDTO dto) throws IOException {
-        imageData = dto.getImageData().getBytes();
+        imageUrl = dto.getImageUrl();
         linkUrl = dto.getLinkUrl();
     }
 
@@ -55,13 +53,12 @@ public class Banner extends BannerModule {
         return BannerHistory.builder()
                 .uid(uid)
                 .bannerUid(this.uid)
-                .imageData(dto.getImageData().getBytes())
-                .exImageData(imageData)
+                .imageUrl(dto.getImageUrl())
+                .exImageUrl(imageUrl)
                 .linkUrl(dto.getLinkUrl())
                 .exLinkUrl(linkUrl)
                 .regDate(regDate)
                 .modDate(LocalDateTime.now())
-                .modUserUid(modUser)
                 .build();
     }
 
@@ -69,11 +66,10 @@ public class Banner extends BannerModule {
         return BannerDelete.builder()
                 .uid(uid)
                 .bannerUid(this.uid)
-                .imageData(imageData)
+                .imageUrl(imageUrl)
                 .linkUrl(linkUrl)
                 .regDate(regDate)
                 .delDate(LocalDateTime.now())
-                .delUserUid(delUser)
                 .build();
     }
 

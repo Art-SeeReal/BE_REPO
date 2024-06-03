@@ -1,15 +1,9 @@
 package com.ArtSeeReal.pro.mailTests;
 
-import static com.ArtSeeReal.pro.enums.RegionType.SEOUL;
-import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-
-import com.ArtSeeReal.pro.dto.user.UserRequestDTO;
+import com.ArtSeeReal.pro.dto.user.UserCreateRequestDTO;
 import com.ArtSeeReal.pro.service.MailService;
 import com.ArtSeeReal.pro.service.UserService;
 import jakarta.mail.MessagingException;
-import java.io.IOException;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +11,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+
+import static com.ArtSeeReal.pro.enums.UserType.AUTHOR;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @SpringBootTest
 @Transactional
@@ -34,7 +34,7 @@ public class AuthForPasswordTest {
 
     @BeforeEach
     void 기초_세팅(){
-        UserRequestDTO dto = UserRequestDTO
+        UserCreateRequestDTO dto = UserCreateRequestDTO
                 .builder()
                 .userId("testUser")
                 .name("테스트")
@@ -45,7 +45,6 @@ public class AuthForPasswordTest {
                 .emailSecret(true)
                 .phone("010-1234-5678")
                 .phoneSecret(true)
-                .regionType(SEOUL)
                 .userType(AUTHOR)
                 .regDate(LocalDateTime.now())
                 .build();
