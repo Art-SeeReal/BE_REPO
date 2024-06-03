@@ -146,4 +146,9 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     public AppliedRecruitsResponseDTO plannerAppliedRecruits(String userUid) {
         return recruitmentQueryDslRepository.findAppliedRecruitsByUserUid(userUid);
     }
+
+    @Override
+    public void viewCountPlus(String uid) {
+        recruitmentRepository.incrementViewCnt(uid);
+    }
 }

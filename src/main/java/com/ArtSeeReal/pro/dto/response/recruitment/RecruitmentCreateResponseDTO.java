@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 @ToString
 public class RecruitmentCreateResponseDTO {
-
+    private String uid;
     private String userUid;
     private Long viewCnt;
     private String title;

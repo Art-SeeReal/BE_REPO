@@ -17,6 +17,5 @@ public interface PortfolioService {
     void favoritePortfolioDelete(String userUid, String portfolioUid);
     PortfolioListResponseDTO readPortfolio(PortfolioListRequestDTO dto, String userUid);
     PortfolioListResponseDTO myFavoritePortFolios(String userUid, Long postCount);
+    void viewCountPlus(String uid);
 }
-
-

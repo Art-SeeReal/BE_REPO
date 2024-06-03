@@ -100,4 +100,10 @@ public class RecruitmentController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PostMapping("/view-cnt")
+    public ResponseEntity<Void> viewCntPlus(@RequestBody String recruitUid){
+        recruitService.viewCountPlus(recruitUid);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

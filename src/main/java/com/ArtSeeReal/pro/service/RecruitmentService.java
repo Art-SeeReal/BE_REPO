@@ -20,4 +20,5 @@ public interface RecruitmentService {
     RecruitmentListResponseDTO myFavoriteRecruitments(String userUid, Long postCount);
     ApplyRecruitsResponseDTO authorApplyRecruits(String userUid);
     AppliedRecruitsResponseDTO plannerAppliedRecruits(String userUid);
+    void viewCountPlus(String uid);
 }
